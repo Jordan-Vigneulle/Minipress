@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace minipress\appli\application_core\application\useCases\user;
 
-use minipress\appli\application_core\domain\entities\User;
+use minipress\appli\application_core\domain\entities\Utilisateur;
 
 class UserService implements UserServiceInterface
 {
-    public function changeUsername(User $user, string $newUsername): void
+    public function changeUsername(Utilisateur $user, string $newUsername): void
     {
         $newUsername = trim($newUsername);
 
@@ -23,7 +23,7 @@ class UserService implements UserServiceInterface
         $user->save();
     }
 
-    public function changeAvatar(User $user, string $cheminAccesImg): void
+    public function changeAvatar(Utilisateur $user, string $cheminAccesImg): void
     {
         $user->chemin_acces_img = $cheminAccesImg;
         $user->save();

@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace minipress\appli\application_core\application\useCases\user;
 
 use minipress\appli\application_core\domain\entities\Box;
-use minipress\appli\application_core\domain\entities\User;
+use minipress\appli\application_core\domain\entities\Utilisateur;
 
 class AuthzService implements AuthzServiceInterface
 {
-    public function checkAuthorization(User $user, string $operation, ?Box $box = null): void
+    public function checkAuthorization(Utilisateur $user, string $operation, ?Box $box = null): void
     {
         match ($operation) {
             self::CREATE_BOX => $this->requireRole($user, 1),
@@ -22,14 +22,14 @@ class AuthzService implements AuthzServiceInterface
         };
     }
 
-    private function requireRole(User $user, int $minRole): void
+    private function requireRole(Utilisateur $user, int $minRole): void
     {
         if ($user->role < $minRole) {
             throw new \RuntimeException('Accès refusé : rôle insuffisant');
         }
     }
 
-    private function requireRoleAndOwnership(User $user, int $minRole, ?Box $box): void
+    private function requireRoleAndOwnership(Utilisateur $user, int $minRole, ?Box $box): void
     {
         $this->requireRole($user, $minRole);
 

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace minipress\appli\application_core\application\useCases\user;
 
-use minipress\appli\application_core\domain\entities\User;
+use minipress\appli\application_core\domain\entities\Utilisateur;
 use minipress\appli\application_core\domain\entities\Box;
 
 interface AuthzServiceInterface
@@ -19,5 +19,5 @@ interface AuthzServiceInterface
      * Vérifie si $user est autorisé à réaliser $operation (sur $box si fournie).
      * Lève une \RuntimeException si non autorisé.
      */
-    public function checkAuthorization(User $user, string $operation, ?Box $box = null): void;
+    public function checkAuthorization(Utilisateur $user, string $operation, ?Box $box = null): void;
 }

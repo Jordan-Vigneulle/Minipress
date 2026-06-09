@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace minipress\appli\application_core\application\useCases\user;
 
-use minipress\appli\application_core\domain\entities\User;
+use minipress\appli\application_core\domain\entities\Utilisateur;
 use Ramsey\Uuid\Uuid;
 
 class AuthnService implements AuthnServiceInterface
@@ -11,13 +11,13 @@ class AuthnService implements AuthnServiceInterface
     private const PASSWORD_REGEX =
         '/^(?=.*[A-Za-z])(?=.*[!@#$%^&*()\-+])(?=.*\d)[A-Za-z\d!@#$%^&*()\-+]{8,}$/';
 
-    public function register(string $userId, string $password): User
+    public function register(string $userId, string $password): Utilisateur
     {
         if (empty($userId) || empty($password)) {
             throw new \RuntimeException('Veuillez saisir un identifiant et un mot de passe');
         }
 
-        if (User::where('user_id', $userId)->exists()) {
+        if (Utilisateur::where('user_id', $userId)->exists()) {
             throw new \RuntimeException('Cet identifiant existe déjà');
         }
 
@@ -28,7 +28,7 @@ class AuthnService implements AuthnServiceInterface
             );
         }
 
-        return User::create([
+        return Utilisateur::create([
             'id' => Uuid::uuid4()->toString(),
             'user_id' => $userId,
             'password' => password_hash($password, PASSWORD_DEFAULT),
@@ -36,9 +36,9 @@ class AuthnService implements AuthnServiceInterface
         ]);
     }
 
-    public function checkCredentials(string $userId, string $password): ?User
+    public function checkCredentials(string $userId, string $password): ?Utilisateur
     {
-        $user = User::where('user_id', $userId)->first();
+        $user = Utilisateur::where('user_id', $userId)->first();
 
         if (!$user || !password_verify($password, $user->password)) {
             return null;
@@ -47,7 +47,7 @@ class AuthnService implements AuthnServiceInterface
         return $user;
     }
 
-    public function changePassword(User $user, string $oldPassword, string $newPassword): void
+    public function changePassword(Utilisateur $user, string $oldPassword, string $newPassword): void
     {
         if (!password_verify($oldPassword, $user->password)) {
             throw new \RuntimeException('Ancien mot de passe incorrect');

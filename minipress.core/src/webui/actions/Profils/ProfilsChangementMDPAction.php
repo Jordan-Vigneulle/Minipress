@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace gift\appli\webui\actions\Profils;
+namespace minipress\appli\webui\actions\Profils;
 
-use gift\appli\application_core\application\useCases\user\AuthnService;
-use gift\appli\application_core\providers\AuthnProvider;
+use minipress\appli\application_core\application\useCases\user\AuthnService;
+use minipress\appli\application_core\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpUnauthorizedException;

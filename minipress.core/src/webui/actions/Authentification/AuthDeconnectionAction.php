@@ -1,6 +1,6 @@
 <?php
 
-namespace gift\appli\webui\actions\Authentification;
+namespace minipress\appli\webui\actions\Authentification;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

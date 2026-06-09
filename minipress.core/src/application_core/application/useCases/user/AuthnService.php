@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace gift\appli\application_core\application\useCases\user;
+namespace minipress\appli\application_core\application\useCases\user;
 
-use gift\appli\application_core\domain\entities\User;
+use minipress\appli\application_core\domain\entities\User;
 use Ramsey\Uuid\Uuid;
 
 class AuthnService implements AuthnServiceInterface

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace gift\appli\webui\actions\Authentification;
+namespace minipress\appli\webui\actions\Authentification;
 
-use gift\appli\application_core\application\useCases\user\AuthnService;
-use gift\appli\application_core\providers\AuthnProvider;
+use minipress\appli\application_core\application\useCases\user\AuthnService;
+use minipress\appli\application_core\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteContext;

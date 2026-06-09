@@ -1,9 +1,9 @@
 <?php
-namespace gift\appli\webui\actions\Profils;
+namespace minipress\appli\webui\actions\Profils;
 
-use gift\appli\application_core\application\useCases\user\AuthnService;
-use gift\appli\application_core\application\useCases\user\UserService;
-use gift\appli\application_core\providers\AuthnProvider;
+use minipress\appli\application_core\application\useCases\user\AuthnService;
+use minipress\appli\application_core\application\useCases\user\UserService;
+use minipress\appli\application_core\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteContext;

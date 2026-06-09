@@ -1,6 +1,6 @@
 <?php
 
-namespace gift\appli\webui\actions;
+namespace minipress\appli\webui\actions;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

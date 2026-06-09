@@ -1,11 +1,11 @@
 networks:
-  giftbox.net:
+  minipress.net:
     driver: bridge
   back.net:
     driver: bridge
 
 services:
-  giftbox.php:
+  minipress.php:
     image: operrin/php:8.5.4
     command: sh -c "cd /var/www/src && php -S 0.0.0.0:80 -t /var/www/html /var/www/html/index.php"    
     ports:
@@ -17,7 +17,7 @@ services:
     depends_on:
       - sql.data
     networks:
-      - giftbox.net
+      - minipress.net
 
   sql.data:
     image: mariadb:11.8.6
@@ -26,7 +26,7 @@ services:
     ports:
       - "6034:3306"
     networks:
-      giftbox.net:
+      minipress.net:
         aliases:
           - sql.db
       back.net:

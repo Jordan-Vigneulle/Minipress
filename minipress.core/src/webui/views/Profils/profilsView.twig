@@ -1,0 +1,141 @@
+{% extends "pageSquelette.twig" %}
+
+{% block head %}
+    <title>Profil - Giftbox</title>
+{% endblock %}
+
+{% block content %}
+    <div class="alerts-container">
+        {% if success %}
+            <div class="success-message">{{ success }}</div>
+        {% endif %}
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+    </div>
+
+    <div class="profil-grid-container">
+
+        <div class="profil-card">
+            <h3>Informations du compte</h3>
+            <table class="profil-details-table">
+                <tr><th>ID</th><td>{{ user.id }}</td></tr>
+                <tr><th>Identifiant</th><td>{{ user.user_id }}</td></tr>
+                <tr><th>Username</th><td>{{ user.username ?: 'Non défini' }}</td></tr>
+                <tr>
+                    <th>Rôle</th>
+                    <td>
+                        {% if user.role == 100 %} Administrateur
+                        {% elseif user.role == 1 %} Utilisateur
+                        {% else %} Inconnu {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="profil-card avatar-card">
+            <h3>Photo de profil</h3>
+            <img id="current-avatar"
+                 src="{{ user.chemin_acces_img|default('/images/avatars/avatar_default.png') }}"
+                 alt="Photo de profil"
+                 onerror="this.onerror=null; this.src='/images/avatars/avatar_default.png'">
+
+            <button type="button" class="btn-pick" onclick="document.getElementById('avatarModal').classList.add('show')">
+                Changer de photo
+            </button>
+        </div>
+
+        <div class="profil-card">
+            <h3>Changer de Mot de passe</h3>
+            <form action="{{ url_for('changePassword') }}" method="POST" class="form-group">
+                <label for="old_password">Mot de passe actuel :</label>
+                <input type="password" name="old_password" id="old_password" required>
+
+                <label for="new_password">Nouveau mot de passe :</label>
+                <input type="password" name="new_password" id="new_password" required>
+
+                <small class="password_reg" style="display: block; margin-top: 5px;">
+                    Le mot de passe doit contenir :
+                    <ul style="margin: 5px 0 0 15px; padding: 0; font-size: 0.9em; list-style-type: disc;">
+                        <li id="taille" style="color: grey; transition: color 0.1s;">Au moins 8 caractères</li>
+                        <li id="lettre" style="color: grey; transition: color 0.1s;">Au moins une lettre</li>
+                        <li id="nombre" style="color: grey; transition: color 0.1s;">Au moins un chiffre</li>
+                        <li id="chara_sp" style="color: grey; transition: color 0.1s;">Au moins un caractère spécial</li>
+                    </ul>
+                </small>
+
+                <label for="confirm_password">Confirmer le nouveau mot de passe :</label>
+                <input type="password" name="confirm_password" id="confirm_password" required>
+
+                <button type="submit" style="margin-top: 10px;">Modifier le mot de passe</button>
+            </form>
+        </div>
+
+        <div class="profil-card" style="justify-content: flex-start;">
+            <h3>Changer de Username</h3>
+            <form action="{{ url_for('changeUsername') }}" method="POST" class="form-group">
+                <label for="username">Nouveau username :</label>
+                <input type="text" name="username" id="username" value="{{ user.username }}" required>
+                <button type="submit" style="margin-top: 10px;">Mettre à jour le pseudo</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div id="avatarModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="document.getElementById('avatarModal').classList.remove('show')">✕</button>
+            <h2>Choisissez votre profil</h2>
+
+            <form action="{{ url_for('changeAvatar') }}" method="POST">
+
+                {% set avatar_categories = [
+                    {
+                        'name': 'Photo stylisé ',
+                        'icon': '/images/icons/photo_stylise.png',
+                        'avatars': [
+                        '/images/avatars/Nathan.png',
+                        '/images/avatars/Thibaut.png',
+                        '/images/avatars/Maryam.png',
+                        '/images/avatars/Jordan.png',
+                        '/images/avatars/Auriane.png'
+                    ]
+                    },
+                    {
+                        'name': 'Final Fantasy',
+                        'icon': '/images/icons/final_fantasy.png',
+                        'avatars': [
+                        '/images/avatars/Tidus.png',
+                        '/images/avatars/Yuna.png',
+                        '/images/avatars/Tidus-Yuna.png',
+                        '/images/avatars/Cloud.png',
+                        '/images/avatars/Aerith.png',
+                        '/images/avatars/Aerith-Cloud.png'
+                    ]
+                    }
+                ] %}
+
+                {% for category in avatar_categories %}
+                    <div class="avatar-category-section">
+                        <h3 class="avatar-category-title">
+                            <img src="{{ category.icon }}" alt="Logo" class="category-icon" onerror="this.style.display='none'">
+                            {{ category.name }}
+                        </h3>
+
+                        <div class="avatar-grid">
+                            {% for avatar in category.avatars %}
+                                <button type="submit" name="avatar_path" value="{{ avatar }}" class="avatar-choice {{ user.chemin_acces_img == avatar ? 'selected' : '' }}">
+                                    <img src="{{ avatar }}" alt="Avatar" onerror="this.src='/images/avatars/avatar_default.png'">
+                                    {% if user.chemin_acces_img == avatar %}
+                                        <div class="checkmark">✓</div>
+                                    {% endif %}
+                                </button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </form>
+        </div>
+    </div>
+{% endblock %}

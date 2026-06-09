@@ -1,0 +1,15 @@
+# Fichiers générales
+.idea
+vendor/
+.lock
+.vscode
+
+# Minipress.core
+minipress.core/src/conf/database.ini
+minipress.core/src/composer.lock
+minipress.core/.env
+
+# Minipress.web
+
+
+# Minipress.app

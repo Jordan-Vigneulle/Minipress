@@ -1,0 +1,61 @@
+{% extends 'pageSquelette.twig' %}
+
+{% block head %}
+    <title>Connexion / Inscription - Giftbox</title>
+{% endblock %}
+
+{% block content %}
+    <section class="auth-page">
+        <h2>Connexion</h2>
+
+        {% if success %}
+            <div class="success-message">{{ success }}</div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        <form action="/login" method="post" class="auth-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <div class="form-group">
+                <label for="user_id">Identifiant</label>
+                <input type="text" id="user_id" name="user_id" value="{{ old.user_id|default('') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password_login">Mot de passe</label>
+                <input type="password" id="password_login" name="password" required>
+            </div>
+            <button type="submit">Se connecter</button>
+        </form>
+
+        <h2>Inscription</h2>
+
+        {% if register_error %}
+            <div class="error-message">{{ register_error }}</div>
+        {% endif %}
+
+        <form action="/register" method="post" class="auth-form" id="auth-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token_register }}">
+            <div class="form-group">
+                <label for="register_user_id">Identifiant</label>
+                <input type="text" id="register_user_id" name="user_id" value="{{ old.user_id|default('') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password_reg">Mot de passe</label>
+                <input type="password" id="password_reg" name="password" required>
+                <small class="password_reg" style="display: block; margin-top: 5px;">
+                    Le mot de passe doit contenir :
+                    <ul style="margin: 5px 0 0 15px; padding: 0; font-size: 0.9em; list-style-type: disc;">
+                        <li id="taille" style="color: red; transition: color 0.1s;">Au moins 8 caractères</li>
+                        <li id="lettre" style="color: red; transition: color 0.1s;">Au moins une lettre</li>
+                        <li id="nombre" style="color: red; transition: color 0.1s;">Au moins un chiffre</li>
+                        <li id="chara_sp" style="color: red; transition: color 0.1s;">Au moins un caractère spécial</li>
+                    </ul>
+                </small>
+            </div>
+            <button type="submit">S'inscrire</button>
+        </form>
+
+    </section>
+{% endblock %}

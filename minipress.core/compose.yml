@@ -1,0 +1,43 @@
+networks:
+  giftbox.net:
+    driver: bridge
+  back.net:
+    driver: bridge
+
+services:
+  giftbox.php:
+    image: operrin/php:8.5.4
+    command: sh -c "cd /var/www/src && php -S 0.0.0.0:80 -t /var/www/html /var/www/html/index.php"    
+    ports:
+      - "4490:80"
+    volumes:
+      - ./public:/var/www/html
+      - ./src:/var/www/src
+    working_dir: /var/www/src
+    depends_on:
+      - sql.data
+    networks:
+      - giftbox.net
+
+  sql.data:
+    image: mariadb:11.8.6
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "6034:3306"
+    networks:
+      giftbox.net:
+        aliases:
+          - sql.db
+      back.net:
+        aliases:
+          - sql.db
+
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    environment:
+      PMA_ARBITRARY: 1
+    ports:
+      - "9001:80"
+    networks:
+      - back.net

@@ -1,0 +1,22 @@
+{% extends "pageSquelette.twig" %}
+
+{% block head %}
+    <title>Accueil de Giftbox</title>
+{% endblock %}
+
+{% block content %}
+<h1>Présentation de Giftbox</h1>
+
+<p>
+    Giftbox est une application web qui permet de choisir, acheter et offrir des coffrets-cadeaux construits sur mesure. 
+    Contrairement aux box classiques, vous pouvez composer librement votre coffret à partir d'un catalogue de prestations 
+    (restauration, hébergement, activités, attentions particulières) ou personnaliser des coffrets types prédéfinis.
+</p>
+
+<p>
+    Une fois votre box validée (avec au moins 2 prestations), une URL unique et sécurisée est générée pour permettre au 
+    bénéficiaire d'accéder à son cadeau et de découvrir votre message personnalisé.
+</p>
+
+<a href="{{ url_for('loginPage') }}">Créer votre Profil dès à présent</a>
+{% endblock %}

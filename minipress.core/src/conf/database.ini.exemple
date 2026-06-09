@@ -1,0 +1,7 @@
+driver   = mysql
+host     = sql.db
+database = giftbox
+port = 3306
+username = root
+password = motdepasse
+charset  = utf8

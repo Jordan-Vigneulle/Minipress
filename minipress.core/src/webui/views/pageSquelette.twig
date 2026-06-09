@@ -14,30 +14,30 @@
 
 <body>
     <header>
-        <h1>Giftbox</h1>
-        <h3>Vos idées de cadeaux trop cools !</h3>
+        <h1>Minipress</h1>
+        <h3>L'actus pour vous, pour tous</h3>
         {% if estConnecte %}
 
             <div class="user-menu">
             <img id="profileBtn" src="{{ user_avatar }}" alt="avatar" onerror="this.onerror=null; this.src='/images/avatars/avatar_default.png'">
             <div class="dropdown-menu" id="dropdownMenu">
-                <a href="{{ url_for('profil') }}">Mon profil</a>
-                <a href="{{ url_for('logout') }}" class="logout">Se déconnecter</a>
+                <a href="">Mon profil</a>
+                <a href="" class="logout">Se déconnecter</a>
             </div>
         </div>
 
         {% else %}
 
-        <a href="{{ url_for('loginPage') }}" class="login">
+        <a href="" class="login">
            Connectez-vous
         </a>
 
         {% endif %}
     </header>
     <nav>
-        <a href="{{ url_for('home') }}">Accueil</a>
+        <a href="">Accueil</a>
         {% for item in nav_items %}
-            <a href="{{ url_for(item.url) }}">{{ item.label }}</a>
+            <a href="">{{ item.label }}</a>
         {% endfor %}
     </nav>
 
@@ -55,7 +55,7 @@
 </main>
 
     <footer>
-        <p>Projet Giftbox - DWM2 - 2026</p>
+        <p>Projet Minipress - DWM2 - 2026</p>
         <p>GUYOT Auriane, LOUYOT Thibaut, TAHRI Maryam-Samar, VIGNEULLE Jordan, YVON Nathan</p>
     </footer>
 

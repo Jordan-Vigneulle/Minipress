@@ -1,0 +1,39 @@
+{% extends "pageSquelette.twig" %}
+
+{% block title %}Créer un article{% endblock %}
+
+{% block content %}
+    <h1>Créer un article</h1>
+
+    {% for message in flash.error ?? [] %}
+        <p style="color:red">{{ message }}</p>
+    {% endfor %}
+
+    <form method="POST" action="{{ url_for('articleStore') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <div>
+            <label for="titre">Titre *</label><br>
+            <input type="text" id="titre" name="titre" value="{{ old.titre ?? '' }}">
+            {% if errors.titre is defined %}
+                <p style="color:red">{{ errors.titre }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="resume">Résumé</label><br>
+            <input type="text" id="resume" name="resume" value="{{ old.resume ?? '' }}">
+        </div>
+
+        <div>
+            <label for="contenu">Contenu *</label><br>
+            <textarea id="contenu" name="contenu" rows="8">{{ old.contenu ?? '' }}</textarea>
+            {% if errors.contenu is defined %}
+                <p style="color:red">{{ errors.contenu }}</p>
+            {% endif %}
+        </div>
+
+        <button type="submit">Créer</button>
+        <a href="{{ url_for('home') }}">Annuler</a>
+    </form>
+{% endblock %}

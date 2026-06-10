@@ -1,6 +1,6 @@
 driver   = mysql
 host     = sql.db
-database = giftbox
+database = minipres
 port = 3306
 username = root
 password = motdepasse

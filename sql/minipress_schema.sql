@@ -24,7 +24,7 @@ CREATE TABLE `utilisateur` (
 
 -- 3. article
 CREATE TABLE `article` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,  -- ✅ UNSIGNED
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, 
   `titre` varchar(255) NOT NULL,
   `resume` varchar(255) DEFAULT NULL,
   `contenu` text NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE `image` (
 -- 5. image_article
 CREATE TABLE `image_article` (
   `id_image` int(11) UNSIGNED NOT NULL,
-  `id_article` int(11) UNSIGNED NOT NULL,         -- ✅ virgule ajoutée
+  `id_article` int(11) UNSIGNED NOT NULL,       
   PRIMARY KEY (`id_image`, `id_article`),
   CONSTRAINT `fk_ia_image`
     FOREIGN KEY (`id_image`) REFERENCES `image` (`id`)

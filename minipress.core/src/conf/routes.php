@@ -11,6 +11,9 @@ use minipress\appli\webui\actions\Categories\CategoriesListeAction;
 use minipress\appli\webui\actions\Categories\ArticlesParCategorieAction;
 use minipress\appli\webui\actions\Categories\ArticleParIDAction;
 
+use minipress\appli\api\actions\ArticlesParCategorieAction as API_ArticlesParCategorieAction;
+use minipress\appli\api\actions\CategoriesAction;
+
 return function (\Slim\App $app): \Slim\App {
 
     $app->get('/', AccueilAction::class)->setName('home');
@@ -19,7 +22,13 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/categories', CategoriesListeAction::class)->setName('allCategories');
     $app->get('/categories/{id}/articles', ArticlesParCategorieAction::class)->setName('allArticlesByCategorie');
 
+    // Articles
     $app->get('/articles/{id}', ArticleParIDAction::class)->setName('oneArticle');
+    
+
+    // API
+    $app->get('/api/categories', CategoriesAction::class)->setName('api_AllCategories');
+    $app->get('/api/categories/{id}/articles', API_ArticlesParCategorieAction::class)->setName('api_AllArticlesByCategorie');
    
     return $app;
 };

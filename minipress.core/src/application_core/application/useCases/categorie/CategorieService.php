@@ -2,12 +2,12 @@
 
 namespace minipress\appli\application_core\application\useCases\categorie;
 
-use minipress\appli\application_core\application\useCases\categorie\IGestionCategorie;
+use minipress\appli\application_core\application\useCases\categorie\CategorieServiceInterface;
 use minipress\appli\application_core\domain\entities\Categorie;
 use minipress\appli\application_core\domain\entities\Article;
 
 
-class GestionCategorie implements IGestionCategorie {
+class CategorieService implements CategorieServiceInterface {
 
     public static function getCategories(): array{
         return Categorie::all()->toArray();
@@ -28,20 +28,5 @@ class GestionCategorie implements IGestionCategorie {
             'categorie' => $categorie->toArray(),
             'articles' => $articles->toArray(),
         ];
-    }
-
-    public function getArticleById(int $id): array {
-        $article = Article::with('categorie', 'images')->find($id);
-        if (!$article) {
-            throw new \Exception("Aucun article trouvé avec l'identifiant $id");
-        }
-        return $article->toArray();
-    }
-
-    public function markdownToHTML(string $md): string {
-        $Parsedown = new \Parsedown();
-        $html =  $Parsedown->text($md);
-
-        return $html;
     }
 }

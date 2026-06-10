@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace minipress\appli\api\actions;
 
-use minipress\appli\application_core\application\useCases\categorie\GestionCategorie;
+use minipress\appli\application_core\application\useCases\categorie\CategorieService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -22,7 +22,7 @@ class ArticlesParCategorieAction
         }
 
         try {
-            $service = new GestionCategorie();
+            $service = new CategorieService();
             $categorie = $service->getArticlesByCategorie((int)$id);
         } catch (\Exception $e) {
             throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());

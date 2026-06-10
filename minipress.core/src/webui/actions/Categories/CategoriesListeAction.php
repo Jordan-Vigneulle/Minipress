@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace minipress\appli\webui\actions\Categories;
 
-use minipress\appli\application_core\application\useCases\categorie\GestionCategorie;
+use minipress\appli\application_core\application\useCases\categorie\CategorieService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
@@ -17,7 +17,7 @@ class CategoriesListeAction
         array $args
     ): Response {
 
-        $service = new GestionCategorie();
+        $service = new CategorieService();
         $categories = $service->getCategories();
 
         $twig = Twig::fromRequest($request);

@@ -21,4 +21,19 @@ class ArticleService implements ArticleServiceInterface
         $article->est_publie = !$article->est_publie;
         $article->save();
     }
+
+    public function getArticleById(int $id): array {
+        $article = Article::with('categorie', 'images')->find($id);
+        if (!$article) {
+            throw new \Exception("Aucun article trouvé avec l'identifiant $id");
+        }
+        return $article->toArray();
+    }
+
+    public function markdownToHTML(string $md): string {
+        $Parsedown = new \Parsedown();
+        $html =  $Parsedown->text($md);
+
+        return $html;
+    }
 }

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace minipress\appli\webui\actions\Categories;
 
-use minipress\appli\application_core\application\useCases\categorie\GestionCategorie;
+use minipress\appli\application_core\application\useCases\categorie\CategorieService;
+use minipress\appli\application_core\application\useCases\article\ArticleService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
@@ -23,17 +24,18 @@ class ArticlesParCategorieAction
         }
 
        try {
-            $service = new GestionCategorie();
+            $serviceCat = new CategorieService();
+            $serviceArt = new ArticleService();
 
-            $data = $service->getArticlesByCategorie((int)$id);
+            $data = $serviceCat->getArticlesByCategorie((int)$id);
             $categorie = $data['categorie'];
             $articles = $data['articles'];
 
             $resumes = [];
             foreach ($articles as $article) {
-                $resumes[$article['id']] = $service->markdownToHTML($article['resume']);
+                $resumes[$article['id']] = $serviceArt->markdownToHTML($article['resume']);
             }
-            
+
         } catch (\Exception $e) {
             throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());
         }

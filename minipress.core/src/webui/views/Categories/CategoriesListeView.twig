@@ -1,0 +1,15 @@
+{% extends "pageSquelette.twig" %}
+
+{% block head %}
+    <title>Toutes les categories</title>
+{% endblock %}
+
+{% block content %}
+<h1>Les catégories</h1>
+<div id="grilleCategories">
+    {% for c in categories %}
+        <h2>{{c.titre}}</h2>
+        <a href="{{ url_for('allArticlesByCategorie', { id: c.id }) }}"> Voir les articles</a>
+    {% endfor %}
+</div>
+{% endblock %}

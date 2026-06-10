@@ -23,7 +23,7 @@ class ListArticlesAction
         $articles = $this->articleService->getArticlesPourAdmin();
 
         $view = Twig::fromRequest($request);
-        return $view->render($response, 'admin/liste_articles.twig', [
+        return $view->render($response, 'articles/liste_articles.twig', [
             'articles' => $articles
         ]);
     }

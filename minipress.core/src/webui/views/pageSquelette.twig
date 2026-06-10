@@ -18,8 +18,9 @@
         <h3>L'actus pour vous, pour tous</h3>
         {% if estConnecte %}
 
-            <div class="user-menu">
-            <img id="profileBtn" src="{{ user_avatar }}" alt="avatar" onerror="this.onerror=null; this.src='/images/avatars/avatar_default.png'">
+        <div class="user-menu">
+            <img id="profileBtn" src="{{ user_avatar }}" alt="avatar"
+                onerror="this.onerror=null; this.src='/images/avatars/avatar_default.png'">
             <div class="dropdown-menu" id="dropdownMenu">
                 <a href="">Mon profil</a>
                 <a href="" class="logout">Se déconnecter</a>
@@ -29,31 +30,31 @@
         {% else %}
 
         <a href="" class="login">
-           Connectez-vous
+            Connectez-vous
         </a>
 
         {% endif %}
     </header>
     <nav>
         <a href="{{ url_for('home') }}">Accueil</a>
-        <a href="{{ url_for('admin_liste_articles') }}">Gérer les articles</a>
+        <a href="{{ url_for('liste_articles') }}">Gérer les articles</a>
         {% for item in nav_items %}
-            <a href="">{{ item.label }}</a>
+        <a href="">{{ item.label }}</a>
         {% endfor %}
     </nav>
 
     <main>
-    {% for msg in flash.success ?? [] %}
+        {% for msg in flash.success ?? [] %}
         <p class="success-message">{{ msg|raw }}</p>
-    {% endfor %}
+        {% endfor %}
 
-    {% for msg in flash.error ?? [] %}
+        {% for msg in flash.error ?? [] %}
         <p class="error-message">{{ msg }}</p>
-    {% endfor %}
+        {% endfor %}
 
-    {% block content %}
-    {% endblock %}
-</main>
+        {% block content %}
+        {% endblock %}
+    </main>
 
     <footer>
         <p>Projet Minipress - DWM2 - 2026</p>

@@ -30,7 +30,7 @@ class TogglePublishAction
         }
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        $redirectUrl = $routeParser->urlFor('admin_liste_articles');
+        $redirectUrl = $routeParser->urlFor('liste_articles');
 
         return $response
             ->withHeader('Location', $redirectUrl)

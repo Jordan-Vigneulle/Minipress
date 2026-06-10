@@ -13,6 +13,7 @@ use minipress\appli\webui\actions\Categories\ArticleParIDAction;
 
 use minipress\appli\api\actions\ArticlesParCategorieAction as API_ArticlesParCategorieAction;
 use minipress\appli\api\actions\CategoriesAction;
+use minipress\appli\api\actions\ArticleParIDAction as API_ArticleParIDAction;
 
 return function (\Slim\App $app): \Slim\App {
 
@@ -29,6 +30,7 @@ return function (\Slim\App $app): \Slim\App {
     // API
     $app->get('/api/categories', CategoriesAction::class)->setName('api_AllCategories');
     $app->get('/api/categories/{id}/articles', API_ArticlesParCategorieAction::class)->setName('api_AllArticlesByCategorie');
+    $app->get('/api/articles/{id}', API_ArticleParIDAction::class)->setName('api_OneArticle');
    
     return $app;
 };

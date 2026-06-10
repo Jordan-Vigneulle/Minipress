@@ -8,7 +8,7 @@ interface IArticleCreate
         string $title,
         string $resume,
         string $contenu,
-        // string $createurId,
+        string $categorieId,
     ): string;
 
 }

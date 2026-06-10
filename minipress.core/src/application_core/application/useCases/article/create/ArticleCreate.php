@@ -12,6 +12,7 @@ class ArticleCreate implements IArticleCreate
         string $title,
         string $resume,
         string $contenu,
+        string $categorieId,
     ): string {
         $article = new Article();
         $article->titre = $title;
@@ -19,7 +20,7 @@ class ArticleCreate implements IArticleCreate
         $article->contenu = $contenu;
         $article->date = (new \DateTime())->format('Y-m-d H:i:s');
         $article->id_utilisateur = 1; // à remplacer par l'utilisateur connecté
-        $article->id_categorie = 1;   // à remplacer par la vraie catégorie
+        $article->id_categorie = $categorieId;
         $article->save();
 
         return (string) $article->id;

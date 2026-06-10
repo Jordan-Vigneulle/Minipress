@@ -33,7 +33,7 @@ class ArticleParIDAction
         }
 
         $twig = Twig::fromRequest($request);
-        return $twig->render($response, 'Categories/ArticleParIDView.twig', [
+        return $twig->render($response, 'articles/ArticleParIDView.twig', [
             'article' => $article,
             'date' => $date,
             'contenuHTML' => $contenuHTML,

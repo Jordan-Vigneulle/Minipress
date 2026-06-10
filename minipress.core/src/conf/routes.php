@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use minipress\appli\webui\actions\AccueilAction;
+use minipress\appli\webui\actions\Articles\ArticleParIDAction;
 use minipress\appli\webui\actions\Articles\ListArticlesAction;
 use minipress\appli\webui\actions\Articles\TogglePublishAction;
 
@@ -13,7 +14,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 use minipress\appli\webui\actions\Categories\CategoriesListeAction;
 use minipress\appli\webui\actions\Categories\ArticlesParCategorieAction;
-use minipress\appli\webui\actions\Categories\ArticleParIDAction;
+use minipress\appli\webui\actions\Categories\CategorieParIDAction;
 use minipress\appli\webui\actions\Categories\CategorieCreateAction;
 use minipress\appli\webui\actions\Categories\CategorieStoreAction;
 

@@ -20,10 +20,12 @@ class Article extends Model
         'date',
         'id_categorie',
         'id_utilisateur',
+        'est_publie',
     ];
 
     protected $casts = [
         'date' => 'date',
+        'est_publie' => 'boolean',
     ];
 
     public function categorie()

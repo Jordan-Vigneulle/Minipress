@@ -35,7 +35,6 @@ class ArticleStoreAction
         if ($contenu === '') {
             $errors['contenu'] = 'Merci de saisir un contenu.';
         }
-        var_dump("eeee");
         if (!empty($errors)) {
             $twig = Twig::fromRequest($request);
             return $twig->render($response->withStatus(422), 'Article/articleCreationView.twig', [
@@ -51,7 +50,6 @@ class ArticleStoreAction
         } catch (\Exception $e) {
             $flash = new \Slim\Flash\Messages();
             $flash->addMessage('error', 'Une erreur est survenue, veuillez réessayer.');
-            var_dump($e->getMessage());
             return $response->withHeader('Location', $routeParser->urlFor('articleCreate'))->withStatus(302);
         }
         return $response->withHeader('Location', $routeParser->urlFor('home'))->withStatus(302);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace minipress\appli\webui\actions\Article;
 
 
-use minipress\appli\application_core\application\useCases\categorie\GestionCategorie;
+use minipress\appli\application_core\application\useCases\categorie\CategorieService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Flash\Messages;
@@ -18,7 +18,7 @@ class ArticleCreateAction
         $twig = Twig::fromRequest($request);
         return $twig->render($response, 'Article/articleCreationTwig.twig', [
             'csrf_token' => $_SESSION['csrf_article'] = bin2hex(random_bytes(32)),
-            'categories' => GestionCategorie::getCategories(),
+            'categories' => CategorieService::getCategories(),
         ]);
     }
 }

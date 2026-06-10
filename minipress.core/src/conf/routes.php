@@ -21,6 +21,7 @@ use minipress\appli\api\actions\ArticlesParCategorieAction as API_ArticlesParCat
 use minipress\appli\api\actions\CategoriesAction;
 use minipress\appli\api\actions\ArticleParIDAction as API_ArticleParIDAction;
 use minipress\appli\api\actions\ArticlesAction as API_ListArticlesAction;
+use minipress\appli\api\actions\ArticlesParAuteurAction as API_ArticlesParAuteurAction;
 
 return function (\Slim\App $app): \Slim\App {
 

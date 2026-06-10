@@ -28,4 +28,12 @@ class GestionCategorie implements IGestionCategorie {
             'articles' => $articles->toArray(),
         ];
     }
+
+    public function getArticleById(int $id): array {
+        $article = Article::with('categorie', 'images')->find($id);
+        if (!$article) {
+            throw new \Exception("Aucun article trouvé avec l'identifiant $id");
+        }
+        return $article->toArray();
+    }
 }

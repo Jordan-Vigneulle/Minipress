@@ -11,7 +11,10 @@
         {% for a in articles %}
             <h2>{{a.titre}}</h2>
             <p><em>{{a.date}}</em></p>
-            <p>{{a.contenu}}</p>
+            {% if a.resume != null %}
+                <p>{{a.resume}}</p>
+            {% endif %}
+            <a href="{{ url_for('oneArticle', { id: a.id }) }}">Lire la suite</a>
         {% endfor %}
     </div>
 

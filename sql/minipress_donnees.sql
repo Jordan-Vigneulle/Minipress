@@ -28,10 +28,10 @@ INSERT INTO `article` (`titre`, `resume`, `contenu`, `date`, `id_categorie`, `id
 
 -- Images
 INSERT INTO `image` (`url`) VALUES
-('images/img-1.jpg'),
-('images/img-2.jpg'),
-('images/img-3.jpg'),
-('images/img-4.jpg');
+('/images/articles/cat-taking-a-selfie.webp'),
+('/images/articles/femme-travaillant-de-la-maison-avec-ses-chats.webp'),
+('/images/articles/mignon-chaton-jouant.webp'),
+('/images/articles/thats-funny.webp');
 
 -- Liaisons image_article
 INSERT INTO `image_article` (`id_image`, `id_article`) VALUES

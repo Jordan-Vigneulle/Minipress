@@ -30,4 +30,4 @@ class ArticlesAction
             ->withHeader('Content-Type', 'application/json')
             ->withStatus(200);
     }
-}
+} 

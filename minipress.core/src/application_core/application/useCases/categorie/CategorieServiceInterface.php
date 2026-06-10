@@ -6,4 +6,5 @@ Interface CategorieServiceInterface {
     public static function getCategories(): array; 
 
     public function getArticlesByCategorie(int $categ_id): array;
+    
 }

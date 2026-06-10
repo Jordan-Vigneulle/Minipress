@@ -35,7 +35,8 @@
         {% endif %}
     </header>
     <nav>
-        <a href="">Accueil</a>
+        <a href="{{ url_for('home') }}">Accueil</a>
+        <a href="{{ url_for('admin_liste_articles') }}">Gérer les articles</a>
         {% for item in nav_items %}
             <a href="">{{ item.label }}</a>
         {% endfor %}

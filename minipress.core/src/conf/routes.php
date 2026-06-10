@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use minipress\appli\webui\actions\AccueilAction;
 use minipress\appli\webui\actions\Categories\CategoriesListeAction;
 use minipress\appli\webui\actions\Categories\ArticlesParCategorieAction;
+use minipress\appli\api\actions\ArticlesParCategorieAction as API_ArticlesParCategorieAction;
 use minipress\appli\api\actions\CategoriesAction;
 
 return function (\Slim\App $app): \Slim\App {
@@ -24,6 +25,7 @@ return function (\Slim\App $app): \Slim\App {
 
     // API
     $app->get('/api/categories', CategoriesAction::class)->setName('api_AllCategories');
+    $app->get('/api/categories/{id}/articles', API_ArticlesParCategorieAction::class)->setName('api_AllArticlesByCategorie');
    
     return $app;
 };

@@ -22,4 +22,8 @@ $app->add(TwigMiddleware::create($app, $twig));
 $app->addRoutingMiddleware();
 $app = (require_once __DIR__ . '/../conf/routes.php')($app);
 
+// Flash
+$flash = new Messages();
+$twig->getEnvironment()->addGlobal('flash', $flash->getMessages());
+
 return $app;

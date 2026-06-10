@@ -27,8 +27,8 @@ return function (\Slim\App $app): \Slim\App {
 
     // Articles
     $app->get('/articles/{id}', ArticleParIDAction::class)->setName('oneArticle');
-    $app->get('/admin/articles', ListArticlesAction::class)->setName('admin_liste_articles');
-    $app->post('/admin/articles/{id}/toggle-publish', TogglePublishAction::class)->setName('admin_toggle_publish');
+    $app->get('/articles', ListArticlesAction::class)->setName('liste_articles');
+    $app->post('/articles/{id}/toggle-publish', TogglePublishAction::class)->setName('toggle_publish');
 
     // API
     $app->get('/api/categories', CategoriesAction::class)->setName('api_AllCategories');

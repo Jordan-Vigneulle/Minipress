@@ -20,7 +20,7 @@ class ListArticlesAction
 
     public function __invoke(Request $request, Response $response, array $args): Response
     {
-        $articles = $this->articleService->getArticlesPourAdmin();
+        $articles = $this->articleService->getArticles();
 
         $view = Twig::fromRequest($request);
         return $view->render($response, 'articles/liste_articles.twig', [

@@ -5,7 +5,7 @@ namespace minipress\appli\application_core\application\useCases\article;
 
 interface ArticleServiceInterface
 {
-    public function getArticlesPourAdmin(): array;
+    public function getArticles(): array;
 
     public function basculerPublication(int $id): void;
     

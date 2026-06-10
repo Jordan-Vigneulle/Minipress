@@ -7,7 +7,7 @@ use minipress\appli\application_core\domain\entities\Article;
 
 class ArticleService implements ArticleServiceInterface
 {
-    public function getArticlesPourAdmin(): array
+    public function getArticles(): array
     {
         return Article::orderBy('date', 'desc')->get()->all();
     }

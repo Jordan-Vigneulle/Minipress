@@ -9,4 +9,5 @@ interface UserServiceInterface
 {
     public function changeUsername(Utilisateur $user, string $newUsername): void;
     public function changeAvatar(Utilisateur $user, string $cheminAccesImg): void;
+    public function getArticlesByUser(int $user_id): array;
 }

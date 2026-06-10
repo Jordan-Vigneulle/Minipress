@@ -25,7 +25,7 @@ class TogglePublishAction
             try {
                 $this->articleService->basculerPublication((int)$id);
             } catch (\RuntimeException $e) {
-                // @TODO: Gérer l'exception si l'article n'est pas trouvé ou autre erreur
+                throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());
             }
         }
 

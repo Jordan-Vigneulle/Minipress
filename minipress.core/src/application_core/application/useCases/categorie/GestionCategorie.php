@@ -6,6 +6,7 @@ use minipress\appli\application_core\application\useCases\categorie\IGestionCate
 use minipress\appli\application_core\domain\entities\Categorie;
 use minipress\appli\application_core\domain\entities\Article;
 
+
 class GestionCategorie implements IGestionCategorie {
 
     public static function getCategories(): array{
@@ -35,5 +36,12 @@ class GestionCategorie implements IGestionCategorie {
             throw new \Exception("Aucun article trouvé avec l'identifiant $id");
         }
         return $article->toArray();
+    }
+
+    public function markdownToHTML(string $md): string {
+        $Parsedown = new \Parsedown();
+        $html =  $Parsedown->text($md);
+
+        return $html;
     }
 }

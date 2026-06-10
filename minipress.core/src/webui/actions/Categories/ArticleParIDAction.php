@@ -24,18 +24,19 @@ class ArticleParIDAction
 
        try {
             $service = new GestionCategorie();
-
             $article = $service->getArticleById((int)$id);
+
+            $date = new \DateTime($article['date'])->format('d/m/Y H:i');
+            $contenuHTML = $service->markdownToHTML($article['contenu']);
         } catch (\Exception $e) {
             throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());
         }
-
-        $date = new \DateTime($article['date'])->format('d/m/Y H:i');
 
         $twig = Twig::fromRequest($request);
         return $twig->render($response, 'Categories/ArticleParIDView.twig', [
             'article' => $article,
             'date' => $date,
+            'contenuHTML' => $contenuHTML,
         ]);
     }
 }

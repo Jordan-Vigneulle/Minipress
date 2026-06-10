@@ -28,14 +28,23 @@ class ArticlesParCategorieAction
             $data = $service->getArticlesByCategorie((int)$id);
             $categorie = $data['categorie'];
             $articles = $data['articles'];
+
+            $resumes = [];
+            foreach ($articles as $article) {
+                $resumes[$article['id']] = $service->markdownToHTML($article['resume']);
+            }
+            
         } catch (\Exception $e) {
             throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());
         }
+        
+      
 
         $twig = Twig::fromRequest($request);
         return $twig->render($response, 'Categories/ArticlesParCategorieView.twig', [
             'categorie' => $categorie,
-            'articles' => $articles
+            'articles' => $articles,
+            'resumes' => $resumes
         ]);
     }
 }

@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block content %}
-<h1>Les catégories</h1>
+<h2>Les catégories</h2>
 <div id="grilleCategories">
     {% for c in categories %}
-        <h2>{{c.titre}}</h2>
+        <h3>{{c.titre}}</h3>
         <a href="{{ url_for('allArticlesByCategorie', { id: c.id }) }}"> Voir les articles</a>
     {% endfor %}
 </div>

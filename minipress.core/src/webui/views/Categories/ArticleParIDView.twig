@@ -9,7 +9,7 @@
     <p><em>{{ date }}</em></p>
 
     {% for img in article.images %}
-        <img href="{{ img.url }}" alt="{{ article.titre }}">
+        <img src="{{ img.url }}" alt="{{ article.titre }}">
     {% endfor %}
 
     <p>{{ contenuHTML|raw }}</p>

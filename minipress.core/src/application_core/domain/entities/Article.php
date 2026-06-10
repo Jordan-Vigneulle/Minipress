@@ -8,12 +8,11 @@ class Article extends Model
 {
     protected $table = 'article';
     protected $primaryKey = 'id';
-    public $incrementing = false;
-    protected $keyType = 'string';
+    public $incrementing = true;
+    protected $keyType = 'int';
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
         'titre',
         'resume',
         'contenu',

@@ -25,5 +25,6 @@ $app = (require_once __DIR__ . '/../conf/routes.php')($app);
 // Flash
 $flash = new Messages();
 $twig->getEnvironment()->addGlobal('flash', $flash->getMessages());
+$twig->getEnvironment()->addGlobal('css_dir', '/css');
 
 return $app;

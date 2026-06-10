@@ -11,16 +11,19 @@ INSERT INTO `utilisateur` (`email`, `motdepasse`, `role`, `chemin_acces_img`, `p
 
 -- Articles
 INSERT INTO `article` (`titre`, `resume`, `contenu`, `date`, `id_categorie`, `id_utilisateur`) VALUES
-('Lorem ipsum', 'Lorem ipsum dolor',
- 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+('Lorem ipsum',
+ '**Lorem ipsum** — _dolor sit amet_, une introduction classique.',
+ '## Lorem Ipsum\n\n**Lorem ipsum dolor sit amet**, consectetur adipiscing elit.\n\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua :\n\n- Ut enim ad minim veniam\n- Quis nostrud exercitation\n- Ullamco laboris',
  '2024-01-15', 1, 1),
 
-('La culture du vide', 'Résumé sur la culture de Gauthier.',
- 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+('La culture du vide',
+ '**La culture du vide** — _Résumé sur la culture de Gauthier._',
+ '## La culture du vide\n\n**Gauthier** explore ici le concept de vide culturel avec profondeur.\n\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua :\n\n- Ut enim ad minim veniam\n- Quis nostrud exercitation\n- Ullamco laboris',
  '2024-02-20', 2, 2),
 
-('Dolor sit', 'Vive le latin',
- 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+('Dolor sit',
+ '**Dolor sit** — _Vive le latin !_ Une ode à la langue de Cicéron.',
+ "## Dolor Sit\n\n_Vive le latin !_ Cette langue ancienne reste une source d'inspiration inépuisable.\n\n**Dolor sit amet**, consectetur adipiscing elit :\n\n- Ut enim ad minim veniam\n- Quis nostrud exercitation\n- Ullamco laboris",
  '2024-03-10', 3, 1);
 
 -- Images

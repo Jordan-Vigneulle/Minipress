@@ -28,7 +28,7 @@ class ArticleStoreAction
         $titre = trim($data['titre'] ?? '');
         $resume = trim($data['resume'] ?? '');
         $contenu = $data['contenu'] ?? '0.00';
-
+        $categorie = $data['id_categorie'] ?? null;
         if ($titre === '') {
             $errors['titre'] = 'Le Titre est obligatoire.';
         }
@@ -46,7 +46,7 @@ class ArticleStoreAction
         }
 
         try {
-            $this->articleCreation->create($titre, $resume, $contenu);
+            $this->articleCreation->create($titre, $resume, $contenu,$categorie);
 
         } catch (\Exception $e) {
             $flash = new \Slim\Flash\Messages();

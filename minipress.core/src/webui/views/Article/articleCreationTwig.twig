@@ -33,6 +33,19 @@
             {% endif %}
         </div>
 
+        <div>
+            <label for="id_categorie">Catégorie *</label><br>
+            <select id="id_categorie" name="id_categorie">
+                {% for categorie in categories %}
+                    <option value="{{ categorie.id }}" {% if old.id_categorie is defined and old.id_categorie == categorie.id %}selected{% endif %}>
+                        {{ categorie.titre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <br>
+
         <button type="submit">Créer</button>
         <a href="{{ url_for('home') }}">Annuler</a>
     </form>

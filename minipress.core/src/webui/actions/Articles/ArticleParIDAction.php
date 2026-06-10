@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace minipress\appli\webui\actions\Categories;
+namespace minipress\appli\webui\actions\Articles;
 
 use minipress\appli\application_core\application\useCases\article\ArticleService;
 use Psr\Http\Message\ResponseInterface as Response;

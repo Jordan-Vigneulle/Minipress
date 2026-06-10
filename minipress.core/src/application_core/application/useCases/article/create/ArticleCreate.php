@@ -13,7 +13,7 @@ class ArticleCreate implements IArticleCreate
         string $resume,
         string $contenu,
         string $categorieId,
-    ): string {
+    ): void {
         $article = new Article();
         $article->titre = $title;
         $article->resume = $resume;
@@ -22,7 +22,5 @@ class ArticleCreate implements IArticleCreate
         $article->id_utilisateur = 1; // à remplacer par l'utilisateur connecté
         $article->id_categorie = $categorieId;
         $article->save();
-
-        return (string) $article->id;
     }
 }

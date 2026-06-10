@@ -9,6 +9,6 @@ interface IArticleCreate
         string $resume,
         string $contenu,
         string $categorieId,
-    ): string;
+    ): void;
 
 }

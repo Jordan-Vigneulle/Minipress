@@ -10,15 +10,21 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class ArticlesAction
 {
-    public function __invoke(
-        Request $request,
-        Response $response,
-        array $args
-    ): Response {
+    public function __invoke(Request $request, Response $response, array $args): Response
+    {
+        $sort = $request->getQueryParams()['sort'] ?? null;
 
         $service = new ArticleService();
-        $articles = $service->getArticles();
-        
+
+        try {
+            $articles = $service->getArticles($sort);
+        } catch (\InvalidArgumentException $e) {
+            $response->getBody()->write(json_encode(['error' => $e->getMessage()]));
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(400);
+        }
+
         $response->getBody()->write(json_encode($articles));
         return $response
             ->withHeader('Content-Type', 'application/json')

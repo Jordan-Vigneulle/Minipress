@@ -1,0 +1,16 @@
+{% extends "pageSquelette.twig" %}
+
+{% block title %}Créer une catégorie{% endblock %}
+
+{% block content %}
+    <h2>Créer une catégorie</h2>
+
+    <form method="POST" action="{{ url_for('createCategorie') }}">
+
+        <label for="titre">Titre *</label><br>
+        <input type="text" id="titre" name="titre">
+
+        <button type="submit">Créer</button>
+        <a href="{{ url_for('home') }}">Annuler</a>
+    </form>
+{% endblock %}

@@ -12,6 +12,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use minipress\appli\webui\actions\Categories\CategoriesListeAction;
 use minipress\appli\webui\actions\Categories\ArticlesParCategorieAction;
 use minipress\appli\webui\actions\Categories\ArticleParIDAction;
+use minipress\appli\webui\actions\Categories\CategorieCreateAction;
+use minipress\appli\webui\actions\Categories\CategorieStoreAction;
 
 use minipress\appli\api\actions\ArticlesParCategorieAction as API_ArticlesParCategorieAction;
 use minipress\appli\api\actions\CategoriesAction;
@@ -24,6 +26,9 @@ return function (\Slim\App $app): \Slim\App {
     // Catégories
     $app->get('/categories', CategoriesListeAction::class)->setName('allCategories');
     $app->get('/categories/{id}/articles', ArticlesParCategorieAction::class)->setName('allArticlesByCategorie');
+
+    $app->get('/categories/create', CategorieCreateAction::class)->setName('formCreateCategorie');
+    $app->post('/categories/create', CategorieStoreAction::class)->setName('createCategorie');
 
     // Articles
     $app->get('/articles/{id}', ArticleParIDAction::class)->setName('oneArticle');

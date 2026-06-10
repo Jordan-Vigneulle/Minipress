@@ -6,7 +6,6 @@ use minipress\appli\webui\actions\AccueilAction;
 use minipress\appli\webui\actions\Articles\ListArticlesAction;
 use minipress\appli\webui\actions\Articles\TogglePublishAction;
 
-use minipress\appli\webui\actions\AccueilAction;
 use minipress\appli\webui\actions\Article\ArticleCreateAction;
 use minipress\appli\webui\actions\Article\ArticleStoreAction;
 use Psr\Http\Message\ResponseInterface as Response;

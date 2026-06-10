@@ -3,14 +3,14 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
--- 1. categorie (aucune dépendance)
+-- 1. categorie
 CREATE TABLE `categorie` (
-  `id` varchar(255) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `titre` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- 2. utilisateur (aucune dépendance)
+-- 2. utilisateur
 CREATE TABLE `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(128) NOT NULL,
@@ -22,14 +22,14 @@ CREATE TABLE `utilisateur` (
   UNIQUE KEY `user_pk2` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- 3. article (dépend de categorie et utilisateur)
+-- 3. article
 CREATE TABLE `article` (
-  `id` varchar(255) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,  -- ✅ UNSIGNED
   `titre` varchar(255) NOT NULL,
   `resume` varchar(255) DEFAULT NULL,
   `contenu` text NOT NULL,
   `date` date DEFAULT NULL,
-  `id_categorie` varchar(255) NOT NULL,
+  `id_categorie` int(11) NOT NULL,
   `id_utilisateur` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_article_categorie`
@@ -50,7 +50,7 @@ CREATE TABLE `image` (
 -- 5. image_article
 CREATE TABLE `image_article` (
   `id_image` int(11) UNSIGNED NOT NULL,
-  `id_article` varchar(255) NOT NULL,
+  `id_article` int(11) UNSIGNED NOT NULL,         -- ✅ virgule ajoutée
   PRIMARY KEY (`id_image`, `id_article`),
   CONSTRAINT `fk_ia_image`
     FOREIGN KEY (`id_image`) REFERENCES `image` (`id`)

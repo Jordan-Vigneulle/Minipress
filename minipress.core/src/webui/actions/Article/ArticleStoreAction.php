@@ -38,7 +38,7 @@ class ArticleStoreAction
         var_dump("eeee");
         if (!empty($errors)) {
             $twig = Twig::fromRequest($request);
-            return $twig->render($response->withStatus(422), 'Box/articleCreationView.twig', [
+            return $twig->render($response->withStatus(422), 'Article/articleCreationView.twig', [
                 'errors' => $errors,
                 'old' => $data,
                 'csrf_token' => bin2hex(random_bytes(32)),

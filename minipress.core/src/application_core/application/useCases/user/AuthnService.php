@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace minipress\appli\application_core\application\useCases\user;
 
 use minipress\appli\application_core\domain\entities\Utilisateur;
-use Ramsey\Uuid\Uuid;
+
 
 class AuthnService implements AuthnServiceInterface
 {
@@ -17,7 +17,7 @@ class AuthnService implements AuthnServiceInterface
             throw new \RuntimeException('Veuillez saisir un identifiant et un mot de passe');
         }
 
-        if (Utilisateur::where('user_id', $userId)->exists()) {
+        if (Utilisateur::where('email', $userId)->exists()) {
             throw new \RuntimeException('Cet identifiant existe déjà');
         }
 
@@ -29,18 +29,16 @@ class AuthnService implements AuthnServiceInterface
         }
 
         return Utilisateur::create([
-            'id' => Uuid::uuid4()->toString(),
-            'user_id' => $userId,
-            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'email' => $userId,
+            'motdepasse' => password_hash($password, PASSWORD_DEFAULT),
             'role' => 1,
         ]);
     }
 
     public function checkCredentials(string $userId, string $password): ?Utilisateur
     {
-        $user = Utilisateur::where('user_id', $userId)->first();
-
-        if (!$user || !password_verify($password, $user->password)) {
+        $user = Utilisateur::where('email', $userId)->first();
+        if (!$user || !password_verify($password, $user->motdepasse)) {
             return null;
         }
 
@@ -49,7 +47,7 @@ class AuthnService implements AuthnServiceInterface
 
     public function changePassword(Utilisateur $user, string $oldPassword, string $newPassword): void
     {
-        if (!password_verify($oldPassword, $user->password)) {
+        if (!password_verify($oldPassword, $user->motdepasse)) {
             throw new \RuntimeException('Ancien mot de passe incorrect');
         }
 
@@ -60,7 +58,7 @@ class AuthnService implements AuthnServiceInterface
             );
         }
 
-        $user->password = password_hash($newPassword, PASSWORD_DEFAULT);
+        $user->motdepasse = password_hash($newPassword, PASSWORD_DEFAULT);
         $user->save();
     }
 }

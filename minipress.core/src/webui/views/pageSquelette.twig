@@ -19,27 +19,25 @@
         {% if estConnecte %}
 
         <div class="user-menu">
-            <img id="profileBtn" src="{{ user_avatar }}" alt="avatar"
+            <img id="profileBtn" src="{{ avatar_utilisateur_path }}" alt="avatar"
                 onerror="this.onerror=null; this.src='/images/avatars/avatar_default.png'">
             <div class="dropdown-menu" id="dropdownMenu">
-                <a href="">Mon profil</a>
-                <a href="" class="logout">Se déconnecter</a>
+                <a href="{{ url_for('profil') }}">Mon profil</a>
+                <a href="{{ url_for('logout') }}" class="logout">Se déconnecter</a>
             </div>
         </div>
 
         {% else %}
 
-        <a href="" class="login">
+        <a href="{{ url_for('loginPage')}}" class="login">
             Connectez-vous
         </a>
 
         {% endif %}
     </header>
     <nav>
-        <a href="{{ url_for('home') }}">Accueil</a>
-        <a href="{{ url_for('liste_articles') }}">Gérer les articles</a>
         {% for item in nav_items %}
-        <a href="">{{ item.label }}</a>
+        <a href="{{ url_for(item.url) }}">{{ item.label }}</a>
         {% endfor %}
     </nav>
 

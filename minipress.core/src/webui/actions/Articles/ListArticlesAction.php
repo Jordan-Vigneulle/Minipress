@@ -5,10 +5,15 @@ namespace minipress\appli\webui\actions\Articles;
 
 use minipress\appli\application_core\application\useCases\article\ArticleService;
 use minipress\appli\application_core\application\useCases\article\ArticleServiceInterface;
+use minipress\appli\application_core\application\useCases\user\AuthnService;
+use minipress\appli\application_core\application\useCases\user\AuthzService;
+use minipress\appli\application_core\application\useCases\user\AuthzServiceInterface;
+use minipress\appli\application_core\application\useCases\user\UserService;
+use minipress\appli\application_core\domain\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
-
+use Slim\Exception\HttpUnauthorizedException;
 class ListArticlesAction
 {
     private ArticleServiceInterface $articleService;
@@ -20,7 +25,28 @@ class ListArticlesAction
 
     public function __invoke(Request $request, Response $response, array $args): Response
     {
-        $articles = $this->articleService->getArticles();
+        $user = (new AuthnProvider(new AuthnService()))->getSignedInUser();
+        $userService = new UserService();
+        if (!$user) {
+            throw new HttpUnauthorizedException($request, "Accès refusé : utilisateur non authentifié");
+        }
+
+        $authz = new AuthzService();
+
+        try {
+            $authz->checkAuthorization($user, AuthzServiceInterface::VIEW_ALL_ARTICLES);
+            $articles = $this->articleService->getArticles();
+        } catch (\RuntimeException $e) {
+            try {
+                $authz->checkAuthorization($user, AuthzServiceInterface::VIEW_OWN_ARTICLES);
+                $result = $userService->getArticlesByUser($user->id);
+                $articles = $result['articles'];
+            } catch (\RuntimeException $e) {
+                throw new HttpUnauthorizedException($request, 'Accès refusé');
+            }
+        }
+
+
 
         $view = Twig::fromRequest($request);
         return $view->render($response, 'articles/liste_articles.twig', [

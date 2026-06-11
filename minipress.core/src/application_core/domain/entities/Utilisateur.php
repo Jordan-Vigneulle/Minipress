@@ -8,9 +8,9 @@ class Utilisateur extends Model
 {
 
     protected $table = 'utilisateur';
-    protected $primaryKey = 'email';
-    public $incrementing = false;
-    protected $keyType = 'string';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    protected $keyType = 'int';
     public $timestamps = false;
 
     protected $fillable = [

@@ -5,11 +5,15 @@ namespace minipress\appli\webui\actions\Authentification;
 
 use minipress\appli\application_core\application\useCases\user\AuthnService;
 use minipress\appli\application_core\application\useCases\user\AuthnServiceInterface;
+use minipress\appli\application_core\application\useCases\user\AuthzService;
+use minipress\appli\application_core\application\useCases\user\AuthzServiceInterface;
+use minipress\appli\application_core\domain\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Exception\HttpUnauthorizedException;
+
+use Slim\Flash\Messages;
 use Slim\Routing\RouteContext;
-use Slim\Exception\HttpForbiddenException;
-use Slim\Flash\Messages; // Ajout du gestionnaire Flash
 
 class AuthRegisterAction
 {
@@ -25,34 +29,45 @@ class AuthRegisterAction
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $flash = new Messages();
 
-        $data = $request->getParsedBody();
-        $userId = $data['user_id'] ?? '';
+        $authnProvider = new AuthnProvider($this->authnService);
+        $currentUser = $authnProvider->getSignedInUser();
 
-        if (!hash_equals($_SESSION['csrf_register'] ?? '', $data['csrf_token'] ?? '')) {
+        if ($currentUser === null) {
+            throw new HttpUnauthorizedException($request, "Accès refusé : utilisateur non authentifié");
+        }
+        $data = $request->getParsedBody();
+        $email = trim($data['email'] ?? '');
+
+        if (!hash_equals($_SESSION['csrf_token'] ?? '', $data['csrf_token'] ?? '')) {
             throw new HttpForbiddenException($request);
         }
-        unset($_SESSION['csrf_register']);
+        unset($_SESSION['csrf_token']);
 
         try {
-            $this->authnService->register($userId, $data['password'] ?? '');
+            (new AuthzService())->checkAuthorization($currentUser, AuthzServiceInterface::CREATE_USER);
+        } catch (\RuntimeException $e) {
+            throw new HttpForbiddenException($request, 'Réservé à l\'admin');
+        }
+
+        try {
+            $this->authnService->register($email, $data['password'] ?? '');
+            $flash->addMessage('success', 'Utilisateur créé avec succès');
         } catch (\RuntimeException $e) {
             $flash->addMessage('error', $e->getMessage());
 
-            if ($userId !== '') {
-                $flash->addMessage('old_user_id', $userId);
+            if ($email !== '') {
+                $flash->addMessage('old_email', $email);
             }
 
             return $response->withHeader(
                 'Location',
-                $routeParser->urlFor('loginPage')
+                $routeParser->urlFor('createUserPage')
             )->withStatus(302);
         }
 
-        $flash->addMessage('success', 'Inscription réussie, veuillez vous connecter');
-
         return $response->withHeader(
             'Location',
-            $routeParser->urlFor('loginPage')
+            $routeParser->urlFor('createUserPage')
         )->withStatus(302);
     }
 }

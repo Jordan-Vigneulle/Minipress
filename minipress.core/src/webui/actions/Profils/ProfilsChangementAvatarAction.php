@@ -3,10 +3,13 @@ namespace minipress\appli\webui\actions\Profils;
 
 use minipress\appli\application_core\application\useCases\user\AuthnService;
 use minipress\appli\application_core\application\useCases\user\UserService;
-use minipress\appli\application_core\providers\AuthnProvider;
+use minipress\appli\application_core\domain\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteContext;
+use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\HttpInternalServerErrorException;
+use Slim\Exception\HttpUnauthorizedException;
 
 class ProfilsChangementAvatarAction
 {
@@ -23,6 +26,10 @@ class ProfilsChangementAvatarAction
         '/images/avatars/Cloud.png',
         '/images/avatars/Aerith.png',
         '/images/avatars/Aerith-Cloud.png',
+        '/images/avatars/ChatTropCool1.png',
+        '/images/avatars/ChatTropCool2.png',
+        '/images/avatars/ChatTropCool3.png',
+        '/images/avatars/Chi.png',
         // Ajoutez d'autres avatars ici si besoin. Pour le groupe !
     ];
 
@@ -32,7 +39,7 @@ class ProfilsChangementAvatarAction
         $user = (new AuthnProvider(new AuthnService()))->getSignedInUser();
 
         if (!$user) {
-            throw new \Slim\Exception\HttpUnauthorizedException($request, "Accès refusé : utilisateur non authentifié");
+            throw new HttpUnauthorizedException($request, "Accès refusé : utilisateur non authentifié");
         }
 
         $data = $request->getParsedBody();
@@ -40,13 +47,13 @@ class ProfilsChangementAvatarAction
 
         // Vérifie que le chemin soumis fait partie de la liste autorisée
         if (!in_array($chosen, self::AVATARS, true)) {
-            throw new \Slim\Exception\HttpBadRequestException($request, "Avatar invalide");
+            throw new HttpBadRequestException($request, "Avatar invalide");
         }
 
         try {
             (new UserService())->changeAvatar($user, $chosen);
         } catch (\RuntimeException $e) {
-            throw new \Slim\Exception\HttpInternalServerErrorException($request, "Erreur lors de la mise à jour de l'avatar");
+            throw new HttpInternalServerErrorException($request, "Erreur lors de la mise à jour de l'avatar");
         }
 
         return $response->withHeader(

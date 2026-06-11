@@ -9,15 +9,15 @@ use minipress\appli\application_core\domain\entities\Box;
 interface AuthzServiceInterface
 {
     // Constantes opérations
-    const CREATE_BOX = 'create_box';
-    const VIEW_BOX = 'view_box';
-    const VALIDATE_BOX = 'validate_box';
-    const ADD_PRESTATION = 'add_prestation';
-    const GENERATE_URL = 'generate_url';
+    const CREATE_ARTICLE = 'create_article';
+    const CREATE_CATEGORY = 'create_category';
+    const CREATE_USER = 'create_user';
+    const VIEW_ALL_ARTICLES = 'view_articles';
+    const VIEW_OWN_ARTICLES = 'view_own_articles';
 
     /**
-     * Vérifie si $user est autorisé à réaliser $operation (sur $box si fournie).
+     * Vérifie si $user est autorisé à réaliser $operation.
      * Lève une \RuntimeException si non autorisé.
      */
-    public function checkAuthorization(Utilisateur $user, string $operation, ?Box $box = null): void;
+    public function checkAuthorization(Utilisateur $user, string $operation): void;
 }

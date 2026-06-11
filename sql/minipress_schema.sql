@@ -31,6 +31,7 @@ CREATE TABLE `article` (
   `date` date DEFAULT NULL,
   `id_categorie` int(11) NOT NULL,
   `id_utilisateur` int(11) NOT NULL,
+  `est_publie` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_article_categorie`
     FOREIGN KEY (`id_categorie`) REFERENCES `categorie` (`id`)

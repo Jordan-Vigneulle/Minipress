@@ -24,6 +24,8 @@ use minipress\appli\api\actions\ArticleParIDAction as API_ArticleParIDAction;
 use minipress\appli\api\actions\ArticlesAction as API_ListArticlesAction;
 use minipress\appli\api\actions\ArticlesParAuteurAction as API_ArticlesParAuteurAction;
 
+use minipress\appli\webui\actions\Admin\AdminUsersListAction;
+
 use minipress\appli\webui\actions\Authentification\AuthConnectionAction;
 use minipress\appli\webui\actions\Authentification\AuthInscriptionAction;
 use minipress\appli\webui\actions\Authentification\AuthLoginAction;
@@ -66,6 +68,9 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/pageCreateUser', AuthInscriptionAction::class)->setName('createUserPage');
     $app->post('/register', AuthRegisterAction::class)->setName('register');
     $app->get('/logout', AuthDeconnectionAction::class)->setName('logout');
+
+    // User
+    $app->get('/usersList', AdminUsersListAction::class)->setName('usersList');
 
     // Profil
     $app->get('/profil', ProfileAction::class)->setName('profil');

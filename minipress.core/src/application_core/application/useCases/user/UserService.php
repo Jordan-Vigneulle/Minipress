@@ -13,14 +13,14 @@ class UserService implements UserServiceInterface
         $newUsername = trim($newUsername);
 
         if (empty($newUsername)) {
-            throw new \RuntimeException('Le username ne peut pas être vide');
+            throw new \RuntimeException('Le pseudo ne peut pas être vide');
         }
 
         if (strlen($newUsername) > 50) {
-            throw new \RuntimeException('Le username est trop long (50 caractères max)');
+            throw new \RuntimeException('Le pseudo est trop long (50 caractères max)');
         }
 
-        $user->username = htmlspecialchars($newUsername);
+        $user->pseudo = htmlspecialchars($newUsername);
         $user->save();
     }
 
@@ -31,7 +31,8 @@ class UserService implements UserServiceInterface
     }
 
 
-    public function getArticlesByUser(int $user_id): array {
+    public function getArticlesByUser(int $user_id): array
+    {
         $user = Utilisateur::where('id', $user_id)->first();
         if (!$user) {
             throw new \Exception("Aucun utilisateur trouvé avec l'identifiant $user_id");

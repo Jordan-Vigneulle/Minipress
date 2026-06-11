@@ -32,14 +32,9 @@ $twig->getEnvironment()->addGlobal('flash', $flash->getMessages());
 //CSS+JS
 $twig->getEnvironment()->addGlobal('css_dir', '/css');
 $twig->getEnvironment()->addGlobal('js_dir', '/js');
-//Nav Items
+
 $navItems = [
     ['url' => 'home', 'label' => 'Accueil'],
-    ['url' => 'liste_articles', 'label' => 'Gérer les articles'],
-    ['url' => 'articleCreate', 'label' => 'Création d\'article'],
-    ['url' => 'allCategories', 'label' => 'Catégories'],
-    ['url' => 'formCreateCategorie', 'label' => 'Création de catégorie'],
-
 ];
 
 if (!empty($_SESSION['user'])) {

@@ -1,55 +1,39 @@
 <?php
+
 declare(strict_types=1);
 
 namespace minipress\appli\webui\actions\Authentification;
 
+use minipress\appli\application_core\application\useCases\user\AuthzServiceInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use minipress\appli\application_core\application\useCases\user\AuthzService;
 use minipress\appli\application_core\application\useCases\user\AuthnService;
-use minipress\appli\application_core\providers\AuthnProvider;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Routing\RouteContext;
+use minipress\appli\application_core\domain\providers\AuthnProvider;
 use Slim\Exception\HttpForbiddenException;
-use Slim\Flash\Messages;
 
-class AuthInscriptionAction
+
+use Slim\Views\Twig;
+
+final class AuthInscriptionAction
 {
-    public function __invoke(Request $request, Response $response, array $args): Response
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        $provider = new AuthnProvider(new AuthnService());
-        $flash = new Messages();
+        $user = (new AuthnProvider(new AuthnService()))->getSignedInUser();
 
-        $data = $request->getParsedBody();
-        $userId = $data['user_id'] ?? '';
-
-        if (!hash_equals($_SESSION['csrf_login'] ?? '', $data['csrf_token'] ?? '')) {
-            throw new HttpForbiddenException($request);
-        }
-        unset($_SESSION['csrf_login']);
-
-        if (empty($userId) || empty($data['password'] ?? '')) {
-            $flash->addMessage('error', 'Veuillez saisir l\'identifiant et le mot de passe');
-
-            return $response->withHeader(
-                'Location',
-                $routeParser->urlFor('loginPage')
-            )->withStatus(302);
+        try {
+            (new AuthzService())->checkAuthorization($user, AuthzServiceInterface::CREATE_USER);
+        } catch (\RuntimeException $e) {
+            throw new HttpForbiddenException($request, 'Réservé à l\'admin');
         }
 
-        $user = $provider->signin($userId, $data['password']);
 
-        if ($user === null) {
-            $flash->addMessage('error', 'Identifiants incorrects');
+        $params = [
+            'title' => 'Créer un utilisateur',
+            'csrf_token' => $_SESSION['csrf_token'] = bin2hex(random_bytes(32)),
+        ];
 
-            return $response->withHeader(
-                'Location',
-                $routeParser->urlFor('loginPage')
-            )->withStatus(302);
-        }
-
-        return $response->withHeader(
-            'Location',
-            $routeParser->urlFor('allCategories')
-        )->withStatus(302);
+        $twig = Twig::fromRequest($request);
+        return $twig->render($response, 'Authentification/inscriptionView.twig', $params);
     }
 }

@@ -39,8 +39,6 @@ class AuthnService implements AuthnServiceInterface
     {
         $user = Utilisateur::where('email', $userId)->first();
         if (!$user || !password_verify($password, $user->motdepasse)) {
-            var_dump(password_hash($password, PASSWORD_DEFAULT), $user->motdepasse);
-            die();
             return null;
         }
 

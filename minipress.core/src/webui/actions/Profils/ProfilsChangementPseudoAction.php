@@ -5,7 +5,7 @@ namespace minipress\appli\webui\actions\Profils;
 
 use minipress\appli\application_core\application\useCases\user\AuthnService;
 use minipress\appli\application_core\application\useCases\user\UserService;
-use minipress\appli\application_core\providers\AuthnProvider;
+use minipress\appli\application_core\domain\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpUnauthorizedException;
@@ -14,18 +14,12 @@ use Slim\Routing\RouteContext;
 
 class ProfilsChangementPseudoAction
 {
-    private Messages $flash;
-
-    public function __construct(Messages $flash)
-    {
-        $this->flash = $flash;
-    }
 
     public function __invoke(Request $request, Response $response): Response
     {
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $user = (new AuthnProvider(new AuthnService()))->getSignedInUser();
-
+        $flash = new Messages();
         if (!$user) {
             throw new HttpUnauthorizedException($request, "Accès refusé : utilisateur non authentifié");
         }
@@ -35,9 +29,9 @@ class ProfilsChangementPseudoAction
 
         try {
             (new UserService())->changeUsername($user, $newUsername);
-            $this->flash->addMessage('success', 'Pseudo mis à jour avec succès');
+            $flash->addMessage('success', 'Pseudo mis à jour avec succès');
         } catch (\RuntimeException $e) {
-            $this->flash->addMessage('error', 'Erreur : ' . $e->getMessage());
+            $flash->addMessage('error', 'Erreur : ' . $e->getMessage());
         }
 
         return $response

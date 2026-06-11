@@ -14,15 +14,12 @@ final class AuthConnectionAction
     {
         $queryParams = $request->getQueryParams();
         $params = [
-            'title' => 'Connexion / Inscription',
+            'title' => 'Connexion',
             'error' => $queryParams['error'] ?? null,
-            'register_error' => $queryParams['register_error'] ?? null,
             'success' => $queryParams['success'] ?? null,
-            'old' => ['user_id' => $queryParams['old_user_id'] ?? ''],
-            'csrf_token' => $_SESSION['csrf_login'] = bin2hex(random_bytes(32)),
-            'csrf_token_register' => $_SESSION['csrf_register'] = bin2hex(random_bytes(32)),
+            'old' => ['email' => $queryParams['old_email'] ?? ''],
+            'csrf_token' => $_SESSION['csrf_token'] = bin2hex(random_bytes(32)),
         ];
-
         $twig = Twig::fromRequest($request);
         return $twig->render($response, 'Authentification/connectionView.twig', $params);
     }

@@ -6,7 +6,7 @@ namespace minipress\appli\application_core\application\useCases\Articles\create;
 use minipress\appli\application_core\application\useCases\Articles\create\IArticleCreate;
 use minipress\appli\application_core\application\useCases\Users\AuthnService;
 use minipress\appli\application_core\domain\entities\Article;
-use minipress\appli\application_core\domain\providers\AuthnProvider;
+use minipress\appli\webui\providers\AuthnProvider;
 
 class ArticleCreate implements IArticleCreate
 {

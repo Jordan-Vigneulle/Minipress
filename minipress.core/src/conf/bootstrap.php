@@ -20,7 +20,7 @@ Eloquent::init(__DIR__ . '/database.ini');
 $app = \Slim\Factory\AppFactory::create();
 $app->setBasePath('');
 $twig = Twig::create(__DIR__ . '/../webui/views', ['cache' => false]);
-$app->addRoutingMiddleware(); 
+$app->addRoutingMiddleware();
 $app->add(TwigMiddleware::create($app, $twig));
 $app = (require_once __DIR__ . '/../conf/routes.php')($app);
 
@@ -32,7 +32,7 @@ $twig->getEnvironment()->addGlobal('flash', $flash->getMessages());
 //CSS+JS
 $twig->getEnvironment()->addGlobal('css_dir', '/css');
 $twig->getEnvironment()->addGlobal('js_dir', '/js');
-
+//Nav Items
 $navItems = [
     ['url' => 'home', 'label' => 'Accueil'],
 ];
@@ -41,14 +41,15 @@ if (!empty($_SESSION['user'])) {
     $navItems[] = ['url' => 'Articles', 'label' => 'Gérer les articles'];
     $navItems[] = ['url' => 'Categories', 'label' => 'Voir les catégories'];
     $navItems[] = ['url' => 'ArticleCreate', 'label' => 'Créer un article'];
-    
+
     $u = Utilisateur::find($_SESSION['user']);
     if ($u && $u->role == 100) { // Check pour admin
+        $navItems[] = ['url' => 'createUserPage', 'label' => 'Créer un utilisateur'];
+        $navItems[] = ['url' => 'usersList', 'label' => 'Liste des utilisateurs'];
         $navItems[] = ['url' => 'CategorieCreate', 'label' => 'Créer une catégorie'];
 
     }
 }
-
 $twig->getEnvironment()->addGlobal('nav_items', $navItems);
 // Utilisateur connecte + Avatar
 $twig->getEnvironment()->addGlobal('estConnecte', !empty($_SESSION['user']));

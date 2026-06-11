@@ -34,6 +34,8 @@ use minipress\appli\webui\actions\Profils\ProfilChangePasswordAction;
 use minipress\appli\webui\actions\Profils\ProfilChangePseudoAction;
 use minipress\appli\webui\actions\Profils\ProfilChangeAvatarAction;
 
+use minipress\appli\webui\actions\Admin\AdminUsersListAction;
+
 return function (\Slim\App $app): \Slim\App {
 
     $app->get('/', HomeAction::class)->setName('home');
@@ -57,6 +59,9 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/signinPage', AuthSigninPageAction::class)->setName('SigninPage');
     $app->post('/signin', AuthSigninAction::class)->setName('Signin');
     $app->get('/logout', AuthLogoutAction::class)->setName('Logout');
+
+    // User
+    $app->get('/usersList', AdminUsersListAction::class)->setName('usersList');
 
     // Profil
     $app->get('/profil', ProfilAction::class)->setName('profil');

@@ -1,0 +1,38 @@
+{% extends "pageSquelette.twig" %}
+
+{% block head %}
+    <title>Liste des utilisateurs</title>
+{% endblock %}
+
+{% block content %}
+    <h2>Liste des utilisateurs</h2>
+
+    <div id="grilleUtilisateurs">
+        {% for u in utilisateurs %}
+            <div class="utilisateur-carte">
+                <img class="avatar-liste"
+                     src="{{ u.chemin_acces_img }}"
+                     onerror="this.onerror=null; this.src='/images/avatars/avatar_default.png'"
+                     alt="Avatar de {{ u.pseudo }}">
+
+                <h3>{{ u.pseudo | default('Non défini') }}</h3>
+
+                <p class="email">{{ u.email }}</p>
+
+                <p class="role">
+                    {% if u.role == 100 %}
+                        Administrateur
+                    {% elseif u.role == 1 %}
+                        Utilisateur
+                    {% else %}
+                        Inconnu
+                    {% endif %}
+                </p>
+            </div>
+        {% else %}
+            <p>Aucun utilisateur trouvé dans la base de données.</p>
+        {% endfor %}
+    </div>
+
+    <a href="{{ url_for('createUserPage') }}" class="btn-creer">Créer un utilisateur</a>
+{% endblock %}

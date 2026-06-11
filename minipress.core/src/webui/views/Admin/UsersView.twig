@@ -1,4 +1,4 @@
-{% extends "pageSquelette.twig" %}
+{% extends "TemplateView.twig" %}
 
 {% block head %}
     <title>Liste des utilisateurs</title>
@@ -34,5 +34,5 @@
         {% endfor %}
     </div>
 
-    <a href="{{ url_for('createUserPage') }}" class="btn-creer">Créer un utilisateur</a>
+    <a href="{{ url_for('SigninPage') }}" class="btn-creer">Créer un utilisateur</a>
 {% endblock %}

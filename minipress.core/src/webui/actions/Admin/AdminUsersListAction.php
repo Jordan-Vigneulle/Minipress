@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace minipress\appli\webui\actions\Admin;
 
-use minipress\appli\application_core\application\useCases\user\AuthnService;
-use minipress\appli\application_core\application\useCases\user\AuthzService;
-use minipress\appli\application_core\application\useCases\user\AuthzServiceInterface;
+use minipress\appli\application_core\application\useCases\Users\AuthnService;
+use minipress\appli\application_core\application\useCases\Users\AuthzService;
+use minipress\appli\application_core\application\useCases\Users\AuthzServiceInterface;
 use minipress\appli\application_core\domain\entities\Utilisateur;
 use minipress\appli\webui\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface;
@@ -33,7 +33,7 @@ class AdminUsersListAction
         $utilisateurs = Utilisateur::orderBy('id', 'asc')->get()->all();
 
         $twig = Twig::fromRequest($request);
-        return $twig->render($response, 'Admin/usersList.twig', [
+        return $twig->render($response, 'Admin/UsersView.twig', [
             'utilisateurs' => $utilisateurs,
         ]);
     }

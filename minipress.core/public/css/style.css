@@ -766,6 +766,69 @@ footer p {
   }
 }
 
+#grilleUtilisateurs {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+  gap: 14px !important;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.utilisateur-carte {
+  background: var(--blanc);
+  border-radius: var(--radius-md);
+  padding: 16px 12px;
+  box-shadow: var(--ombre-carte);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.utilisateur-carte:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ombre-hover);
+}
+
+#grilleUtilisateurs .utilisateur-carte img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.utilisateur-carte h3 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--texte);
+  word-break: break-word;
+}
+
+.utilisateur-carte p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.utilisateur-carte p.email {
+  color: var(--texte-doux);
+  margin-bottom: 10px;
+  word-break: break-all;
+}
+
+.utilisateur-carte p.role {
+  margin-top: auto;
+  font-size: 0.82rem;
+  background: var(--lavande);
+  padding: 4px 12px;
+  border-radius: 999px;
+  color: var(--violet-sombre);
+  font-weight: 500;
+}
+
 /* ---------- Accessibilité : reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -773,5 +836,17 @@ footer p {
   *::after {
     transition: none !important;
     animation: none !important;
+  }
+}
+/* On réduit le nombre de colonnes sur tablette et mobile */
+@media (max-width: 1100px) {
+  #grilleUtilisateurs {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  #grilleUtilisateurs {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Photobox</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="dist/bundle.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>PROJET PHOTOBOX</h1>
+        <p>Projet réalisé par Auriane GUYOT, Maryam TAHRI et Jordan VIGNEULLE</p>  
+    </header>
+
+    <i id="header" class="fa-solid fa-arrow-down"></i>
+
+    <main id="photo">
+        <div id="chargement">
+            <button id="load">Charger la galerie</button>
+        </div>
+        
+        <section id="la_gallerie"></section>
+
+        <div id="detailPhoto">
+            <section id="la_photo"></section>
+
+            <section id="la_categorie"></section>
+
+            <section id="les_commentaires"></section>
+        </div>     
+    </main>
+
+    <script id="gallerieTemplate" type="text/x-handlebars-template">
+
+        <h2>Galerie Photo</h2>
+
+        <div id="galerie">
+            {{#each photos}}
+                <img class="thumbnail" src="{{url_thumbnail}}" alt="{{titre}}" data-id={{id}}>
+            {{/each}}
+        </div>
+
+        <div id="boutonsNav">
+            <button id="first"><i class="fa-solid fa-angles-left"></i></button>
+            <button id="prev"><i class="fa-solid fa-chevron-left"></i></button>
+            <button id="next"><i class="fa-solid fa-chevron-right"></i></button>
+            <button id="last"><i class="fa-solid fa-angles-right"></i></button>
+        </div>
+    </script>
+    
+    <script id="photoTemplate" type="text/x-handlebars-template">
+        
+            <h2>Détails de la photo {{photo.id}}</h2>
+            <img src="{{fullUrl}}" alt="{{photo.titre}}">
+            <h3>{{photo.titre}}</h3>
+            <p>{{photo.descr}}</p>
+            <p><em>{{photo.type}} - {{photo.width}} x {{photo.height}}</em></p>
+        
+    </script>
+
+    <script id="categorieTemplate" type="text/x-handlebars-template">
+        <h3>Catégorie : {{categorie.nom}}</h3>
+    </script>
+
+    <script id="commentairesTemplate" type="text/x-handlebars-template">
+        <h3>Commentaires ({{ count }}) : </h3>
+        <ul>
+            {{#each comments}}
+            <li><strong>{{this.pseudo}} : </strong>{{this.content}}</li>
+            {{/each}}
+        </ul>
+    </script>
+    
+
+    <footer>
+        <p>Photobox - R4.10 - 2026</p>
+    </footer>
+</body>
+</html>

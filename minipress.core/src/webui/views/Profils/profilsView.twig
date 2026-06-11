@@ -20,8 +20,8 @@
             <h3>Informations du compte</h3>
             <table class="profil-details-table">
                 <tr><th>ID</th><td>{{ user.id }}</td></tr>
-                <tr><th>Identifiant</th><td>{{ user.user_id }}</td></tr>
-                <tr><th>Username</th><td>{{ user.username ?: 'Non défini' }}</td></tr>
+                <tr><th>Identifiant</th><td>{{ user.email }}</td></tr>
+                <tr><th>Username</th><td>{{ user.pseudo ?: 'Non défini' }}</td></tr>
                 <tr>
                     <th>Rôle</th>
                     <td>
@@ -36,7 +36,7 @@
         <div class="profil-card avatar-card">
             <h3>Photo de profil</h3>
             <img id="current-avatar"
-                 src="{{ user.chemin_acces_img|default('/images/avatars/avatar_default.png') }}"
+                 src="{{ avatar_utilisateur_path }}"
                  alt="Photo de profil"
                  onerror="this.onerror=null; this.src='/images/avatars/avatar_default.png'">
 
@@ -112,6 +112,16 @@
                         '/images/avatars/Aerith.png',
                         '/images/avatars/Aerith-Cloud.png'
                     ]
+                    },
+                    {
+                        'name': 'Chat',
+                        'icon': '/images/icons/chat.png',
+                        'avatars' : [
+                            '/images/avatars/Chi.png',
+                            '/images/avatars/ChatTropCool1.png',
+                            '/images/avatars/ChatTropCool2.png',
+                            '/images/avatars/ChatTropCool3.png'
+                        ]
                     }
                 ] %}
 

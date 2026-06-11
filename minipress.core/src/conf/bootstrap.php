@@ -44,7 +44,7 @@ if (!empty($_SESSION['user'])) {
 
     $u = Utilisateur::find($_SESSION['user']);
     if ($u && $u->role == 100) { // Check pour admin
-        $navItems[] = ['url' => 'createUserPage', 'label' => 'Créer un utilisateur'];
+        $navItems[] = ['url' => 'SigninPage', 'label' => 'Créer un utilisateur'];
         $navItems[] = ['url' => 'usersList', 'label' => 'Liste des utilisateurs'];
         $navItems[] = ['url' => 'CategorieCreate', 'label' => 'Créer une catégorie'];
 

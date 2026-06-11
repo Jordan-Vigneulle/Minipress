@@ -6,6 +6,7 @@ use minipress\appli\application_core\application\useCases\Users\UserService;
 use minipress\appli\webui\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Flash\Messages;
 use Slim\Routing\RouteContext;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
@@ -37,6 +38,7 @@ class ProfilChangeAvatarAction
     {
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $user = (new AuthnProvider(new AuthnService()))->getSignedInUser();
+        $flash = new Messages();
 
         if (!$user) {
             throw new HttpUnauthorizedException($request, "Accès refusé : utilisateur non authentifié");
@@ -52,13 +54,14 @@ class ProfilChangeAvatarAction
 
         try {
             (new UserService())->ChangeAvatar($user, $chosen);
+            $flash->addMessage('success', "Votre avatar a été mis à jour avec succès !");
         } catch (\RuntimeException $e) {
             throw new HttpInternalServerErrorException($request, "Erreur lors de la mise à jour de l'avatar");
         }
 
         return $response->withHeader(
             'Location',
-            $routeParser->urlFor('profil', [], ['success' => 'Photo de profil mise à jour'])
+            $routeParser->urlFor('profil')
         )->withStatus(302);
     }
 }

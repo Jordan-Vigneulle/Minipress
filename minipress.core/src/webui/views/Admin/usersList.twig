@@ -16,10 +16,10 @@
                      alt="Avatar de {{ u.pseudo }}">
 
                 <h3>{{ u.pseudo | default('Non défini') }}</h3>
-                <p>Email : {{ u.email }}</p>
 
-                <p>
-                    <strong>Rôle :</strong>
+                <p class="email">{{ u.email }}</p>
+
+                <p class="role">
                     {% if u.role == 100 %}
                         Administrateur
                     {% elseif u.role == 1 %}
@@ -33,4 +33,6 @@
             <p>Aucun utilisateur trouvé dans la base de données.</p>
         {% endfor %}
     </div>
+
+    <a href="{{ url_for('createUserPage') }}" class="btn-creer">Créer un utilisateur</a>
 {% endblock %}

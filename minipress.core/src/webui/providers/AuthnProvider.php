@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace minipress\appli\webui\providers;
 
 use minipress\appli\application_core\domain\entities\Utilisateur;
-use minipress\appli\application_core\providers\AuthnProviderInterface;
+use minipress\appli\application_core\application\providers\AuthnProviderInterface;
 use minipress\appli\application_core\application\useCases\user\AuthnServiceInterface;
 
 class AuthnProvider implements AuthnProviderInterface

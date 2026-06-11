@@ -46,6 +46,7 @@ if (!empty($_SESSION['user'])) {
         $navItems[] = ['url' => 'createUserPage', 'label' => 'Créer un utilisateur'];
     }
 }
+
 $twig->getEnvironment()->addGlobal('nav_items', $navItems);
 // Utilisateur connecte + Avatar
 $twig->getEnvironment()->addGlobal('estConnecte', !empty($_SESSION['user']));

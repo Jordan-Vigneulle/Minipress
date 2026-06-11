@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
 use minipress\appli\webui\actions\AccueilAction;
 use minipress\appli\webui\actions\Articles\ArticleParIDAction;
 use minipress\appli\webui\actions\Articles\ListArticlesAction;
 use minipress\appli\webui\actions\Articles\TogglePublishAction;
-
-use minipress\appli\webui\actions\Article\ArticleCreateAction;
-use minipress\appli\webui\actions\Article\ArticleStoreAction;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use minipress\appli\webui\actions\Articles\ArticleCreateAction;
+use minipress\appli\webui\actions\Articles\ArticleStoreAction;
 
 use minipress\appli\webui\actions\Categories\CategoriesListeAction;
 use minipress\appli\webui\actions\Categories\ArticlesParCategorieAction;
@@ -46,9 +46,11 @@ return function (\Slim\App $app): \Slim\App {
     $app->post('/categories/create', CategorieStoreAction::class)->setName('createCategorie');
 
     // Articles
-    $app->get('/articles/{id}', ArticleParIDAction::class)->setName('oneArticle');
     $app->get('/articles', ListArticlesAction::class)->setName('liste_articles');
     $app->post('/articles/{id}/toggle-publish', TogglePublishAction::class)->setName('toggle_publish');
+    $app->get('/articles/create', ArticleCreateAction::class)->setName('articleCreate');
+    $app->post('/articles/create', ArticleStoreAction::class)->setName('articleStore');
+    $app->get('/articles/{id}', ArticleParIDAction::class)->setName('oneArticle');
 
     // API
     $app->get('/api/categories', CategoriesAction::class)->setName('api_AllCategories');
@@ -56,9 +58,6 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/api/articles/{id}', API_ArticleParIDAction::class)->setName('api_OneArticle');
     $app->get('/api/articles', API_ListArticlesAction::class)->setName('api_ListeArticles');
     $app->get('/api/auteurs/{id}/articles', API_ArticlesParAuteurAction::class)->setName('api_AllArticlesByAuteur');
-
-    $app->get('/article/create', ArticleCreateAction::class)->setName('articleCreate');
-    $app->post('/article/create', ArticleStoreAction::class)->setName('articleStore');
 
     // Authentification
     $app->get('/pageLogin', AuthConnectionAction::class)->setName('loginPage');

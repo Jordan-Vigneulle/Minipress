@@ -8,7 +8,8 @@
 <h1>Bienvenue sur MiniPress.core</h1>
 <p>MiniPress.core est conçu pour publier et gérer vos articles en toute simplicité. Rédigez vos contenus en Markdown, organisez-les par catégorie, et rendez-les accessibles via une API JSON ouverte.</p>
 
-<h2> Commencez à explorer</h2>
-<p><a href="{{ url_for('loginPage')}}">Connectez-vous</a> pour accéder à l'espace d'administration et publier vos propres contenus.</p>
-
+{% if estConnecte == false %}
+    <h2> Commencez à explorer</h2>
+    <p><a href="{{ url_for('loginPage')}}">Connectez-vous</a> pour accéder à l'espace d'administration et publier vos propres contenus.</p>
+{% endif %}
 {% endblock %}

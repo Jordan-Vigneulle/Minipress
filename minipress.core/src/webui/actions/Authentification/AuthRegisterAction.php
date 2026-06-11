@@ -10,7 +10,8 @@ use minipress\appli\application_core\application\useCases\user\AuthzServiceInter
 use minipress\appli\application_core\domain\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Exception\HttpForbiddenException;
+use Slim\Exception\HttpUnauthorizedException;
+
 use Slim\Flash\Messages;
 use Slim\Routing\RouteContext;
 
@@ -31,6 +32,9 @@ class AuthRegisterAction
         $authnProvider = new AuthnProvider($this->authnService);
         $currentUser = $authnProvider->getSignedInUser();
 
+        if ($currentUser === null) {
+            throw new HttpUnauthorizedException($request, "Accès refusé : utilisateur non authentifié");
+        }
         $data = $request->getParsedBody();
         $email = trim($data['email'] ?? '');
 

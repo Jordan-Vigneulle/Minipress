@@ -20,8 +20,8 @@ Eloquent::init(__DIR__ . '/database.ini');
 $app = \Slim\Factory\AppFactory::create();
 $app->setBasePath('');
 $twig = Twig::create(__DIR__ . '/../webui/views', ['cache' => false]);
+$app->addRoutingMiddleware(); 
 $app->add(TwigMiddleware::create($app, $twig));
-$app->addRoutingMiddleware();
 $app = (require_once __DIR__ . '/../conf/routes.php')($app);
 
 // Flash

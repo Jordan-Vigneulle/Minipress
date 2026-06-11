@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace minipress\appli\webui\actions\Article;
+namespace minipress\appli\webui\actions\Articles;
 
 
 use minipress\appli\application_core\application\useCases\article\create\ArticleCreate;

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace minipress\appli\webui\actions\Article;
+namespace minipress\appli\webui\actions\Articles;
 
 use minipress\appli\application_core\application\useCases\categorie\CategorieService;
 use minipress\appli\application_core\application\useCases\user\AuthnService;
@@ -31,7 +31,7 @@ class ArticleCreateAction
         }
 
         $twig = Twig::fromRequest($request);
-        return $twig->render($response, 'Article/articleCreationTwig.twig', [
+        return $twig->render($response, 'Articles/articleCreationTwig.twig', [
             'csrf_token' => $_SESSION['csrf_article'] = bin2hex(random_bytes(32)),
             'categories' => (new CategorieService())->getCategories(),
         ]);

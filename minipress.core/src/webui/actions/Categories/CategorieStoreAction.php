@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace minipress\appli\webui\actions\Categories;
 
-use minipress\appli\application_core\application\useCases\categorie\create\CategorieCreate;
+use minipress\appli\application_core\application\useCases\Categories\create\CategorieCreate;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteContext;
@@ -29,11 +29,11 @@ class CategorieStoreAction
         } catch (\Exception $e) {
             $flash = new \Slim\Flash\Messages();
             $flash->addMessage('error', 'Une erreur est survenue, veuillez réessayer.');
-            return $response->withHeader('Location', $routeParser->urlFor('formCreateCategorie'))->withStatus(302);
+            return $response->withHeader('Location', $routeParser->urlFor('CategorieCreate'))->withStatus(302);
         }
 
         $flash = new \Slim\Flash\Messages();
         $flash->addMessage('success', 'La catégorie a bien été créée');
-        return $response->withHeader('Location', $routeParser->urlFor('formCreateCategorie'))->withStatus(302);  
+        return $response->withHeader('Location', $routeParser->urlFor('CategorieCreate'))->withStatus(302);  
     }
 }

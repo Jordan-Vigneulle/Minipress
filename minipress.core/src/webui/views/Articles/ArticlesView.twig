@@ -1,0 +1,38 @@
+{% extends "TemplateView.twig" %}
+
+{% block head %}
+<title>Administration des Articles - Minipress</title>
+{% endblock %}
+
+{% block content %}
+<h2>Gestion des Articles</h2>
+
+{% if articles is empty %}
+<p>Aucun article trouvé.</p>
+{% else %}
+<table>
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Date de création</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for article in articles %}
+        <tr>
+            <td><a href="{{ url_for('Article', {id: article.id}) }}">{{ article.titre }}</td>
+            <td>{{ article.date ? article.date|date("d/m/Y") : '' }}</td>
+            <td>
+                <form action="{{ url_for('TogglePublish', {id: article.id}) }}" method="POST">
+                    <button type="submit">
+                        {{ article.est_publie ? 'Dépublier' : 'Publier' }}
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

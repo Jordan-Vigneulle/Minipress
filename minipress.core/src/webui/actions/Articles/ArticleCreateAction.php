@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace minipress\appli\webui\actions\Categories;
+namespace minipress\appli\webui\actions\Articles;
 
+use minipress\appli\application_core\application\useCases\Categories\CategorieService;
 use minipress\appli\application_core\application\useCases\Users\AuthnService;
 use minipress\appli\application_core\application\useCases\Users\AuthzService;
 use minipress\appli\application_core\application\useCases\Users\AuthzServiceInterface;
@@ -13,25 +14,26 @@ use Slim\Exception\HttpForbiddenException;
 use Slim\Exception\HttpUnauthorizedException;
 use Slim\Views\Twig;
 
-class CategorieCreateAction
+class ArticleCreateAction
 {
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         $user = (new AuthnProvider(new AuthnService()))->getSignedInUser();
 
         if ($user === null) {
-            throw new HttpUnauthorizedException($request);
+            throw new HttpUnauthorizedException($request, 'Utilisateur non authentifié');
         }
 
         try {
-            (new AuthzService())->checkAuthorization($user, AuthzServiceInterface::CREATE_CATEGORY);
+            (new AuthzService())->checkAuthorization($user, AuthzServiceInterface::CREATE_ARTICLE);
         } catch (\RuntimeException $e) {
             throw new HttpForbiddenException($request, $e->getMessage());
         }
 
         $twig = Twig::fromRequest($request);
-        return $twig->render($response, 'Categories/CategorieCreateView.twig', [
-            'csrf_token' => $_SESSION['csrf_categorie'] = bin2hex(random_bytes(32)),
+        return $twig->render($response, 'Articles/ArticleCreateView.twig', [
+            'csrf_token' => $_SESSION['csrf_article'] = bin2hex(random_bytes(32)),
+            'categories' => (new CategorieService())->getCategories(),
         ]);
     }
 }

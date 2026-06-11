@@ -1,0 +1,22 @@
+{% extends "TemplateView.twig" %}
+
+{% block head %}
+    <title>Article - {{ article.titre }}</title>
+{% endblock %}
+
+{% block content %}
+    <section id="article">
+        <h2>{{ article.titre }}</h2>
+        <em>{{ date }}</em>
+
+        <div class="galerie">
+            {% for img in article.images %}
+                <img src="{{ img.url }}" alt="{{ article.titre }}">
+            {% endfor %}
+        </div>
+
+        <p>{{ contenuHTML|raw }}</p>
+        
+        <a href="{{ url_for('ArticlesByCategorie', { id: article.categorie.id }) }}">Voir les autres article de {{ article.categorie.titre }}</a>
+    </section>
+{% endblock %}

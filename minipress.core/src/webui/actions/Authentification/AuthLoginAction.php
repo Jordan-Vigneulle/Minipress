@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace minipress\appli\webui\actions\Authentification;
 
-use minipress\appli\application_core\application\useCases\user\AuthnService;
+use minipress\appli\application_core\application\useCases\Users\AuthnService;
 use minipress\appli\webui\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -33,7 +33,7 @@ class AuthLoginAction
 
             return $response->withHeader(
                 'Location',
-                $routeParser->urlFor('loginPage')
+                $routeParser->urlFor('LoginPage')
             )->withStatus(302);
         }
 
@@ -44,7 +44,7 @@ class AuthLoginAction
 
             return $response->withHeader(
                 'Location',
-                $routeParser->urlFor('loginPage')
+                $routeParser->urlFor('LoginPage')
             )->withStatus(302);
         }
 

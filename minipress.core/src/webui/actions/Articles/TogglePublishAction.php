@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace minipress\appli\webui\actions\Articles;
 
-use minipress\appli\application_core\application\useCases\article\ArticleService;
-use minipress\appli\application_core\application\useCases\article\ArticleServiceInterface;
+use minipress\appli\application_core\application\useCases\Articles\ArticleService;
+use minipress\appli\application_core\application\useCases\Articles\ArticleServiceInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteContext;
@@ -23,14 +23,14 @@ class TogglePublishAction
         $id = $args['id'] ?? null;
         if ($id !== null) {
             try {
-                $this->articleService->basculerPublication((int)$id);
+                $this->articleService->togglePublication((int)$id);
             } catch (\RuntimeException $e) {
                 throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());
             }
         }
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-        $redirectUrl = $routeParser->urlFor('liste_articles');
+        $redirectUrl = $routeParser->urlFor('Articles');
 
         return $response
             ->withHeader('Location', $redirectUrl)

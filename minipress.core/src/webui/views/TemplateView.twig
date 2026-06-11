@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ css_dir }}/style.css">
+    <script src="{{ js_dir }}/script.js" defer></script>
+
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <h1>Minipress</h1>
+        <h3>L'actus pour vous, pour tous</h3>
+        {% if estConnecte %}
+
+        <div class="user-menu">
+            <img id="profileBtn" src="{{ avatar_utilisateur_path }}" alt="avatar"
+                onerror="this.onerror=null; this.src='/images/avatars/avatar_default.png'">
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="{{ url_for('profil') }}">Mon profil</a>
+                <a href="{{ url_for('Logout') }}" class="logout">Se déconnecter</a>
+            </div>
+        </div>
+
+        {% else %}
+
+        <a href="{{ url_for('LoginPage')}}" class="login">
+            Connectez-vous
+        </a>
+
+        {% endif %}
+    </header>
+    <nav>
+        {% for item in nav_items %}
+        <a href="{{ url_for(item.url) }}">{{ item.label }}</a>
+        {% endfor %}
+    </nav>
+
+    <main>
+        {% for msg in flash.success ?? [] %}
+        <p class="success-message">{{ msg|raw }}</p>
+        {% endfor %}
+
+        {% for msg in flash.error ?? [] %}
+        <p class="error-message">{{ msg }}</p>
+        {% endfor %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>Projet Minipress - DWM2 - 2026</p>
+        <p>GUYOT Auriane, LOUYOT Thibaut, TAHRI Maryam-Samar, VIGNEULLE Jordan, YVON Nathan</p>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+
+</body>
+
+</html>

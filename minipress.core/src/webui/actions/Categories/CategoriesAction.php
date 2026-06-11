@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace minipress\appli\api\actions;
+namespace minipress\appli\webui\actions\Categories;
 
 use minipress\appli\application_core\application\useCases\Categories\CategorieService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Views\Twig;
 
 class CategoriesAction
 {
@@ -18,10 +19,10 @@ class CategoriesAction
 
         $service = new CategorieService();
         $categories = $service->getCategories();
-        
-        $response->getBody()->write(json_encode($categories));
-        return $response
-            ->withHeader('Content-Type', 'application/json')
-            ->withStatus(200);
+
+        $twig = Twig::fromRequest($request);
+        return $twig->render($response, 'Categories/CategoriesView.twig', [
+            'categories' => $categories,
+        ]);
     }
 }

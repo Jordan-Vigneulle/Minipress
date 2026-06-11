@@ -10,8 +10,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 use Slim\Flash\Messages;
-use minipress\appli\application_core\application\useCases\user\AuthzService;
-use minipress\appli\application_core\application\useCases\user\AuthzServiceInterface;
+use minipress\appli\application_core\application\useCases\Users\AuthzService;
+use minipress\appli\application_core\application\useCases\Users\AuthzServiceInterface;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -20,13 +20,14 @@ Eloquent::init(__DIR__ . '/database.ini');
 $app = \Slim\Factory\AppFactory::create();
 $app->setBasePath('');
 $twig = Twig::create(__DIR__ . '/../webui/views', ['cache' => false]);
-$app->add(TwigMiddleware::create($app, $twig));
 $app->addRoutingMiddleware();
+$app->add(TwigMiddleware::create($app, $twig));
 $app = (require_once __DIR__ . '/../conf/routes.php')($app);
 
 // Flash
 $flash = new Messages();
 $twig->getEnvironment()->addGlobal('flash', $flash->getMessages());
+
 
 //CSS+JS
 $twig->getEnvironment()->addGlobal('css_dir', '/css');
@@ -34,15 +35,19 @@ $twig->getEnvironment()->addGlobal('js_dir', '/js');
 //Nav Items
 $navItems = [
     ['url' => 'home', 'label' => 'Accueil'],
-    ['url' => 'liste_articles', 'label' => 'Gérer les articles'],
 ];
+
 if (!empty($_SESSION['user'])) {
-    $navItems[] = ['url' => 'articleCreate', 'label' => 'Créer un article'];
-    $navItems[] = ['url' => 'formCreateCategorie', 'label' => 'Créer une catégorie'];
+    $navItems[] = ['url' => 'Articles', 'label' => 'Gérer les articles'];
+    $navItems[] = ['url' => 'Categories', 'label' => 'Voir les catégories'];
+    $navItems[] = ['url' => 'ArticleCreate', 'label' => 'Créer un article'];
+
     $u = Utilisateur::find($_SESSION['user']);
     if ($u && $u->role == 100) { // Check pour admin
         $navItems[] = ['url' => 'createUserPage', 'label' => 'Créer un utilisateur'];
         $navItems[] = ['url' => 'usersList', 'label' => 'Liste des utilisateurs'];
+        $navItems[] = ['url' => 'CategorieCreate', 'label' => 'Créer une catégorie'];
+
     }
 }
 $twig->getEnvironment()->addGlobal('nav_items', $navItems);
@@ -70,7 +75,7 @@ $errorMiddleware->setDefaultErrorHandler(function (Request $request, \Throwable 
     }
 
     $response = $app->getResponseFactory()->createResponse();
-    return $twig->render($response->withStatus($code), 'erreurView.twig', [
+    return $twig->render($response->withStatus($code), 'ErrorView.twig', [
         'code' => $code,
         'message' => $exception->getMessage(),
     ]);

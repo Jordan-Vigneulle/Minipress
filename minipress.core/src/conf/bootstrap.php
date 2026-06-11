@@ -39,8 +39,11 @@ $navItems = [
     ['url' => 'articleCreate', 'label' => 'Création d\'article'],
     ['url' => 'allCategories', 'label' => 'Catégories'],
     ['url' => 'formCreateCategorie', 'label' => 'Création de catégorie'],
+
 ];
+
 if (!empty($_SESSION['user'])) {
+    $navItems[] = ['url' => 'liste_articles', 'label' => 'Gérer les articles'];
     $navItems[] = ['url' => 'articleCreate', 'label' => 'Créer un article'];
     $navItems[] = ['url' => 'formCreateCategorie', 'label' => 'Créer une catégorie'];
     $u = Utilisateur::find($_SESSION['user']);

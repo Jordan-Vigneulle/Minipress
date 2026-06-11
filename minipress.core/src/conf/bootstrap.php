@@ -42,6 +42,7 @@ if (!empty($_SESSION['user'])) {
     $u = Utilisateur::find($_SESSION['user']);
     if ($u && $u->role == 100) { // Check pour admin
         $navItems[] = ['url' => 'createUserPage', 'label' => 'Créer un utilisateur'];
+        $navItems[] = ['url' => 'usersList', 'label' => 'Liste des utilisateurs'];
     }
 }
 $twig->getEnvironment()->addGlobal('nav_items', $navItems);

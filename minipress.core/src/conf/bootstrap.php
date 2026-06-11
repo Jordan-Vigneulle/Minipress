@@ -40,10 +40,12 @@ $navItems = [
 if (!empty($_SESSION['user'])) {
     $navItems[] = ['url' => 'liste_articles', 'label' => 'Gérer les articles'];
     $navItems[] = ['url' => 'articleCreate', 'label' => 'Créer un article'];
+    $navItems[] = ['url' => 'allCategories', 'label' => 'Gestion des catégories'];
     $navItems[] = ['url' => 'formCreateCategorie', 'label' => 'Créer une catégorie'];
     $u = Utilisateur::find($_SESSION['user']);
     if ($u && $u->role == 100) { // Check pour admin
-        $navItems[] = ['url' => 'createUserPage', 'label' => 'Créer un utilisateur'];
+        $navItems[] = ['url' => 'formCreateCategorie', 'label' => 'Créer une catégorie'];
+
     }
 }
 

@@ -6,8 +6,8 @@ INSERT INTO `categorie` (`titre`) VALUES
 
 -- Utilisateurs (mot de passe = "password" hashé bcrypt)
 INSERT INTO `utilisateur` (`email`, `motdepasse`, `role`, `chemin_acces_img`, `pseudo`) VALUES
-('jordan@minipress.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, 'uploads/jordan.jpg', 'Jordan'),
-('auriane@minipress.fr',   '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 0, 'uploads/auriane.jpg',   'Auriaaa');
+('jordan@minipress.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 100, 'uploads/jordan.jpg', 'Jordan'),
+('auriane@minipress.fr',   '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, 'uploads/auriane.jpg',   'Auriaaa');
 
 -- Articles
 INSERT INTO `article` (`titre`, `resume`, `contenu`, `date`, `id_categorie`, `id_utilisateur`) VALUES

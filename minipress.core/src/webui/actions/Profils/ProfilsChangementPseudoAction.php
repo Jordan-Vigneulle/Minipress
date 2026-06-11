@@ -5,7 +5,7 @@ namespace minipress\appli\webui\actions\Profils;
 
 use minipress\appli\application_core\application\useCases\user\AuthnService;
 use minipress\appli\application_core\application\useCases\user\UserService;
-use minipress\appli\application_core\domain\providers\AuthnProvider;
+use minipress\appli\webui\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpUnauthorizedException;

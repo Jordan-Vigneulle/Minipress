@@ -7,7 +7,7 @@ use minipress\appli\application_core\application\useCases\user\AuthnService;
 use minipress\appli\application_core\application\useCases\user\AuthnServiceInterface;
 use minipress\appli\application_core\application\useCases\user\AuthzService;
 use minipress\appli\application_core\application\useCases\user\AuthzServiceInterface;
-use minipress\appli\application_core\domain\providers\AuthnProvider;
+use minipress\appli\webui\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpUnauthorizedException;

@@ -39,9 +39,6 @@ class UserService implements UserServiceInterface
         }
 
         $articles = Article::where('id_utilisateur', $user_id)->get();
-        if ($articles->isEmpty()) {
-            throw new \Exception("Aucun article trouvé pour l'auteur $user_id");
-        }
 
         return [
             'auteur' => $user->toArray(),

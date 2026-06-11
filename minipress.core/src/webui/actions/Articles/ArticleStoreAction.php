@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace minipress\appli\webui\actions\Articles;
 
 
-use minipress\appli\application_core\application\useCases\article\create\ArticleCreate;
+use minipress\appli\application_core\application\useCases\Articles\create\ArticleCreate;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteContext;
@@ -50,8 +50,8 @@ class ArticleStoreAction
         } catch (\Exception $e) {
             $flash = new \Slim\Flash\Messages();
             $flash->addMessage('error', 'Une erreur est survenue, veuillez réessayer.');
-            return $response->withHeader('Location', $routeParser->urlFor('articleCreate'))->withStatus(302);
+            return $response->withHeader('Location', $routeParser->urlFor('ArticleCreate'))->withStatus(302);
         }
-        return $response->withHeader('Location', $routeParser->urlFor('home'))->withStatus(302);
+        return $response->withHeader('Location', $routeParser->urlFor('Articles'))->withStatus(302);
     }
 }

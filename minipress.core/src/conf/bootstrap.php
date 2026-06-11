@@ -10,8 +10,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 use Slim\Flash\Messages;
-use minipress\appli\application_core\application\useCases\user\AuthzService;
-use minipress\appli\application_core\application\useCases\user\AuthzServiceInterface;
+use minipress\appli\application_core\application\useCases\Users\AuthzService;
+use minipress\appli\application_core\application\useCases\Users\AuthzServiceInterface;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -38,13 +38,13 @@ $navItems = [
 ];
 
 if (!empty($_SESSION['user'])) {
-    $navItems[] = ['url' => 'liste_articles', 'label' => 'Gérer les articles'];
-    $navItems[] = ['url' => 'articleCreate', 'label' => 'Créer un article'];
-    $navItems[] = ['url' => 'allCategories', 'label' => 'Gestion des catégories'];
-    $navItems[] = ['url' => 'formCreateCategorie', 'label' => 'Créer une catégorie'];
+    $navItems[] = ['url' => 'Articles', 'label' => 'Gérer les articles'];
+    $navItems[] = ['url' => 'Categories', 'label' => 'Voir les catégories'];
+    $navItems[] = ['url' => 'ArticleCreate', 'label' => 'Créer un article'];
+    
     $u = Utilisateur::find($_SESSION['user']);
     if ($u && $u->role == 100) { // Check pour admin
-        $navItems[] = ['url' => 'formCreateCategorie', 'label' => 'Créer une catégorie'];
+        $navItems[] = ['url' => 'CategorieCreate', 'label' => 'Créer une catégorie'];
 
     }
 }
@@ -74,7 +74,7 @@ $errorMiddleware->setDefaultErrorHandler(function (Request $request, \Throwable 
     }
 
     $response = $app->getResponseFactory()->createResponse();
-    return $twig->render($response->withStatus($code), 'erreurView.twig', [
+    return $twig->render($response->withStatus($code), 'ErrorView.twig', [
         'code' => $code,
         'message' => $exception->getMessage(),
     ]);

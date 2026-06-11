@@ -1,0 +1,41 @@
+{% extends 'TemplateView.twig' %}
+
+{% block head %}
+    <title>Créer un utilisateur - MiniPress</title>
+{% endblock %}
+
+{% block content %}
+    <section class="form">
+        <h2>Créer un utilisateur</h2>
+
+        {% if success %}
+            <div class="success-message">{{ success }}</div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        <form action="/Signin" method="post" class="auth-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <div class="form-group">
+                <label for="email">Identifiant (@mail)</label>
+                <input type="email" id="email" name="email" value="{{ old.email|default('') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required>
+                <small style="display: block; margin-top: 5px;">
+                    Le mot de passe doit contenir :
+                    <ul style="margin: 5px 0 0 15px; padding: 0; font-size: 0.9em; list-style-type: disc;">
+                        <li>Au moins 8 caractères</li>
+                        <li>Au moins une lettre</li>
+                        <li>Au moins un chiffre</li>
+                        <li>Au moins un caractère spécial</li>
+                    </ul>
+                </small>
+            </div>
+            <button type="submit">Créer l'utilisateur</button>
+        </form>
+    </section>
+{% endblock %}

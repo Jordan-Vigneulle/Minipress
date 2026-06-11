@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace minipress\appli\webui\actions\Articles;
 
-use minipress\appli\application_core\application\useCases\categorie\CategorieService;
-use minipress\appli\application_core\application\useCases\user\AuthnService;
-use minipress\appli\application_core\application\useCases\user\AuthzService;
-use minipress\appli\application_core\application\useCases\user\AuthzServiceInterface;
+use minipress\appli\application_core\application\useCases\Categories\CategorieService;
+use minipress\appli\application_core\application\useCases\Users\AuthnService;
+use minipress\appli\application_core\application\useCases\Users\AuthzService;
+use minipress\appli\application_core\application\useCases\Users\AuthzServiceInterface;
 use minipress\appli\application_core\domain\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -31,7 +31,7 @@ class ArticleCreateAction
         }
 
         $twig = Twig::fromRequest($request);
-        return $twig->render($response, 'Articles/articleCreationTwig.twig', [
+        return $twig->render($response, 'Articles/ArticleCreateView.twig', [
             'csrf_token' => $_SESSION['csrf_article'] = bin2hex(random_bytes(32)),
             'categories' => (new CategorieService())->getCategories(),
         ]);

@@ -1,0 +1,22 @@
+{% extends "TemplateView.twig" %}
+
+{% block head %}
+    <title>Catégorie - {{ categorie.titre }}</title>
+{% endblock %}
+
+{% block content %}
+    <h2>Les articles de {{ categorie.titre }}</h2>
+    <div id="grilleArticles">
+        {% for a in articles %}
+            <div class="card-article">
+            <h3>{{ a.titre }}</h3>
+            {% if resumes[a.id] is not null %}
+                <p>{{ resumes[a.id]|raw }}</p>
+            {% endif %}
+            <a href="{{ url_for('Article', { id: a.id }) }}">Lire la suite</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <br><a href="{{ url_for('Categories') }}">Toutes les catégories</a>
+{% endblock %}

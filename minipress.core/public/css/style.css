@@ -9,28 +9,36 @@
 
 /* ---------- Variables ---------- */
 :root {
-  --violet:        #6C5DD3;
-  --violet-fonce:  #5346b8;
-  --violet-sombre: #3f3786;
-  --lavande:       #f1eefb;
-  --lavande-2:     #e7e2f8;
-  --rose-pastel:   #fdf0f4;
-  --violet-pastel: #f3effd;
-  --vert:          #3fbf7f;
-  --vert-pale:     #e3f7ed;
-  --jaune:         #f5b93c;
-  --rouge:         #e15b71;
-  --rouge-pale:    #fceef0;
-  --texte:         #2e2a4a;
-  --texte-doux:    #8b87a3;
-  --blanc:         #ffffff;
+  --violet: #5B4CC4;
+  --violet-fonce: #4335A8;
+  --violet-sombre: #2F276F;
+
+  --lavande: #F0ECFC;
+  --lavande-2: #E3DCF9;
+  --rose-pastel: #FCECEF;
+  --violet-pastel: #EEE9FC;
+
+  --vert: #238A57;
+  --vert-pale: #DDF5E8;
+
+  --jaune: #C98A0A;
+  --rouge: #C63D56;
+  --rouge-pale: #FBE8EB;
+
+  /* Texte plus contrasté */
+  --texte: #090810;
+  --lien: #5a44ed;
+  --texte-doux: #5F5A78;
+
+  --blanc: #FFFFFF;
 
   --radius-lg: 24px;
   --radius-md: 16px;
   --radius-sm: 10px;
 
-  --ombre-carte: 0 10px 30px rgba(108, 93, 211, 0.10);
-  --ombre-hover: 0 14px 36px rgba(108, 93, 211, 0.18);
+  /* Ombres un peu plus visibles */
+  --ombre-carte: 0 10px 30px rgba(63, 55, 134, 0.15);
+  --ombre-hover: 0 14px 36px rgba(63, 55, 134, 0.25);
 }
 
 /* ---------- Reset & base ---------- */
@@ -58,7 +66,7 @@ h1, h2, h3, h4 {
 }
 
 a {
-  color: var(--violet);
+  color: var(--lien);
   text-decoration: none;
   transition: color 0.15s ease;
 }
@@ -210,8 +218,9 @@ nav a:hover {
 
 /* ---------- Main ---------- */
 main {
-  max-width: 1100px;
-  margin: 24px 250px;
+  width: 70vw;
+  margin: 0px auto;
+  padding-bottom: 90px;
 }
 
 main > h1,
@@ -219,6 +228,11 @@ main > h2 {
   font-size: 1.6rem;
   font-weight: 600;
   margin: 24px 0 18px;
+}
+
+section {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ---------- Messages flash ---------- */
@@ -391,9 +405,24 @@ tbody tr:hover {
   background: var(--lavande);
 }
 
+td form, td form button {
+  margin: 0 !important;
+}
+
 /* ---------- Formulaires ---------- */
+section.form {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 30px;
+}
+
 form {
   margin-top: 10px;
+}
+
+form button {
+  margin-top: 60px;
 }
 
 label {

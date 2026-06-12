@@ -81,6 +81,30 @@ if (selectTitreArticles) {
     });
 }
 
+const selectUsers = document.querySelector<HTMLSelectElement>('#select-users');
+if (selectUsers) {
+    loadAll<any[]>(url + '/auteurs')
+        .then((users) => {
+            console.log(users);
+            users.forEach((user: any) => {
+                const option = document.createElement('option');
+                option.value = String(user.id);
+                option.textContent = user.pseudo;
+                selectUsers.appendChild(option);
+            }
+            )
+        })
+        .catch((error) => console.error("Erreur au chargement des utilisateurs: ", error));
+        
+    selectUsers.addEventListener('change', () => {
+        const selectedUser = Number(selectUsers.value);
+        if (selectedUser) {
+            articlesByUser(selectedUser);
+        }
+    });
+}
+
+
 document.addEventListener("click", (event) => {
     const cible = event.target as HTMLElement;
 

@@ -15,9 +15,9 @@ CREATE TABLE `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(128) NOT NULL,
   `motdepasse` varchar(256) NOT NULL,
-  `role` tinyint(4) DEFAULT NULL,
+  `role` tinyint(4) DEFAULT NULL, -- 100 = admin, 1 = utilisateur, 2 = auteur
   `chemin_acces_img` varchar(256) DEFAULT NULL,
-  `pseudo` varchar(128) DEFAULT NULL,
+  `pseudo` varchar(128) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_pk2` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;

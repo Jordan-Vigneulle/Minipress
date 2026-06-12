@@ -1,0 +1,21 @@
+# Outils et caches Dart/Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+pubspec.lock
+
+# Fichiers de configuration de l'éditeur de code
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Fichiers systèmes
+.DS_Store
+Thumbs.db
+

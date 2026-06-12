@@ -35,6 +35,10 @@ class ArticleStoreAction
         if ($contenu === '') {
             $errors['contenu'] = 'Merci de saisir un contenu.';
         }
+        $images = array_filter(
+            array: array_map('trim', explode(',', $data['image'] ?? '')),
+            callback: fn($url) => $url !== ''
+        );
         if (!empty($errors)) {
             $twig = Twig::fromRequest($request);
             return $twig->render($response->withStatus(422), 'Article/articleCreationView.twig', [
@@ -45,7 +49,7 @@ class ArticleStoreAction
         }
 
         try {
-            $this->articleCreation->create($titre, $resume, $contenu,$categorie);
+            $this->articleCreation->create($titre, $resume, $contenu, $categorie, $images);
 
         } catch (\Exception $e) {
             $flash = new \Slim\Flash\Messages();

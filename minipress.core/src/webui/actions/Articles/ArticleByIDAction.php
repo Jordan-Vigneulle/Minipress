@@ -9,7 +9,8 @@ use minipress\appli\application_core\application\useCases\Users\AuthnService;
 use minipress\appli\application_core\application\useCases\Users\AuthzService;
 use minipress\appli\application_core\application\useCases\Users\AuthzServiceInterface;
 use minipress\appli\application_core\application\useCases\Users\UserService;
-use minipress\appli\application_core\providers\AuthnProvider;
+use minipress\appli\webui\providers\AuthnProvider;
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
@@ -57,7 +58,8 @@ class ArticleByIDAction
         }
 
         try {
-            $date = new \DateTime($article['date'])->format('d/m/Y H:i');
+            $dateTime = new \DateTime($article['date']);
+            $date = $dateTime->format('d/m/Y H:i');
             $contenuHTML = $service->markdownToHTML($article['contenu']);
         } catch (\Exception $e) {
             throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());

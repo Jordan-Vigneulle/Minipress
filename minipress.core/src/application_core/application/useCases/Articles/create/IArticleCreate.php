@@ -9,6 +9,7 @@ interface IArticleCreate
         string $resume,
         string $contenu,
         string $categorieId,
+        array $images,
     ): void;
 
 }

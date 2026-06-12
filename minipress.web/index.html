@@ -39,6 +39,7 @@
 
     <!-- Résultats : tout en dessous -->
     <main>
+        <button id="btn-retour" style="display:none;">Retour</button>
         <nav id="la_categorie"></nav>
         <section id="les_articles_orderby"></section>
         <section id="les_articles_par_categorie"></section>
@@ -95,9 +96,12 @@
     </script>
 
     <script id="articleTemplate" type="text/x-handlebars-template">
-        <div class="card-article">
-            <h3>{{article.titre}}</h3>
-            <p>{{article.date}}</p>
+        <div class="article">
+            <h1>{{article.titre}}</h1>
+            <em>Écrit le {{article.date}} par {{article.utilisateur.pseudo}}</em>
+            {{#each article.images}}
+                <img src="{{ url }}" alt="">
+            {{/each}}
             <p>{{article.contenu}}</p>
         </div>
     </script>

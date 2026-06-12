@@ -8,9 +8,14 @@ use minipress\appli\application_core\domain\entities\Article;
 
 class ArticleService implements ArticleServiceInterface
 {
-    public function getArticles(?string $sort = null): array
+    public function getArticles(): array
     {
-        $query = Article::query();
+        return Article::all()->toArray();
+    }
+
+    public function getPublishedArticles(?string $sort = null): array
+    {
+        $query = Article::where('est_publie', 1);
 
         switch ($sort) {
             case 'date-asc':
@@ -25,13 +30,13 @@ class ArticleService implements ArticleServiceInterface
                     ->select('article.*');
                 break;
             case null:
-                $query->orderBy('date', 'desc'); // Tri par défaut 
+                $query->orderBy('date', 'desc');
                 break;
             default:
                 throw new \InvalidArgumentException("Paramètre de tri invalide : $sort");
         }
 
-        return $query->get()->all();
+        return $query->get()->toArray();
     }
 
     public function togglePublication(int $id): void
@@ -47,6 +52,15 @@ class ArticleService implements ArticleServiceInterface
     public function getArticleById(int $id): array
     {
         $article = Article::with('categorie', 'images')->find($id);
+        if (!$article) {
+            throw new \Exception("Aucun article trouvé avec l'identifiant $id");
+        }
+        return $article->toArray();
+    }
+
+    public function getPublishedArticleById(int $id): array
+    {
+        $article = Article::with('categorie', 'images')->where('est_publie', 1)->find($id);
         if (!$article) {
             throw new \Exception("Aucun article trouvé avec l'identifiant $id");
         }

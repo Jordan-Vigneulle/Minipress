@@ -1,5 +1,6 @@
 'use strict';
 
+import { quitterModeArticle } from "./modules/modearticle";
 import { loadAll } from "./modules/articleloader";
 import { url, url_articles, url_categories } from "./modules/config";
 import { displayArticle, displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories } from "./modules/ui";
@@ -81,6 +82,7 @@ document.addEventListener("click", (event) => {
     }
 
     // boutons de la barre de test
+    if (cible.matches("#btn-retour")) { event.preventDefault(); quitterModeArticle(); }
     if (cible.matches("#btn-categories")) { event.preventDefault(); categories(); }
     if (cible.matches("#btn-articles-orderby")) { event.preventDefault(); articlesOrderby(); }
     if (cible.matches("#btn-articles-categorie")) { event.preventDefault(); articleByCategorie(inputValue('#input-categorie')); }

@@ -43,7 +43,7 @@ class ArticleByIDAction
         } catch (\RuntimeException $e) {
             try {
                 $authz->checkAuthorization($user, AuthzServiceInterface::VIEW_OWN_ARTICLES);
-                $result = $userService->getArticlesByUser($user->id);
+                $result = $userService->getPublishedArticlesByUser($user->id);
                 $userArticleIds = array_column($result['articles'], 'id');
                 if (!in_array((int)$id, $userArticleIds)) {
                     throw new HttpUnauthorizedException($request, "Accès refusé : cet article ne vous appartient pas");

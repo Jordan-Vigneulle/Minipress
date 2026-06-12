@@ -40,7 +40,7 @@ class ArticlesAction
         } catch (\RuntimeException $e) {
             try {
                 $authz->checkAuthorization($user, AuthzServiceInterface::VIEW_OWN_ARTICLES);
-                $result = $userService->getArticlesByUser($user->id);
+                $result = $userService->getPublishedArticlesByUser($user->id);
                 $articles = $result['articles'];
             } catch (\RuntimeException $e) {
                 throw new HttpUnauthorizedException($request, 'Accès refusé');

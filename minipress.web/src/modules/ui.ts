@@ -1,6 +1,6 @@
 'use strict';
 import Handlebars from 'handlebars';
-import { afficherModeArticle } from './modearticle';
+import { afficherModeArticle } from './modeArticle';
 
 export function displayArticleOrderby(articles: any) {
     const templateArticles = Handlebars.compile(document.querySelector<HTMLScriptElement>('#articleOrderbyTemplate')!.innerHTML);

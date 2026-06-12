@@ -23,7 +23,7 @@ class ArticlesByUserAction
 
         try {
             $service = new UserService();
-            $user = $service->getArticlesByUser((int)$id);
+            $user = $service->getPublishedArticlesByUser((int)$id);
         } catch (\Exception $e) {
             throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());
         }

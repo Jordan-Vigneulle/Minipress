@@ -11,7 +11,7 @@ class AuthnService implements AuthnServiceInterface
     private const PASSWORD_REGEX =
         '/^(?=.*[A-Za-z])(?=.*[!@#$%^&*()\-+])(?=.*\d)[A-Za-z\d!@#$%^&*()\-+]{8,}$/';
 
-    public function register(string $userId, string $password): Utilisateur
+    public function register(string $userId, string $pseudo, string $password): Utilisateur
     {
         if (empty($userId) || empty($password)) {
             throw new \RuntimeException('Veuillez saisir un identifiant et un mot de passe');
@@ -31,6 +31,7 @@ class AuthnService implements AuthnServiceInterface
         return Utilisateur::create([
             'email' => $userId,
             'motdepasse' => password_hash($password, PASSWORD_DEFAULT),
+            'pseudo' => $pseudo,
             'role' => 1,
         ]);
     }

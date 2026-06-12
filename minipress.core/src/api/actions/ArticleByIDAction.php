@@ -23,7 +23,7 @@ class ArticleByIDAction
 
         try {
             $service = new ArticleService();
-            $article = $service->getArticleById((int)$id);
+            $article = $service->getPublishedArticleById((int)$id);
         } catch (\Exception $e) {
             throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());
         }

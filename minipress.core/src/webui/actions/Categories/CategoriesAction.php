@@ -18,7 +18,7 @@ class CategoriesAction
     ): Response {
 
         $service = new CategorieService();
-        $categories = $service->getCategories();
+        $categories = $service->getCategoriesWithPublishedArticles();
 
         $twig = Twig::fromRequest($request);
         return $twig->render($response, 'Categories/CategoriesView.twig', [

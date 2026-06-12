@@ -1,5 +1,4 @@
 'use strict';
 
-export const url = 'https://webetu.iutnc.univ-lorraine.fr'
-
-export const url_api = 'https://webetu.iutnc.univ-lorraine.fr/www/canals5/phox/api';
+export const url = 'http://localhost:4490/api';
+export const url_categories = 'http://localhost:4490/api/categories'

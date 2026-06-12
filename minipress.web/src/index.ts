@@ -1,6 +1,6 @@
 'use strict';
 
-import { quitterModeArticle } from "./modules/modearticle";
+import { quitterModeArticle } from "./modules/modeArticle";
 import { loadAll } from "./modules/articleloader";
 import { url, url_articles, url_categories } from "./modules/config";
 import { displayArticle, displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories } from "./modules/ui";
@@ -92,3 +92,5 @@ document.addEventListener("click", (event) => {
 
 categories();
 //articlesOrderby();
+
+

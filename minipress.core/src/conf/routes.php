@@ -23,6 +23,7 @@ use minipress\appli\api\actions\CategoriesAction as API_CategoriesAction;
 use minipress\appli\api\actions\ArticleByIDAction as API_ArticleByIDAction;
 use minipress\appli\api\actions\ArticlesAction as API_ArticlesAction;
 use minipress\appli\api\actions\ArticlesByUserAction as API_ArticlesByUserAction;
+use minipress\appli\api\actions\UsersAction as API_UsersAction;
 
 use minipress\appli\webui\actions\Authentification\AuthLoginPageAction;
 use minipress\appli\webui\actions\Authentification\AuthSigninPageAction;
@@ -75,6 +76,7 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/api/articles/{id}', API_ArticleByIDAction::class)->setName('api_Article');
     $app->get('/api/articles', API_ArticlesAction::class)->setName('api_ListeArticles');
     $app->get('/api/auteurs/{id}/articles', API_ArticlesByUserAction::class)->setName('api_AllArticlesByAuteur');
+    $app->get('/api/auteurs', API_UsersAction::class)->setName('api_Users');
 
     return $app;
 };

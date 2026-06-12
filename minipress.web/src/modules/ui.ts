@@ -1,9 +1,11 @@
 'use strict';
 import Handlebars from 'handlebars';
 import { afficherModeArticle } from './modeArticle';
+import { markdownToHtml } from "ts-markdown-parser";
 
 export function displayArticleOrderby(articles: any) {
     const templateArticles = Handlebars.compile(document.querySelector<HTMLScriptElement>('#articleOrderbyTemplate')!.innerHTML);
+ 
     document.querySelector('#les_articles_orderby')!.innerHTML = templateArticles({ articles });
 }
 
@@ -20,7 +22,10 @@ export function displayArticleByCategorie(data: any) {
 
 export function displayArticle(article: any) {
     const templateArticles = Handlebars.compile(document.querySelector<HTMLScriptElement>('#articleTemplate')!.innerHTML);
-    document.querySelector('#un_article')!.innerHTML = templateArticles({ article });
+    
+    const contenu = markdownToHtml(article.contenu, true);
+
+    document.querySelector('#un_article')!.innerHTML = templateArticles({ article, contenu });
    
     afficherModeArticle();
 }

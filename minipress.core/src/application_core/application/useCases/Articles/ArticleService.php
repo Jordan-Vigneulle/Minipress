@@ -60,7 +60,8 @@ class ArticleService implements ArticleServiceInterface
 
     public function getPublishedArticleById(int $id): array
     {
-        $article = Article::with('categorie', 'images')->where('est_publie', 1)->find($id);
+        $article = Article::with('categorie', 'images', 'utilisateur:id,pseudo')->where('est_publie', 1)->find($id);
+        
         if (!$article) {
             throw new \Exception("Aucun article trouvé avec l'identifiant $id");
         }

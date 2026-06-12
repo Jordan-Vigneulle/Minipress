@@ -37,6 +37,7 @@ class AuthSigninAction
         }
         $data = $request->getParsedBody();
         $email = trim($data['email'] ?? '');
+        $pseudo = trim($data['pseudo'] ?? '') ?: 'Anonyme';
 
         if (!hash_equals($_SESSION['csrf_token'] ?? '', $data['csrf_token'] ?? '')) {
             throw new HttpForbiddenException($request);
@@ -50,7 +51,7 @@ class AuthSigninAction
         }
 
         try {
-            $this->authnService->register($email, $data['password'] ?? '');
+            $this->authnService->register($email, $pseudo, $data['password'] ?? '');
             $flash->addMessage('success', 'Utilisateur créé avec succès');
         } catch (\RuntimeException $e) {
             $flash->addMessage('error', $e->getMessage());

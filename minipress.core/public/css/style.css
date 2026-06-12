@@ -364,8 +364,11 @@ main img {
 
 main .galerie {
   display: flex;
-  height: 200px;
   gap: 10px;
+}
+
+main .galerie img{
+  height: 200px;
 }
 
 /* ---------- Tables (admin + profil) ---------- */

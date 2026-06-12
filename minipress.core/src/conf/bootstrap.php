@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 session_start();
 
-use minipress\appli\Infrastructure\Eloquent;
+use minipress\appli\infrastructure\Eloquent;
 use minipress\appli\application_core\domain\entities\Utilisateur;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

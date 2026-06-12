@@ -24,7 +24,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "6034:3306" #29031:80 sur Docketu
+      - "6034:3306" #29031:3306 sur Docketu
     networks:
       minipress.net:
         aliases:

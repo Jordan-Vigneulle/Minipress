@@ -24,6 +24,22 @@ const articlesOrderby = () => {
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
 
+const inputText = (selector: string): string =>
+    (document.querySelector(selector) as HTMLInputElement).value.trim().toLowerCase();
+
+const articlesInclude = (order: string = "") => {
+    const keyword = inputText('#input-keyword');
+    const query = order ? `?order=${order}` : "";
+    loadAll<any[]>(url_articles, query)
+        .then((articles) => {
+            const filtered = keyword
+                ? articles.filter(a => a.titre.toLowerCase().includes(keyword))
+                : articles;
+            displayArticleOrderby(filtered);
+        })
+        .catch((error) => console.error("Erreur au chargement des articles: ", error));
+};
+
 const categories = () => {
     loadAll(url_categories)
         .then((categories) => {
@@ -141,6 +157,7 @@ document.addEventListener("click", (event) => {
     if (cible.matches("#btn-articles-categorie")) { event.preventDefault(); articleByCategorie(inputValue('#input-categorie')); }
     if (cible.matches("#btn-article")) { event.preventDefault(); article(inputValue('#input-article')); }
     if (cible.matches("#btn-articles-user")) { event.preventDefault(); articlesByUser(inputValue('#input-user')); }
+    if (cible.matches("#btn-articles-include")) { event.preventDefault(); articlesInclude(); }
 });
 
 categories();

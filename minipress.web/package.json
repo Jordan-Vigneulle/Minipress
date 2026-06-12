@@ -4,8 +4,10 @@
   "description": "Application de gestion de news avec modules ES6",
   "type": "module",
   "scripts": {
-    "check": "npx tsc --noEmit --watch",    
-    "build": "esbuild src/index.ts --bundle  --sourcemap --target=es2015 --outfile=dist/bundle.js"
+    "check": "npx tsc --noEmit --watch",
+    "build": "esbuild src/index.ts --bundle  --sourcemap --target=es2015 --outfile=dist/bundle.js",
+    "start": "npm run build && npx serve .",
+    "startD": "npm run build && start \"minipress-serve\" npx serve ."
   },
   "devDependencies": {
     "esbuild": "0.25.12",

@@ -5,11 +5,17 @@ import { loadAll } from "./modules/articleloader";
 import { url, url_articles, url_categories } from "./modules/config";
 import { displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories, displayArticle} from "./modules/ui";
 
+let order = "date-desc";
 const inputValue = (selector: string): number =>
     Number((document.querySelector(selector) as HTMLInputElement).value);
 
-const articlesOrderby = (order: string = "") => {
-    const query = order ? `?order=${order}` : "";
+const articlesOrderby = () => {
+    if(order != "date-desc") {
+        order = "date-desc";
+    }else{
+        order = "date-asc";
+    }
+    const query = order ? `?sort=${order}` : "";
     loadAll(url_articles, query)
         .then((articles) => {
             console.log(articles);

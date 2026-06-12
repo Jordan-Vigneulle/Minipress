@@ -32,7 +32,7 @@ const articleByCategorie = (id_categorie: number) => {
     loadAll<any>(url_categories, `/${id_categorie}/articles`)
         .then((data) => {
             console.log(data);
-            displayArticleByCategorie(data);   // ← l'objet complet, pas data.articles
+            displayArticleByCategorie(data);
         })
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
@@ -57,6 +57,29 @@ const articlesByUser = (id_user: number) => {
         })
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
+
+const selectTitreArticles = document.querySelector<HTMLSelectElement>('#select-categories');
+if (selectTitreArticles) {
+    loadAll<any[]>(url_articles)
+        .then((titres) => {
+            console.log(titres);
+            titres.forEach((titre: any) => {
+                const option = document.createElement('option');
+                option.value = String(titre.id);
+                option.textContent = titre.titre;
+                selectTitreArticles.appendChild(option);
+            }
+            )
+        })
+        .catch((error) => console.error("Erreur au chargement des catégories: ", error));
+
+    selectTitreArticles.addEventListener('change', () => {
+        const selectedTitre = Number(selectTitreArticles.value);
+        if (selectedTitre) {
+            article(selectedTitre);
+        }
+    });
+}
 
 document.addEventListener("click", (event) => {
     const cible = event.target as HTMLElement;

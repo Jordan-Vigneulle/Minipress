@@ -31,14 +31,16 @@ class UserService implements UserServiceInterface
     }
 
 
-    public function getArticlesByUser(int $user_id): array
-    {
+    public function getPublishedArticlesByUser(int $user_id): array {
         $user = Utilisateur::where('id', $user_id)->first();
         if (!$user) {
             throw new \Exception("Aucun utilisateur trouvé avec l'identifiant $user_id");
         }
 
-        $articles = Article::where('id_utilisateur', $user_id)->get();
+        $articles = Article::where([['id_utilisateur', $user_id], ['est_publie', 1]])->get();
+        if ($articles->isEmpty()) {
+            throw new \Exception("Aucun article trouvé pour l'utilisateur $user_id");
+        }
 
         return [
             'auteur' => $user->toArray(),

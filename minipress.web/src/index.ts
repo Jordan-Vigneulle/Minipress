@@ -5,11 +5,17 @@ import { loadAll } from "./modules/articleloader";
 import { url, url_articles, url_categories } from "./modules/config";
 import { displayArticle, displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories } from "./modules/ui";
 
+let order = "date-desc";
 const inputValue = (selector: string): number =>
     Number((document.querySelector(selector) as HTMLInputElement).value);
 
-const articlesOrderby = (order: string = "") => {
-    const query = order ? `?order=${order}` : "";
+const articlesOrderby = () => {
+    if(order != "date-desc") {
+        order = "date-desc";
+    }else{
+        order = "date-asc";
+    }
+    const query = order ? `?sort=${order}` : "";
     loadAll(url_articles, query)
         .then((articles) => {
             console.log(articles);
@@ -32,7 +38,7 @@ const articleByCategorie = (id_categorie: number) => {
     loadAll<any>(url_categories, `/${id_categorie}/articles`)
         .then((data) => {
             console.log(data);
-            displayArticleByCategorie(data);   // ← l'objet complet, pas data.articles
+            displayArticleByCategorie(data);   // l'objet complet, pas data.articles
         })
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };

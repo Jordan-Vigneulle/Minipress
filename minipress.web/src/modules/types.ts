@@ -3,7 +3,7 @@
 export interface Categorie {
     id: number;
     titre: string;
-    articles: Article[];
+
 }
 
 export interface Categories {
@@ -19,6 +19,14 @@ export interface Article {
     id_categorie: number;
     id_utilisateur: number;
     est_publie: boolean;
+}
+
+export interface User{
+    id: number;
+    email: string;
+    role: number;
+    chemin_acces_img: string;
+    pseudo: string | null;
 }
 
 

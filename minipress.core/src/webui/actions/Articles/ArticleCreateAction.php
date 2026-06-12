@@ -7,6 +7,7 @@ use minipress\appli\application_core\application\useCases\Categories\CategorieSe
 use minipress\appli\application_core\application\useCases\Users\AuthnService;
 use minipress\appli\application_core\application\useCases\Users\AuthzService;
 use minipress\appli\application_core\application\useCases\Users\AuthzServiceInterface;
+use minipress\appli\application_core\application\useCases\Users\UserService;
 use minipress\appli\webui\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -26,6 +27,12 @@ class ArticleCreateAction
 
         try {
             (new AuthzService())->checkAuthorization($user, AuthzServiceInterface::CREATE_ARTICLE);
+
+            if ($user->role === 1){
+                $service = new UserService();
+                $service->changeUserToAuthor($user->id);
+            }
+
         } catch (\RuntimeException $e) {
             throw new HttpForbiddenException($request, $e->getMessage());
         }

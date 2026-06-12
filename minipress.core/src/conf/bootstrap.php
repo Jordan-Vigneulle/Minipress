@@ -41,13 +41,11 @@ if (!empty($_SESSION['user'])) {
     $navItems[] = ['url' => 'Articles', 'label' => 'Gérer les articles'];
     $navItems[] = ['url' => 'Categories', 'label' => 'Voir les catégories'];
     $navItems[] = ['url' => 'ArticleCreate', 'label' => 'Créer un article'];
+    $navItems[] = ['url' => 'CategorieCreate', 'label' => 'Créer une catégorie'];
 
     $u = Utilisateur::find($_SESSION['user']);
     if ($u && $u->role == 100) { // Check pour admin
-        $navItems[] = ['url' => 'SigninPage', 'label' => 'Créer un utilisateur'];
         $navItems[] = ['url' => 'usersList', 'label' => 'Liste des utilisateurs'];
-        $navItems[] = ['url' => 'CategorieCreate', 'label' => 'Créer une catégorie'];
-
     }
 }
 $twig->getEnvironment()->addGlobal('nav_items', $navItems);

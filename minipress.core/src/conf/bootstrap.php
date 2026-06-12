@@ -24,6 +24,15 @@ $app->addRoutingMiddleware();
 $app->add(TwigMiddleware::create($app, $twig));
 $app = (require_once __DIR__ . '/../conf/routes.php')($app);
 
+// Nécessaire pour API
+$app->add(function ($request, $handler) {
+    $response = $handler->handle($request);
+    return $response
+        ->withHeader('Access-Control-Allow-Origin', '*')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+});
+
 // Flash
 $flash = new Messages();
 $twig->getEnvironment()->addGlobal('flash', $flash->getMessages());

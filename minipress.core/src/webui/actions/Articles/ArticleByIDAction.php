@@ -9,7 +9,7 @@ use minipress\appli\application_core\application\useCases\Users\AuthnService;
 use minipress\appli\application_core\application\useCases\Users\AuthzService;
 use minipress\appli\application_core\application\useCases\Users\AuthzServiceInterface;
 use minipress\appli\application_core\application\useCases\Users\UserService;
-use minipress\appli\application_core\domain\providers\AuthnProvider;
+use minipress\appli\webui\providers\AuthnProvider;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
@@ -43,7 +43,7 @@ class ArticleByIDAction
         } catch (\RuntimeException $e) {
             try {
                 $authz->checkAuthorization($user, AuthzServiceInterface::VIEW_OWN_ARTICLES);
-                $result = $userService->getPublishedArticlesByUser($user->id);
+                $result = $userService->getArticlesByUser($user->id);
                 $userArticleIds = array_column($result['articles'], 'id');
                 if (!in_array((int)$id, $userArticleIds)) {
                     throw new HttpUnauthorizedException($request, "Accès refusé : cet article ne vous appartient pas");
@@ -57,7 +57,8 @@ class ArticleByIDAction
         }
 
         try {
-            $date = new \DateTime($article['date'])->format('d/m/Y H:i');
+            $dateTime = new \DateTime($article['date']);
+            $date = $dateTime->format('d/m/Y H:i');
             $contenuHTML = $service->markdownToHTML($article['contenu']);
         } catch (\Exception $e) {
             throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());

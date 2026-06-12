@@ -45,4 +45,13 @@ class UserService implements UserServiceInterface
             'articles' => $articles->toArray(),
         ];
     }
+
+    public function changeUserToAuthor(int $user_id): void
+    {
+        $updatedUser = Utilisateur::where('id', $user_id)->update(['role' => 2]);
+
+        if (!$updatedUser) {
+            throw new \Exception("Aucun utilisateur trouvé avec l'identifiant $user_id");
+        }
+    }
 }

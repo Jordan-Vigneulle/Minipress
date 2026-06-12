@@ -26,7 +26,8 @@
                     <th>Rôle</th>
                     <td>
                         {% if user.role == 100 %} Administrateur
-                        {% elseif user.role == 1 %} Auteur
+                        {% elseif user.role == 1 %} Utilisateur
+                        {% elseif user.role == 2 %} Auteur
                         {% else %} Inconnu {% endif %}
                     </td>
                 </tr>

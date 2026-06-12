@@ -14,9 +14,10 @@ class CategorieStoreAction
 {
     public function __invoke(Request $request, Response $response, array $args): Response {
 
+        
+        $flash = new \Slim\Flash\Messages();
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $data = $request->getParsedBody() ?? [];
-
         $titre = $data['titre'];
 
         try {
@@ -27,12 +28,10 @@ class CategorieStoreAction
             }
 
         } catch (\Exception $e) {
-            $flash = new \Slim\Flash\Messages();
             $flash->addMessage('error', 'Une erreur est survenue, veuillez réessayer.');
             return $response->withHeader('Location', $routeParser->urlFor('CategorieCreate'))->withStatus(302);
         }
 
-        $flash = new \Slim\Flash\Messages();
         $flash->addMessage('success', 'La catégorie a bien été créée');
         return $response->withHeader('Location', $routeParser->urlFor('CategorieCreate'))->withStatus(302);  
     }

@@ -16,7 +16,7 @@
             <div class="error-message">{{ error }}</div>
         {% endif %}
 
-        <form action="/Signin" method="post" class="auth-form">
+        <form action="{{ url_for('Signin') }}" method="post" class="auth-form">
             <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
             <div class="form-group">
                 <label for="email">Identifiant (@mail)</label>

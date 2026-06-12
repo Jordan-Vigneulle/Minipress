@@ -24,6 +24,8 @@
                         Administrateur
                     {% elseif u.role == 1 %}
                         Utilisateur
+                    {% elseif u.role == 2 %}
+                        Auteur
                     {% else %}
                         Inconnu
                     {% endif %}

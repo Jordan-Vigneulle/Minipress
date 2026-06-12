@@ -48,6 +48,23 @@ class UserService implements UserServiceInterface
         ];
     }
 
+    public function getArticlesByUser(int $user_id): array {
+        $user = Utilisateur::where('id', $user_id)->first();
+        if (!$user) {
+            throw new \Exception("Aucun utilisateur trouvé avec l'identifiant $user_id");
+        }
+
+        $articles = Article::where('id_utilisateur', $user_id)->get();
+        if ($articles->isEmpty()) {
+            throw new \Exception("Aucun article trouvé pour l'utilisateur $user_id");
+        }
+
+        return [
+            'auteur' => $user->toArray(),
+            'articles' => $articles->toArray(),
+        ];
+    }
+
     public function changeUserToAuthor(int $user_id): void
     {
         $updatedUser = Utilisateur::where('id', $user_id)->update(['role' => 2]);

@@ -47,6 +47,7 @@ const article = (id: number) => {
 };
 
 const articlesByUser = (id_user: number) => {
+    console.log('articlesByUser appelé avec id =', id_user);
     if (!id_user) return;
     loadAll(url, `/auteurs/${id_user}/articles`)
         .then((articles) => {
@@ -57,10 +58,35 @@ const articlesByUser = (id_user: number) => {
 };
 
 document.addEventListener("click", (event) => {
-    const bouton = event.target as HTMLElement;
-    if (bouton.matches("#btn-categories")) categories();
-    if (bouton.matches("#btn-articles-orderby")) articlesOrderby();
-    if (bouton.matches("#btn-articles-categorie")) articleByCategorie(inputValue('#input-categorie'));
-    if (bouton.matches("#btn-article")) article(inputValue('#input-article'));
-    if (bouton.matches("#btn-articles-user")) articlesByUser(inputValue('#input-user'));
+    const cible = event.target as HTMLElement;
+
+    const cat = cible.closest('.categorie') as HTMLElement | null;
+    if (cat) {
+        event.preventDefault();
+        articleByCategorie(Number(cat.dataset.id));
+        return;
+    }
+
+    const auteur = cible.closest('.auteur') as HTMLElement | null;
+    if (auteur) {
+        event.preventDefault();
+        articlesByUser(Number(auteur.dataset.id));
+        return;
+    }
+
+    const carte = cible.closest('.card-article') as HTMLElement | null;
+    if (carte) {
+        article(Number(carte.dataset.id));
+        return;
+    }
+
+    // boutons de la barre de test
+    if (cible.matches("#btn-categories")) { event.preventDefault(); categories(); }
+    if (cible.matches("#btn-articles-orderby")) { event.preventDefault(); articlesOrderby(); }
+    if (cible.matches("#btn-articles-categorie")) { event.preventDefault(); articleByCategorie(inputValue('#input-categorie')); }
+    if (cible.matches("#btn-article")) { event.preventDefault(); article(inputValue('#input-article')); }
+    if (cible.matches("#btn-articles-user")) { event.preventDefault(); articlesByUser(inputValue('#input-user')); }
 });
+
+categories();
+//articlesOrderby();

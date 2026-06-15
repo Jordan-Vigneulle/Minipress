@@ -23,7 +23,7 @@ export function displayArticle(article: any) {
 
 export function displayArticleOrderby(articles: any) {
     const templateArticles = Handlebars.compile(document.querySelector<HTMLScriptElement>('#articleOrderbyTemplate')!.innerHTML);
-    console.log(articles);
+
     const articlesAvecResume = articles.map((a: any) => ({
         ...a,
         resume: markdownToHtml(a.resume, {}),
@@ -35,7 +35,7 @@ export function displayArticleOrderby(articles: any) {
 
 export function displayArticleByCategorie(data: any) {
     const template = Handlebars.compile(document.querySelector<HTMLScriptElement>('#articleByCategorieTemplate')!.innerHTML);
-     console.log(data);
+
     const articlesAvecResume = data.articles.map((a: any) => ({
         ...a,
         resume: markdownToHtml(a.resume, {}),
@@ -47,7 +47,7 @@ export function displayArticleByCategorie(data: any) {
 
 export function displayArticleByUser(data: any) {
     const template = Handlebars.compile(document.querySelector<HTMLScriptElement>('#articleByUserTemplate')!.innerHTML);
-console.log(data);
+
     const articlesAvecResume = data.articles.map((a: any) => ({
         ...a,
         resume: markdownToHtml(a.resume, {}),

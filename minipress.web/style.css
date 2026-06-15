@@ -946,3 +946,146 @@ footer p {
   background: var(--violet-fonce);
   transform: none;
 }
+
+/* ---------- Navigation / barre de filtres ---------- */
+nav#test-bar {
+  background: var(--blanc);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--ombre-carte);
+  padding: 16px 24px;
+  max-width: 1100px;
+  margin: 24px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-row--end {
+  justify-content: flex-end;
+}
+
+.filter-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--texte-doux);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.filter-sep {
+  height: 1px;
+  background: var(--lavande-2);
+}
+
+.filter-group {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--lavande-2);
+  border-radius: 999px;
+  background: var(--lavande);
+  overflow: hidden;
+}
+
+.filter-group input,
+.filter-group select {
+  border: none;
+  background: transparent;
+  padding: 8px 14px;
+  font-size: 0.88rem;
+  color: var(--texte);
+  font-family: inherit;
+  outline: none;
+  min-width: 140px;
+  max-width: unset;
+  margin: 0;
+  box-shadow: none;
+  border-radius: 0;
+  width: auto;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  box-shadow: none;
+}
+
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--blanc);
+  color: var(--texte-doux);
+  border: 1.5px solid var(--lavande-2);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.filter-btn:hover {
+  background: var(--violet);
+  color: var(--blanc);
+  border-color: var(--violet);
+  transform: translateY(-1px);
+}
+
+.filter-btn.primary {
+  background: var(--violet);
+  color: var(--blanc);
+  border-color: var(--violet);
+  border-radius: 0 999px 999px 0;
+  padding: 8px 16px;
+}
+
+.filter-btn.primary:hover {
+  background: var(--violet-fonce);
+  border-color: var(--violet-fonce);
+  transform: none;
+}
+
+.filter-group .filter-btn.primary {
+  margin: 0;
+}
+
+.filter-btn.danger {
+  color: var(--rouge);
+  border-color: var(--rouge-pale);
+  background: var(--rouge-pale);
+}
+
+.filter-btn.danger:hover {
+  background: var(--rouge);
+  color: var(--blanc);
+  border-color: var(--rouge);
+  transform: none;
+}
+
+/* ---------- Responsive nav ---------- */
+@media (max-width: 720px) {
+  nav#test-bar {
+    margin: 16px 16px 0;
+    padding: 14px 16px;
+  }
+
+  .filter-label {
+    min-width: 80px;
+    font-size: 0.72rem;
+  }
+
+  .filter-group input,
+  .filter-group select {
+    min-width: 110px;
+  }
+}

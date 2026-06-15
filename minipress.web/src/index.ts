@@ -3,9 +3,9 @@
 import { quitterModeArticle } from "./modules/modearticle";
 import { loadAll } from "./modules/articleloader";
 import { url, url_articles, url_categories } from "./modules/config";
-import { displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories, displayArticle} from "./modules/ui";
+import { displayArticle, displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories } from "./modules/ui";
 
-let order = "date-asc";
+let order = "date-desc";
 
 const inputText = (selector: string): string =>
     (document.querySelector(selector) as HTMLInputElement).value.trim().toLowerCase();
@@ -23,14 +23,10 @@ const clearAll = () => {
 const articlesOrderby = (tri: string) => {
     clearAll();
     order = tri;
-    console.log("tri demandé :", tri);
     document.querySelectorAll('#btn-date-asc, #btn-date-desc').forEach(b => b.classList.remove('active'));
     document.querySelector(`#btn-date-${tri === 'date-asc' ? 'asc' : 'desc'}`)!.classList.add('active');
     loadAll(url_articles, `?sort=${order}`)
-        .then((articles) => {
-            console.log("articles reçus :", articles);
-            displayArticleOrderby(articles);
-        })
+        .then((articles) => displayArticleOrderby(articles))
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
 
@@ -123,9 +119,7 @@ if (selectUsers) {
 
 document.addEventListener("click", (event) => {
     const cible = event.target as HTMLElement;
-    console.log("cible :", cible);
-    console.log("closest .categorie :", cible.closest('.categorie'));
-    console.log("closest .card-article :", cible.closest('.card-article'));
+
     const cat = cible.closest('.categorie') as HTMLElement | null;
     if (cat) {
         event.preventDefault();
@@ -141,20 +135,18 @@ document.addEventListener("click", (event) => {
     }
 
     const carte = cible.closest('.card-article') as HTMLElement | null;
-    if (carte) {
+    if (carte && !cible.closest('#test-bar')) {
         article(Number(carte.dataset.id));
         return;
     }
-    console.log("carte trouvée :", carte);
-    console.log("cat trouvée :", cat);
-    console.log("auteur trouvé :", auteur);
+
     if (cible.closest("#btn-date-asc")) { event.preventDefault(); articlesOrderby('date-asc'); return; }
     if (cible.closest("#btn-date-desc")) { event.preventDefault(); articlesOrderby('date-desc'); return; }
     if (cible.closest("#btn-article")) { event.preventDefault(); article(selectValue('#select-categories')); return; }
     if (cible.closest("#btn-articles-user")) { event.preventDefault(); articlesByUser(selectValue('#select-users')); return; }
     if (cible.closest("#btn-articles-include-titre")) { event.preventDefault(); articlesIncludeTitle(); return; }
     if (cible.closest("#btn-articles-include-resume")) { event.preventDefault(); articlesIncludeResume(); return; }
-    if (cible.closest("#btn-retour")) { event.preventDefault(); quitterModeArticle(); return; }
+    if (cible.closest("#btn-retour")) { event.preventDefault(); quitterModeArticle(); articlesOrderby('date-desc');return; }
     if (cible.closest("#btn-clear")) {
         event.preventDefault();
         clearAll();
@@ -166,4 +158,6 @@ document.addEventListener("click", (event) => {
     }
 });
 
+// Chargement initial
 categories();
+articlesOrderby('date-desc');

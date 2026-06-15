@@ -15,7 +15,8 @@ class ArticleService implements ArticleServiceInterface
 
     public function getPublishedArticles(?string $sort = null): array
     {
-        $query = Article::where('est_publie', 1);
+        $query = Article::where('est_publie', 1)
+            ->with('utilisateur:id,pseudo');
 
         switch ($sort) {
             case 'date-asc':

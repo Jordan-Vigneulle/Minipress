@@ -30,18 +30,18 @@ const articlesOrderby = (tri: string) => {
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
 
-const articlesIncludeTitle = () => {
-    clearAll();
-    const keyword = inputText('#input-keyword-titre');
-    loadAll<any[]>(url_articles)
-        .then((articles) => {
-            const filtered = keyword
-                ? articles.filter(a => a.titre.toLowerCase().includes(keyword))
-                : articles;
-            displayArticleOrderby(filtered);
-        })
-        .catch((error) => console.error("Erreur au chargement des articles: ", error));
-};
+// const articlesIncludeTitle = () => {
+//     clearAll();
+//     const keyword = inputText('#input-keyword-titre');
+//     loadAll<any[]>(url_articles)
+//         .then((articles) => {
+//             const filtered = keyword
+//                 ? articles.filter(a => a.titre.toLowerCase().includes(keyword))
+//                 : articles;
+//             displayArticleOrderby(filtered);
+//         })
+//         .catch((error) => console.error("Erreur au chargement des articles: ", error));
+// }; Fonctionnalité 7
 
 const articlesIncludeResume = () => {
     clearAll();
@@ -144,7 +144,6 @@ document.addEventListener("click", (event) => {
     if (cible.closest("#btn-date-desc")) { event.preventDefault(); articlesOrderby('date-desc'); return; }
     if (cible.closest("#btn-article")) { event.preventDefault(); article(selectValue('#select-categories')); return; }
     if (cible.closest("#btn-articles-user")) { event.preventDefault(); articlesByUser(selectValue('#select-users')); return; }
-    if (cible.closest("#btn-articles-include-titre")) { event.preventDefault(); articlesIncludeTitle(); return; }
     if (cible.closest("#btn-articles-include-resume")) { event.preventDefault(); articlesIncludeResume(); return; }
     if (cible.closest("#btn-retour")) { event.preventDefault(); quitterModeArticle(); articlesOrderby('date-desc');return; }
     if (cible.closest("#btn-clear")) {

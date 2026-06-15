@@ -1115,3 +1115,9 @@ nav#test-bar {
     color: var(--blanc);
     border-color: var(--violet);
 }
+
+.filter-btn.active {
+    background: var(--violet);
+    color: var(--blanc);
+    border-color: var(--violet);
+}

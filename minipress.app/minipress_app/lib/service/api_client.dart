@@ -16,7 +16,6 @@ class ApiClient {
   // Tous les articles
   Future<List<Article>> getArticles() async {
     final response = await _dio.get('/articles');
-    print('Aled');
     return (response.data as List)
         .map((json) => Article.fromJson(json))
         .toList();
@@ -46,7 +45,6 @@ class ApiClient {
 
   Future<List<Categorie>> getCategories() async {
     final response = await _dio.get('/categories');
-    print('Aled2');
     return (response.data as List)
         .map((json) => Categorie.fromJson(json))
         .toList();

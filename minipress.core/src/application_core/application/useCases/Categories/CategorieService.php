@@ -25,7 +25,7 @@ class CategorieService implements CategorieServiceInterface {
             throw new \Exception("Aucune catégorie trouvée avec l'identifiant $categ_id");
         }
 
-        $articles = Article::where([['id_categorie', $categ_id], ['est_publie', 1]])->get();
+        $articles = Article::where([['id_categorie', $categ_id], ['est_publie', 1]])->with('utilisateur:id,pseudo')->get();
         if ($articles->isEmpty()) {
             throw new \Exception("Aucun article trouvé pour la catégorie $categ_id");
         }

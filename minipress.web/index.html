@@ -16,45 +16,69 @@
 
     <!-- Actions : tout en haut, sous le header -->
     <nav id="test-bar">
-        <a href="#" id="btn-articles-orderby">Articles triés</a>
+        <div class="filter-row">
+            <span class="filter-label"><i class="ti ti-sort-ascending-2" aria-hidden="true"></i> Tri</span>
+            <a href="#" id="btn-articles-orderby" class="filter-btn">
+                <i class="ti ti-calendar-up" aria-hidden="true"></i>
+                Date croissante
+            </a>
+        </div>
 
-        <!-- <span class="test-group">
-            <input type="number" id="input-categorie" placeholder="N° catégorie" min="1">
-            <a href="#" id="btn-articles-categorie">Articles par catégorie</a>
-        </span> -->
+        <div class="filter-sep"></div>
 
-        <span class="test-group">
-            <select id="select-categories">
-                <option value="">-- Choisir un article --</option>
-            </select>
-            <a href="#" id="btn-article">Voir l'article</a>
-        </span>
+        <div class="filter-row">
+            <span class="filter-label"><i class="ti ti-tag" aria-hidden="true"></i> Article</span>
+            <div class="filter-group">
+                <select id="select-categories" aria-label="Choisir un article">
+                    <option value="">— Choisir un article —</option>
+                </select>
+                <a href="#" id="btn-article" class="filter-btn primary">Voir</a>
+            </div>
+        </div>
 
-        <span class="test-group">
-            <!-- <input type="number" id="input-user" placeholder="N° user" min="1"> -->
-            <a href="#" id="btn-articles-user">Articles par user</a>
-            <select id="select-users">
-                <option value="">-- Choisir un auteur --</option>
-            </select>
-        </span>
+        <div class="filter-sep"></div>
 
-        <a href="#" id="btn-clear">Vider</a>
+        <div class="filter-row">
+            <span class="filter-label"><i class="ti ti-user" aria-hidden="true"></i> Auteur</span>
+            <div class="filter-group">
+                <select id="select-users" aria-label="Choisir un auteur">
+                    <option value="">— Choisir un auteur —</option>
+                </select>
+                <a href="#" id="btn-articles-user" class="filter-btn primary">Voir</a>
+            </div>
+        </div>
 
-    <span class="test-group">
-        <input type="text" id="input-keyword-titre" placeholder="Mot-clé titre">
-        <a href="#" id="btn-articles-include-titre">Articles avec mot-clé dans le titre</a>
-    </span>
+        <div class="filter-sep"></div>
 
-    <span class="test-group">
-        <input type="text" id="input-keyword-resume" placeholder="Mot-clé résumé">
-        <a href="#" id="btn-articles-include-resume">Articles avec mot-clé dans le résumé</a>
-    </span>
+        <div class="filter-row">
+            <span class="filter-label"><i class="ti ti-search" aria-hidden="true"></i> Recherche</span>
+            <div class="filter-group">
+                <input type="text" id="input-keyword-titre" placeholder="Mot-clé dans le titre"
+                    aria-label="Mot-clé titre">
+                <a href="#" id="btn-articles-include-titre" class="filter-btn primary">Chercher</a>
+            </div>
+            <div class="filter-group">
+                <input type="text" id="input-keyword-resume" placeholder="Mot-clé dans le résumé"
+                    aria-label="Mot-clé résumé">
+                <a href="#" id="btn-articles-include-resume" class="filter-btn primary">Chercher</a>
+            </div>
+        </div>
 
+        <div class="filter-sep"></div>
+
+        <div class="filter-row filter-row--end">
+            <a href="#" id="btn-clear" class="filter-btn danger">
+                <i class="ti ti-trash" aria-hidden="true"></i>
+                Vider les filtres
+            </a>
+        </div>
     </nav>
 
-    <!-- Résultats : tout en dessous -->
+    <!-- ... nav#test-bar ... -->
+
     <main>
         <button id="btn-retour" style="display:none;">Retour</button>
+        <h2>Catégories</h2>
         <nav id="la_categorie"></nav>
         <section id="les_articles_orderby"></section>
         <section id="les_articles_par_categorie"></section>

@@ -3,9 +3,9 @@
 import { quitterModeArticle } from "./modules/modearticle";
 import { loadAll } from "./modules/articleloader";
 import { url, url_articles, url_categories } from "./modules/config";
-import { displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories, displayArticle} from "./modules/ui";
+import { displayArticle, displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories } from "./modules/ui";
 
-let order = "date-asc";
+let order = "date-desc";
 
 const inputText = (selector: string): string =>
     (document.querySelector(selector) as HTMLInputElement).value.trim().toLowerCase();
@@ -23,29 +23,25 @@ const clearAll = () => {
 const articlesOrderby = (tri: string) => {
     clearAll();
     order = tri;
-    console.log("tri demandé :", tri);
     document.querySelectorAll('#btn-date-asc, #btn-date-desc').forEach(b => b.classList.remove('active'));
     document.querySelector(`#btn-date-${tri === 'date-asc' ? 'asc' : 'desc'}`)!.classList.add('active');
     loadAll(url_articles, `?sort=${order}`)
-        .then((articles) => {
-            console.log("articles reçus :", articles);
-            displayArticleOrderby(articles);
-        })
+        .then((articles) => displayArticleOrderby(articles))
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
 
-const articlesIncludeTitle = () => {
-    clearAll();
-    const keyword = inputText('#input-keyword-titre');
-    loadAll<any[]>(url_articles)
-        .then((articles) => {
-            const filtered = keyword
-                ? articles.filter(a => a.titre.toLowerCase().includes(keyword))
-                : articles;
-            displayArticleOrderby(filtered);
-        })
-        .catch((error) => console.error("Erreur au chargement des articles: ", error));
-};
+// const articlesIncludeTitle = () => {
+//     clearAll();
+//     const keyword = inputText('#input-keyword-titre');
+//     loadAll<any[]>(url_articles)
+//         .then((articles) => {
+//             const filtered = keyword
+//                 ? articles.filter(a => a.titre.toLowerCase().includes(keyword))
+//                 : articles;
+//             displayArticleOrderby(filtered);
+//         })
+//         .catch((error) => console.error("Erreur au chargement des articles: ", error));
+// }; Fonctionnalité 7
 
 const articlesIncludeResume = () => {
     clearAll();
@@ -152,7 +148,6 @@ document.addEventListener("click", (event) => {
     if (cible.closest("#btn-date-desc")) { event.preventDefault(); articlesOrderby('date-desc'); return; }
     if (cible.closest("#btn-article")) { event.preventDefault(); article(selectValue('#select-categories')); return; }
     if (cible.closest("#btn-articles-user")) { event.preventDefault(); articlesByUser(selectValue('#select-users')); return; }
-    if (cible.closest("#btn-articles-include-titre")) { event.preventDefault(); articlesIncludeTitle(); return; }
     if (cible.closest("#btn-articles-include-resume")) { event.preventDefault(); articlesIncludeResume(); return; }
     if (cible.closest("#btn-retour")) { event.preventDefault(); quitterModeArticle(); return; }
     if (cible.closest("#btn-clear")) {

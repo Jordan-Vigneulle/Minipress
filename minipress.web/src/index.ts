@@ -5,32 +5,33 @@ import { loadAll } from "./modules/articleloader";
 import { url, url_articles, url_categories } from "./modules/config";
 import { displayArticle, displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories } from "./modules/ui";
 
-let order = "date-desc";
-const inputValue = (selector: string): number =>
-    Number((document.querySelector(selector) as HTMLInputElement).value);
-
-const articlesOrderby = () => {
-    if(order != "date-desc") {
-        order = "date-desc";
-    }else{
-        order = "date-asc";
-    }
-    const query = order ? `?sort=${order}` : "";
-    loadAll(url_articles, query)
-        .then((articles) => {
-            console.log(articles);
-            displayArticleOrderby(articles);
-        })
-        .catch((error) => console.error("Erreur au chargement des articles: ", error));
-};
+let order = "date-asc";
 
 const inputText = (selector: string): string =>
     (document.querySelector(selector) as HTMLInputElement).value.trim().toLowerCase();
 
-const articlesIncludeTitle = (order: string = "") => {
-    const keyword = inputText('#input-keyword');
-    const query = order ? `?order=${order}` : "";
-    loadAll<any[]>(url_articles, query)
+const selectValue = (selector: string): number =>
+    Number((document.querySelector(selector) as HTMLSelectElement).value);
+
+const clearAll = () => {
+    document.querySelector('#les_articles_orderby')!.innerHTML = "";
+    document.querySelector('#les_articles_par_categorie')!.innerHTML = "";
+    document.querySelector('#les_articles_par_user')!.innerHTML = "";
+    document.querySelector('#un_article')!.innerHTML = "";
+};
+
+const articlesOrderby = () => {
+    clearAll();
+    order = order === "date-asc" ? "date-desc" : "date-asc";
+    loadAll(url_articles, `?sort=${order}`)
+        .then((articles) => displayArticleOrderby(articles))
+        .catch((error) => console.error("Erreur au chargement des articles: ", error));
+};
+
+const articlesIncludeTitle = () => {
+    clearAll();
+    const keyword = inputText('#input-keyword-titre');
+    loadAll<any[]>(url_articles)
         .then((articles) => {
             const filtered = keyword
                 ? articles.filter(a => a.titre.toLowerCase().includes(keyword))
@@ -40,16 +41,17 @@ const articlesIncludeTitle = (order: string = "") => {
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
 
-const articlesIncludeResume = (order: string = "") => {
+const articlesIncludeResume = () => {
+    clearAll();
     const keyword = inputText('#input-keyword-resume');
-    const query = order ? `?order=${order}` : "";
-    loadAll<any[]>(url_articles, query)
+    loadAll<any[]>(url_articles)
         .then((articles) => {
             const filtered = keyword
                 ? articles.filter(a =>
-                a.titre.toLowerCase().includes(keyword) ||
-                a.resume.toLowerCase().includes(keyword)
-                ): articles;
+                    a.titre.toLowerCase().includes(keyword) ||
+                    a.resume.toLowerCase().includes(keyword)
+                )
+                : articles;
             displayArticleOrderby(filtered);
         })
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
@@ -57,41 +59,31 @@ const articlesIncludeResume = (order: string = "") => {
 
 const categories = () => {
     loadAll(url_categories)
-        .then((categories) => {
-            console.log(categories);
-            displayCategories(categories);
-        })
+        .then((categories) => displayCategories(categories))
         .catch((error) => console.error("Erreur au chargement des catégories: ", error));
 };
 
 const articleByCategorie = (id_categorie: number) => {
     if (!id_categorie) return;
+    clearAll();
     loadAll<any>(url_categories, `/${id_categorie}/articles`)
-        .then((data) => {
-            console.log(data);
-            displayArticleByCategorie(data);
-        })
+        .then((data) => displayArticleByCategorie(data))
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
 
 const article = (id: number) => {
     if (!id) return;
+    clearAll();
     loadAll(url_articles, `/${id}`)
-        .then((article) => {
-            console.log(article);
-            displayArticle(article);
-        })
+        .then((article) => displayArticle(article))
         .catch((error) => console.error("Erreur au chargement de l'article: ", error));
 };
 
 const articlesByUser = (id_user: number) => {
-    console.log('articlesByUser appelé avec id =', id_user);
     if (!id_user) return;
+    clearAll();
     loadAll(url, `/auteurs/${id_user}/articles`)
-        .then((articles) => {
-            console.log(articles);
-            displayArticleByUser(articles);
-        })
+        .then((articles) => displayArticleByUser(articles))
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
 
@@ -99,52 +91,33 @@ const selectTitreArticles = document.querySelector<HTMLSelectElement>('#select-c
 if (selectTitreArticles) {
     loadAll<any[]>(url_articles)
         .then((titres) => {
-            console.log(titres);
             titres.forEach((titre: any) => {
                 const option = document.createElement('option');
                 option.value = String(titre.id);
                 option.textContent = titre.titre;
                 selectTitreArticles.appendChild(option);
-            }
-            )
+            });
         })
-        .catch((error) => console.error("Erreur au chargement des catégories: ", error));
-
-    selectTitreArticles.addEventListener('change', () => {
-        const selectedTitre = Number(selectTitreArticles.value);
-        if (selectedTitre) {
-            article(selectedTitre);
-        }
-    });
+        .catch((error) => console.error("Erreur au chargement des articles: ", error));
 }
 
 const selectUsers = document.querySelector<HTMLSelectElement>('#select-users');
 if (selectUsers) {
     loadAll<any[]>(url + '/auteurs')
         .then((users) => {
-            console.log(users);
             users.forEach((user: any) => {
                 const option = document.createElement('option');
                 option.value = String(user.id);
                 option.textContent = user.pseudo;
                 selectUsers.appendChild(option);
-            }
-            )
+            });
         })
         .catch((error) => console.error("Erreur au chargement des utilisateurs: ", error));
-        
-    selectUsers.addEventListener('change', () => {
-        const selectedUser = Number(selectUsers.value);
-        if (selectedUser) {
-            articlesByUser(selectedUser);
-        }
-    });
 }
-
 
 document.addEventListener("click", (event) => {
     const cible = event.target as HTMLElement;
-
+    console.log("click sur :", cible.id || cible.className || cible.tagName);
     const cat = cible.closest('.categorie') as HTMLElement | null;
     if (cat) {
         event.preventDefault();
@@ -165,16 +138,21 @@ document.addEventListener("click", (event) => {
         return;
     }
 
-    // boutons de la barre de test
-    if (cible.matches("#btn-retour")) { event.preventDefault(); quitterModeArticle(); }
-    if (cible.matches("#btn-categories")) { event.preventDefault(); categories(); }
-    if (cible.matches("#btn-articles-orderby")) { event.preventDefault(); articlesOrderby(); }
-    if (cible.matches("#btn-articles-categorie")) { event.preventDefault(); articleByCategorie(inputValue('#input-categorie')); }
-    if (cible.matches("#btn-article")) { event.preventDefault(); article(inputValue('#input-article')); }
-    if (cible.matches("#btn-articles-user")) { event.preventDefault(); articlesByUser(inputValue('#input-user')); }
-    if (cible.matches("#btn-articles-include-titre")) { event.preventDefault(); articlesIncludeTitle(); }
-    if (cible.matches("#btn-articles-include-resume")) { event.preventDefault(); articlesIncludeResume()}
+    if (cible.closest("#btn-articles-orderby")) { event.preventDefault(); articlesOrderby(); return; }
+    if (cible.closest("#btn-article")) { event.preventDefault(); article(selectValue('#select-categories')); return; }
+    if (cible.closest("#btn-articles-user")) { event.preventDefault(); articlesByUser(selectValue('#select-users')); return; }
+    if (cible.closest("#btn-articles-include-titre")) { event.preventDefault(); articlesIncludeTitle(); return; }
+    if (cible.closest("#btn-articles-include-resume")) { event.preventDefault(); articlesIncludeResume(); return; }
+    if (cible.closest("#btn-retour")) { event.preventDefault(); quitterModeArticle(); return; }
+    if (cible.closest("#btn-clear")) {
+        event.preventDefault();
+        clearAll();
+        (document.querySelector('#select-categories') as HTMLSelectElement).value = "";
+        (document.querySelector('#select-users') as HTMLSelectElement).value = "";
+        (document.querySelector('#input-keyword-titre') as HTMLInputElement).value = "";
+        (document.querySelector('#input-keyword-resume') as HTMLInputElement).value = "";
+        return;
+    }
 });
 
 categories();
-//articlesOrderby();

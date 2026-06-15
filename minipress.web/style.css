@@ -1089,3 +1089,29 @@ nav#test-bar {
     min-width: 110px;
   }
 }
+
+
+#la_categorie {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+}
+
+#la_categorie a.categorie {
+    background: var(--blanc);
+    color: var(--texte-doux);
+    border: 1.5px solid var(--lavande-2);
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+#la_categorie a.categorie:hover {
+    background: var(--violet);
+    color: var(--blanc);
+    border-color: var(--violet);
+}

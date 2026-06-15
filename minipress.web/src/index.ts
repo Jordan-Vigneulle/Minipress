@@ -1,9 +1,9 @@
 'use strict';
 
-import { quitterModeArticle } from "./modules/modeArticle";
+import { quitterModeArticle } from "./modules/modearticle";
 import { loadAll } from "./modules/articleloader";
 import { url, url_articles, url_categories } from "./modules/config";
-import { displayArticle, displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories } from "./modules/ui";
+import { displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories, displayArticle} from "./modules/ui";
 
 const inputValue = (selector: string): number =>
     Number((document.querySelector(selector) as HTMLInputElement).value);

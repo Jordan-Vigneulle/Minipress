@@ -144,7 +144,7 @@ document.addEventListener("click", (event) => {
     if (cible.closest("#btn-article")) { event.preventDefault(); article(selectValue('#select-categories')); return; }
     if (cible.closest("#btn-articles-user")) { event.preventDefault(); articlesByUser(selectValue('#select-users')); return; }
     if (cible.closest("#btn-articles-include-resume")) { event.preventDefault(); articlesIncludeResume(); return; }
-    if (cible.closest("#btn-retour")) { event.preventDefault(); quitterModeArticle(); return; }
+    if (cible.closest("#btn-retour")) { event.preventDefault(); quitterModeArticle(); articlesOrderby('date-desc'); return; }
     if (cible.closest("#btn-clear")) {
         event.preventDefault();
         clearAll();
@@ -157,6 +157,6 @@ document.addEventListener("click", (event) => {
 });
 
 categories();
-//articlesOrderby();
+articlesOrderby('date-desc');
 
 

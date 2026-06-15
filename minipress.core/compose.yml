@@ -9,7 +9,7 @@ services:
     image: operrin/php:8.5.4
     command: sh -c "cd /var/www/src && php -S 0.0.0.0:80 -t /var/www/html /var/www/html/index.php"    
     ports:
-      - "4490:80"
+      - "4490:80" #29029:80 sur Docketu
     volumes:
       - ./public:/var/www/html
       - ./src:/var/www/src
@@ -24,7 +24,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "6034:3306"
+      - "6034:3306" #29031:3306 sur Docketu
     networks:
       minipress.net:
         aliases:
@@ -37,7 +37,7 @@ services:
     image: phpmyadmin:5.2
     environment:
       PMA_ARBITRARY: 1
-    ports:
-      - "9001:80"
+    ports: 
+      - "9001:80" #29030:80 sur Docketu
     networks:
       - back.net

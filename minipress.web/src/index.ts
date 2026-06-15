@@ -20,11 +20,17 @@ const clearAll = () => {
     document.querySelector('#un_article')!.innerHTML = "";
 };
 
-const articlesOrderby = () => {
+const articlesOrderby = (tri: string) => {
     clearAll();
-    order = order === "date-asc" ? "date-desc" : "date-asc";
+    order = tri;
+    console.log("tri demandé :", tri);
+    document.querySelectorAll('#btn-date-asc, #btn-date-desc').forEach(b => b.classList.remove('active'));
+    document.querySelector(`#btn-date-${tri === 'date-asc' ? 'asc' : 'desc'}`)!.classList.add('active');
     loadAll(url_articles, `?sort=${order}`)
-        .then((articles) => displayArticleOrderby(articles))
+        .then((articles) => {
+            console.log("articles reçus :", articles);
+            displayArticleOrderby(articles);
+        })
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
 
@@ -117,7 +123,9 @@ if (selectUsers) {
 
 document.addEventListener("click", (event) => {
     const cible = event.target as HTMLElement;
-    console.log("click sur :", cible.id || cible.className || cible.tagName);
+    console.log("cible :", cible);
+    console.log("closest .categorie :", cible.closest('.categorie'));
+    console.log("closest .card-article :", cible.closest('.card-article'));
     const cat = cible.closest('.categorie') as HTMLElement | null;
     if (cat) {
         event.preventDefault();
@@ -137,8 +145,11 @@ document.addEventListener("click", (event) => {
         article(Number(carte.dataset.id));
         return;
     }
-
-    if (cible.closest("#btn-articles-orderby")) { event.preventDefault(); articlesOrderby(); return; }
+    console.log("carte trouvée :", carte);
+    console.log("cat trouvée :", cat);
+    console.log("auteur trouvé :", auteur);
+    if (cible.closest("#btn-date-asc")) { event.preventDefault(); articlesOrderby('date-asc'); return; }
+    if (cible.closest("#btn-date-desc")) { event.preventDefault(); articlesOrderby('date-desc'); return; }
     if (cible.closest("#btn-article")) { event.preventDefault(); article(selectValue('#select-categories')); return; }
     if (cible.closest("#btn-articles-user")) { event.preventDefault(); articlesByUser(selectValue('#select-users')); return; }
     if (cible.closest("#btn-articles-include-titre")) { event.preventDefault(); articlesIncludeTitle(); return; }

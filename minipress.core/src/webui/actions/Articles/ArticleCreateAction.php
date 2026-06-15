@@ -40,7 +40,7 @@ class ArticleCreateAction
         $twig = Twig::fromRequest($request);
         return $twig->render($response, 'Articles/ArticleCreateView.twig', [
             'csrf_token' => $_SESSION['csrf_article'] = bin2hex(random_bytes(32)),
-            'categories' => (new CategorieService())->getCategories(),
+            'categories' => (new CategorieService())->getCategoriesWithPublishedArticles(),
         ]);
     }
 }

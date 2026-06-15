@@ -9,7 +9,11 @@ use minipress\appli\application_core\domain\entities\Article;
 
 class CategorieService implements CategorieServiceInterface {
 
-    public static function getCategories(): array{
+    public static function getCategories(): array {
+        return Categorie::all()->toArray();
+    }
+
+    public static function getCategoriesWithPublishedArticles(): array{
         return Categorie::with(['articles' => function ($query) {
                                     $query->where('est_publie', 1);
                                 }])->get()->toArray();

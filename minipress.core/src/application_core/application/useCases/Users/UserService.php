@@ -73,4 +73,10 @@ class UserService implements UserServiceInterface
             throw new \Exception("Aucun utilisateur trouvé avec l'identifiant $user_id");
         }
     }
+
+    public function getUsers(): array
+    {
+        $users = Utilisateur::all();
+        return $users->toArray();
+    }
 }

@@ -207,6 +207,7 @@ nav a {
   background: var(--blanc);
   color: var(--texte-doux);
   padding: 10px 20px;
+  white-space: nowrap;
   border-radius: 999px;
   font-size: 0.9rem;
   font-weight: 500;
@@ -449,7 +450,7 @@ textarea {
   width: 100%;
   max-width: 480px;
   padding: 12px 16px;
-  border: 2px solid var(--lavande-2);
+  margin: 0 10px;
   border-radius: var(--radius-sm);
   background: var(--blanc);
   font-family: inherit;

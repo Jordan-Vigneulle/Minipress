@@ -12,4 +12,5 @@ interface UserServiceInterface
     public function getPublishedArticlesByUser(int $user_id): array;
     public function getArticlesByUser(int $user_id): array;
     public function changeUserToAuthor(int $user_id): void;
+    public function getUsers(): array;
 }

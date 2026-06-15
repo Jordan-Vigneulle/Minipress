@@ -17,7 +17,7 @@ class ArticlesAction
         $service = new ArticleService();
 
         try {
-            $articles = $service->getArticles($sort);
+            $articles = $service->getPublishedArticles($sort);
         } catch (\InvalidArgumentException $e) {
             $response->getBody()->write(json_encode(['error' => $e->getMessage()]));
             return $response

@@ -108,7 +108,7 @@
         {{#each articles}}
             <div class="card-article" data-id="{{id}}">
                 <h3>{{titre}}</h3>
-                <p>{{resume}}</p>
+                <p>{{{resume}}}</p>
                 <p>{{date}}</p>
             </div>
         {{/each}}
@@ -121,7 +121,8 @@
             {{#each articles}}
                 <div class="card-article" data-id="{{id}}">
                     <h3>{{titre}}</h3>
-                    <p>{{resume}}</p>
+                    <p>{{{resume}}}</p>
+                    <p>{{date}}</p>
                 </div>
             {{/each}}
         </div>
@@ -133,7 +134,8 @@
             {{#each articles}}
                 <div class="card-article" data-id="{{id}}">
                     <h3>{{titre}}</h3>
-                    <p>{{resume}}</p>
+                    <p>{{{resume}}}</p>
+                    <p>{{date}}</p>
                 </div>
             {{/each}}
         </div>
@@ -146,7 +148,7 @@
             {{#each article.images}}
                 <img src="{{ url }}" alt="">
             {{/each}}
-            <p>{{article.contenu}}</p>
+            <p>{{{ article.contenu }}}</p>
         </div>
     </script>
 

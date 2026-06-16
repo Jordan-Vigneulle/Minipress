@@ -177,6 +177,25 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
                       ],
                     ),
                   ),
+                  // Bouton Auteurs — push et attend le résultat
+                  ListTile(
+                    leading: const Icon(Icons.people_outline),
+                    title: const Text('Auteurs'),
+                    onTap: () async {
+                      Navigator.of(context).pop(); // ferme le drawer
+                      final result = await context.push<Map<String, dynamic>>(
+                        '/auteurs',
+                      );
+                      if (result != null) {
+                        setState(() {
+                          _selectedAuthor = result['id'] as int;
+                          _selectedAuthorName = result['nom'] as String;
+                          _selectedCategory = null;
+                          _applyFiltersAndSort();
+                        });
+                      }
+                    },
+                  ),
                   // Btn toutes les catégories
                   ListTile(
                     leading: const Icon(Icons.all_inclusive),

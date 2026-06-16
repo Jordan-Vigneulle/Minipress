@@ -44,4 +44,16 @@ class Article {
           : null,
     );
   }
+
+  String get formattedDate {
+    try {
+      final dateTime = DateTime.parse(date);
+      final day = dateTime.day.toString().padLeft(2, '0');
+      final month = dateTime.month.toString().padLeft(2, '0');
+      final year = dateTime.year;
+      return '$day/$month/$year';
+    } catch (_) {
+      return date;
+    }
+  }
 }

@@ -62,8 +62,7 @@ class ArticleService implements ArticleServiceInterface
 
     public function getPublishedArticleById(int $id): array
     {
-        $article = Article::select('id', 'titre', 'resume', 'date', 'id_utilisateur')
-            ->with('categorie', 'images', 'utilisateur:id,pseudo')
+        $article = Article::with('categorie', 'images', 'utilisateur:id,pseudo')
             ->where('est_publie', 1)
             ->find($id);
         

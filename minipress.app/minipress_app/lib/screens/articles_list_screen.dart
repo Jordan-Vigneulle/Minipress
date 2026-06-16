@@ -335,6 +335,7 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
                     onRefresh: _loadData,
                     // Liste d'article
                     child: ListView.builder(
+                      cacheExtent: 30,
                       physics: const AlwaysScrollableScrollPhysics(),
                       itemCount: _filteredArticles.length,
                       itemBuilder: (context, index) {

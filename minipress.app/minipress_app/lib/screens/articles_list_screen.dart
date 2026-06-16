@@ -319,8 +319,23 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Erreur de chargement : $_errorMessage'),
-                        const SizedBox(height: 10),
+                        Icon(
+                          Icons.wifi_off,
+                          size: 40,
+                          color: Colors.grey.shade700,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'Impossible de contacter le serveur.',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Text(
+                          'Vérifiez votre connexion ou réessayez plus tard.',
+                          style: TextStyle(color: Colors.grey),
+                        ),
                         ElevatedButton(
                           onPressed: _loadData,
                           child: const Text('Réessayer'),

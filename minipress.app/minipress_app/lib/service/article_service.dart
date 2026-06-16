@@ -1,34 +1,53 @@
 import 'package:dio/dio.dart';
-import '../modeles/article.dart';
+
+import '../modeles/articleList.dart';
+import '../modeles/articleDetail.dart';
 
 class ArticleService {
   final Dio _dio;
   ArticleService(this._dio);
 
-  Future<List<Article>> getArticles() async {
+  // LISTE ARTICLES
+  Future<List<ArticleList>> getArticles() async {
     final response = await _dio.get('/articles');
+
     return (response.data as List)
-        .map((json) => Article.fromJson(json))
+        .map((json) => ArticleList.fromJson(json))
         .toList();
   }
 
-  Future<Article> getArticleById(int id) async {
+  // ARTICLE DÉTAIL
+  Future<ArticleDetail> getArticleById(int id) async {
     final response = await _dio.get('/articles/$id');
-    return Article.fromJson(response.data);
+
+    return ArticleDetail.fromJson(response.data);
   }
 
-  Future<List<Article>> getArticlesByCategory(int idCategorie) async {
+  // PAR CATÉGORIE
+  Future<List<ArticleList>> getArticlesByCategory(int idCategorie) async {
     final response = await _dio.get('/categories/$idCategorie/articles');
+
+    if (response.data is Map) {
+      final data = response.data as Map<String, dynamic>;
+      return (data['articles'] as List)
+          .map((json) => ArticleList.fromJson(json))
+          .toList();
+    }
+
+    // Si l'API retourne directement une liste
     return (response.data as List)
-        .map((json) => Article.fromJson(json))
+        .map((json) => ArticleList.fromJson(json))
         .toList();
   }
 
-  Future<List<Article>> getArticlesByAuthor(int idUtilisateur) async {
-    final response = await _dio.get('/auteurs/$idUtilisateur');
-    final data = response.data as Map<String, dynamic>;
-    return (data['articles'] as List)
-        .map((json) => Article.fromJson(json))
+  // PAR AUTEUR
+  Future<List<ArticleList>> getArticlesByAuthor(int idUtilisateur) async {
+    final response = await _dio.get('/articles');
+
+    final data = (response.data as List)
+        .map((json) => ArticleList.fromJson(json))
         .toList();
+
+    return data.where((a) => a.idUtilisateur == idUtilisateur).toList();
   }
 }

@@ -84,6 +84,7 @@
 
     <main>
         <button id="btn-retour" style="display:none;">Retour</button>
+        <section id="aucun_resultat"></section>
         <section id="les_articles_orderby"></section>
         <section id="les_articles_par_categorie"></section>
         <section id="les_articles_par_user"></section>
@@ -96,6 +97,10 @@
     </footer>
 
     <!-- Templates Handlebars -->
+    <script id="aucunResultatTemplate" type="text/x-handlebars-template">
+        <p>{{ message }}</p>
+    </script>
+
     <script id="categorieTemplate" type="text/x-handlebars-template">
         {{#each categories}}
             <a href="#" class="categorie" data-id="{{id}}">{{titre}}</a>

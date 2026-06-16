@@ -133,6 +133,12 @@ main > h2 {
   margin: 24px 0 18px;
 }
 
+/* ---------- Pas de résultats ---------- */
+#aucun_resultat {
+  margin-top: 60px;
+  text-align: center;
+}
+
 /* ---------- Grille d'articles ---------- */
 #grilleArticles {
   display: grid;

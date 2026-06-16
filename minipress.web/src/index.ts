@@ -3,7 +3,7 @@
 import { quitterModeArticle } from "./modules/modearticle";
 import { loadAll } from "./modules/articleloader";
 import { url, url_articles, url_categories } from "./modules/config";
-import { displayArticle, displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories } from "./modules/ui";
+import { displayArticle, displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories, displayNull } from "./modules/ui";
 import { Article, Categorie, User } from "./modules/types"; 
 
 let order = "date-desc";
@@ -42,7 +42,11 @@ const articlesIncludeResume = () => {
                     a.resume.toLowerCase().includes(keyword)
                 )
                 : articles;
-            displayArticleOrderby(filtered);
+            if(filtered.length !== 0) {
+                displayArticleOrderby(filtered);   
+            } else {
+                displayNull("Aucun article n'a été trouvé pour cette recherche...");
+            }   
         })
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
@@ -57,7 +61,13 @@ const articleByCategorie = (id_categorie: number) => {
     if (!id_categorie) return;
     clearAll();
     loadAll<{ articles: Article[] }>(url_categories, `/${id_categorie}/articles`) 
-        .then((data) => displayArticleByCategorie(data))
+        .then((data) => {
+            if(data.articles.length !== 0) {
+                displayArticleByCategorie(data);
+            } else {
+                displayNull("Aucun article n'a été trouvé dans cette catégorie...");
+            }  
+        })
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
 
@@ -73,7 +83,13 @@ const articlesByUser = (id_user: number) => {
     if (!id_user) return;
     clearAll();
     loadAll<{ articles: Article[] }>(url, `/auteurs/${id_user}/articles`) 
-        .then((data) => displayArticleByUser(data))
+        .then((data) => {
+            if(data.articles.length !== 0) {
+                displayArticleByUser(data);
+            } else {
+                displayNull("Aucun article n'a été trouvé pour cet auteur...");
+            }  
+        })
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
 

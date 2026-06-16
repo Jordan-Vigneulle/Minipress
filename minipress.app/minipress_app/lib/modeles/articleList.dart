@@ -1,0 +1,32 @@
+import 'utilisateur.dart';
+
+class ArticleList {
+  final int id;
+  final String titre;
+  final String resume;
+  final String date;
+  final int idUtilisateur;
+  final Utilisateur? utilisateur;
+
+  const ArticleList({
+    required this.id,
+    required this.titre,
+    required this.resume,
+    required this.date,
+    required this.idUtilisateur,
+    this.utilisateur,
+  });
+
+  factory ArticleList.fromJson(Map<String, dynamic> json) {
+    return ArticleList(
+      id: json['id'] ?? 0,
+      titre: json['titre']?.toString() ?? '',
+      resume: json['resume']?.toString() ?? '',
+      date: json['date']?.toString() ?? '',
+      idUtilisateur: json['id_utilisateur'] ?? 0,
+      utilisateur: json['utilisateur'] != null
+          ? Utilisateur.fromJson(json['utilisateur'])
+          : null,
+    );
+  }
+}

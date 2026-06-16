@@ -13,15 +13,7 @@ final router = GoRouter(
           path: ':id',
           builder: (context, state) {
             final id = int.parse(state.pathParameters['id']!);
-            // Remplacer les données de test.
-            return ArticleDetailScreen(
-              id: id,
-              title: 'Article #$id',
-              author: 'Auteur TastyCrousty',
-              date: '2026-06-12',
-              content:
-                  'Contenu de l\'article #$id. Bla bla bla, bleh bleh bleh, blou blou blou... KA-CHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOW',
-            );
+            return ArticleDetailScreen(id: id);
           },
         ),
       ],

@@ -80,9 +80,9 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                   children: [
                     Text(
                       'Par ${article.utilisateur?.pseudo ?? 'Auteur #${article.idUtilisateur}'}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                     Text(

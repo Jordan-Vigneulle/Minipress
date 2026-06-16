@@ -11,13 +11,22 @@ services:
     ports:
       - "4490:80" #29029:80 sur Docketu
     volumes:
-      - ./public:/var/www/html
-      - ./src:/var/www/src
+      - ./minipress.core/public:/var/www/html
+      - ./minipress.core/src:/var/www/src
     working_dir: /var/www/src
     depends_on:
       - sql.data
     networks:
       - minipress.net
+
+  minipress.web:
+    image: httpd:2.4
+    ports:
+      - "3000:80" #29032:80 sur Docketu
+    volumes:
+      - ./minipress.web:/usr/local/apache2/htdocs/
+    working_dir: /usr/local/apache2/htdocs/
+
 
   sql.data:
     image: mariadb:11.8.6

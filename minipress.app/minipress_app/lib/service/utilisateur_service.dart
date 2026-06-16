@@ -1,22 +1,22 @@
 import 'package:dio/dio.dart';
-import '../modeles/auteur.dart';
+import '../modeles/utilisateur.dart';
 import '../modeles/article.dart';
 
-class AuteurService {
+class UtilisateurService {
   final Dio _dio;
-  AuteurService(this._dio);
+  UtilisateurService(this._dio);
 
-  Future<List<Auteur>> getAuteurs() async {
+  Future<List<Utilisateur>> getAuteurs() async {
     final response = await _dio.get('/auteurs');
     return (response.data as List)
-        .map((json) => Auteur.fromJson(json))
+        .map((json) => Utilisateur.fromJson(json))
         .toList();
   }
 
-  Future<Auteur> getAuteurById(int id) async {
+  Future<Utilisateur> getAuteurById(int id) async {
     final response = await _dio.get('/auteurs');
     final liste = (response.data as List)
-        .map((json) => Auteur.fromJson(json))
+        .map((json) => Utilisateur.fromJson(json))
         .toList();
     return liste.firstWhere((a) => a.id == id);
   }

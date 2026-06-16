@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'article_service.dart';
 import 'categorie_service.dart';
-import 'auteur_service.dart';
+import 'utilisateur_service.dart';
 
 final _dio = Dio(
   BaseOptions(
@@ -12,4 +12,4 @@ final _dio = Dio(
 
 final articleService = ArticleService(_dio);
 final categorieService = CategorieService(_dio);
-final auteurService = AuteurService(_dio);
+final utilisateurService = UtilisateurService(_dio);

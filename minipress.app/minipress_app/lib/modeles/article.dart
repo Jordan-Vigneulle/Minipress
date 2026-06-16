@@ -1,5 +1,5 @@
 import 'categorie.dart';
-import 'auteur.dart';
+import 'utilisateur.dart';
 
 class Article {
   final int id;
@@ -11,7 +11,7 @@ class Article {
   final int idUtilisateur;
   final bool estPublie;
   final Categorie? categorie;
-  final Auteur? auteur;
+  final Utilisateur? utilisateur;
 
   const Article({
     required this.id,
@@ -23,7 +23,7 @@ class Article {
     required this.idUtilisateur,
     required this.estPublie,
     this.categorie,
-    this.auteur,
+    this.utilisateur,
   });
 
   factory Article.fromJson(Map<String, dynamic> json) {
@@ -39,8 +39,8 @@ class Article {
       categorie: json['categorie'] != null
           ? Categorie.fromJson(json['categorie'])
           : null,
-      auteur: json['utilisateur'] != null
-          ? Auteur.fromJson(json['utilisateur'])
+      utilisateur: json['utilisateur'] != null
+          ? Utilisateur.fromJson(json['utilisateur'])
           : null,
     );
   }

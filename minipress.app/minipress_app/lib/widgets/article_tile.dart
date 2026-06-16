@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import '../modeles/article.dart';
 
 class ArticleTile extends StatelessWidget {
@@ -24,26 +25,31 @@ class ArticleTile extends StatelessWidget {
       // Rend la zone cliquable avec un effet visuel quand clique dessus
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(24), // matches radius-lg of card border radius
+        borderRadius: BorderRadius.circular(
+          24,
+        ), // matches radius-lg of card border radius
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Titre de l'article
-              Text(
-                article.titre,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              MarkdownBody(
+                data: article.titre,
+                styleSheet: MarkdownStyleSheet(
+                  p: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               // Résumé de l'article
-              Text(
-                article.resume,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.grey[600], fontSize: 14),
+              MarkdownBody(
+                data: article.resume,
+                styleSheet: MarkdownStyleSheet(
+                  p: Theme.of(context).textTheme.bodyMedium,
+                ),
+                shrinkWrap: true,
               ),
               const SizedBox(height: 12),
               // Alignement horizontal entre l'auteur et la date

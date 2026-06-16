@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../modeles/article.dart';
 import '../service/service_api.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
   final int id;
@@ -93,17 +94,16 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                 ),
                 // Ligne de séparation (entre l'entête et le contenu de l'article)
                 const Divider(height: 24),
-                Text(
-                  article.resume,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontStyle: FontStyle.italic,
+                MarkdownBody(
+                  data: article.resume,
+                  styleSheet: MarkdownStyleSheet(
+                    p: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
                   ),
                 ),
                 const SizedBox(height: 16),
-                Text(
-                  article.contenu,
-                  style: const TextStyle(fontSize: 16, height: 1.4),
+                MarkdownBody(
+                  data: article.contenu,
+                  styleSheet: MarkdownStyleSheet(p: TextStyle(fontSize: 16)),
                 ),
               ],
             ),

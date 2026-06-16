@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import '../modeles/article.dart';
+import '../modeles/articleList.dart';
 
 class ArticleTile extends StatelessWidget {
-  final Article article;
+  final ArticleList article;
   final VoidCallback onTap;
   final VoidCallback onAuthorTap;
   final Color? backgroundColor;
@@ -73,7 +73,7 @@ class ArticleTile extends StatelessWidget {
                   ),
                   // Date de création
                   Text(
-                    article.formattedDate,
+                    article.date,
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                 ],

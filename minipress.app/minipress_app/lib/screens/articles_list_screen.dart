@@ -155,7 +155,9 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
                 children: [
                   // En-tête du menu latéral
                   const DrawerHeader(
-                    decoration: BoxDecoration(color: Colors.blueAccent),
+                    decoration: BoxDecoration(
+                      color: Color(0xFF5B4CC4),
+                    ), // primary theme color (violet)
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -318,9 +320,21 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
                       itemCount: _filteredArticles.length,
                       itemBuilder: (context, index) {
                         final article = _filteredArticles[index];
+
+                        // Alternance pastel pour correspondre au css de Minipress.core
+                        Color? cardBgColor;
+                        if (Theme.of(context).brightness == Brightness.light) {
+                          if (index % 3 == 1) {
+                            cardBgColor = const Color(0xFFEEE9FC);
+                          } else if (index % 3 == 2) {
+                            cardBgColor = const Color(0xFFFCECEF);
+                          }
+                        }
+
                         // Widget ArticleTile
                         return ArticleTile(
                           article: article,
+                          backgroundColor: cardBgColor,
                           onTap: () {
                             context.go('/articles/${article.id}');
                           },

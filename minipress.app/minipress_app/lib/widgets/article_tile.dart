@@ -73,7 +73,7 @@ class ArticleTile extends StatelessWidget {
                   ),
                   // Date de création
                   Text(
-                    article.date,
+                    article.formattedDate,
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                 ],

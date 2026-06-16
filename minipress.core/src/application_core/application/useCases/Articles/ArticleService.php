@@ -15,7 +15,8 @@ class ArticleService implements ArticleServiceInterface
 
     public function getPublishedArticles(?string $sort = null): array
     {
-        $query = Article::where('est_publie', 1)
+        $query = Article::select('id', 'titre', 'resume', 'date', 'id_utilisateur')
+            ->where('est_publie', 1)
             ->with('utilisateur:id,pseudo');
 
         switch ($sort) {
@@ -61,7 +62,10 @@ class ArticleService implements ArticleServiceInterface
 
     public function getPublishedArticleById(int $id): array
     {
-        $article = Article::with('categorie', 'images', 'utilisateur:id,pseudo')->where('est_publie', 1)->find($id);
+        $article = Article::select('id', 'titre', 'resume', 'date', 'id_utilisateur')
+            ->with('categorie', 'images', 'utilisateur:id,pseudo')
+            ->where('est_publie', 1)
+            ->find($id);
         
         if (!$article) {
             throw new \Exception("Aucun article trouvé avec l'identifiant $id");

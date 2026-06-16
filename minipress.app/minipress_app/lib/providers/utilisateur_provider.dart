@@ -1,14 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../modeles/utilisateur.dart';
-import '../service/service_api.dart';
-import '../modeles/article.dart';
 
-// Liste de tous les auteurs
+import '../modeles/utilisateur.dart';
+import '../modeles/articleList.dart';
+import '../service/service_api.dart';
+
+// Liste auteurs
 final utilisateurProvider = FutureProvider<List<Utilisateur>>((ref) async {
   return await utilisateurService.getAuteurs();
 });
 
-// Un auteur par id
+// Auteur par ID
 final utilisateurByIdProvider = FutureProvider.family<Utilisateur, int>((
   ref,
   id,
@@ -16,8 +17,8 @@ final utilisateurByIdProvider = FutureProvider.family<Utilisateur, int>((
   return await utilisateurService.getAuteurById(id);
 });
 
-// Articles d'un auteur
-final articlesByAuteurProvider = FutureProvider.family<List<Article>, int>((
+// Articles d’un auteur
+final articlesByAuteurProvider = FutureProvider.family<List<ArticleList>, int>((
   ref,
   id,
 ) async {

@@ -1,21 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../modeles/article.dart';
+
+import '../modeles/articleList.dart';
+import '../modeles/articleDetail.dart';
 import '../service/service_api.dart';
 
-final articlesProvider = FutureProvider<List<Article>>((ref) async {
+// Liste des articles
+final articlesProvider = FutureProvider<List<ArticleList>>((ref) async {
   return await articleService.getArticles();
 });
 
-final articleDetailProvider = FutureProvider.family<Article, int>((
+// Détail article
+final articleDetailProvider = FutureProvider.family<ArticleDetail, int>((
   ref,
   id,
 ) async {
   return await articleService.getArticleById(id);
 });
 
-final articlesByCategorieProvider = FutureProvider.family<List<Article>, int>((
-  ref,
-  idCategorie,
-) async {
-  return await articleService.getArticlesByCategory(idCategorie);
-});
+// Articles par catégorie
+final articlesByCategorieProvider =
+    FutureProvider.family<List<ArticleList>, int>((ref, idCategorie) async {
+      return await articleService.getArticlesByCategory(idCategorie);
+    });

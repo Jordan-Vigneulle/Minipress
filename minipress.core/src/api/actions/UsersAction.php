@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace minipress\appli\api\actions;
 
-use minipress\appli\application_core\application\useCases\users\UserService;
+use minipress\appli\application_core\application\useCases\Users\UserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 

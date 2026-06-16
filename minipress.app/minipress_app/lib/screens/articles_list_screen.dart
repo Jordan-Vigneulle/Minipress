@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:minipress_app/main.dart';
 import '../modeles/article.dart';
 import '../modeles/categorie.dart';
 import '../service/service_api.dart';
@@ -111,20 +112,37 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
       appBar: AppBar(
         title: const Text('MiniPress'),
         actions: [
-          // Bouton  sens de tri
-          IconButton(
-            icon: Icon(
-              _sortDescending ? Icons.arrow_downward : Icons.arrow_upward,
-            ),
-            tooltip: _sortDescending
-                ? 'Plus récents d\'abord'
-                : 'Plus anciens d\'abord',
-            onPressed: () {
-              setState(() {
-                _sortDescending = !_sortDescending;
-                _applyFiltersAndSort();
-              });
-            },
+          // Row pour une seule ligne
+          Row(
+            children: [
+              // Bouton sens de tri
+              IconButton(
+                icon: Icon(
+                  _sortDescending ? Icons.arrow_downward : Icons.arrow_upward,
+                ),
+                tooltip: _sortDescending
+                    ? 'Plus récents d\'abord'
+                    : 'Plus anciens d\'abord',
+                onPressed: () {
+                  setState(() {
+                    _sortDescending = !_sortDescending;
+                    _applyFiltersAndSort();
+                  });
+                },
+              ),
+              // Bouton changer le thème
+              IconButton(
+                icon: const Icon(Icons.brightness_6),
+                tooltip: 'Changer le thème',
+                onPressed: () {
+                  final isCurrentlyDark =
+                      Theme.of(context).brightness == Brightness.dark;
+                  themeNotifier.value = isCurrentlyDark
+                      ? ThemeMode.light
+                      : ThemeMode.dark;
+                },
+              ),
+            ],
           ),
         ],
       ),

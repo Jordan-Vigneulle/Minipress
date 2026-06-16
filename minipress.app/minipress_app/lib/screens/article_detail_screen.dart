@@ -86,7 +86,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                       ),
                     ),
                     Text(
-                      article.date,
+                      article.formattedDate,
                       style: const TextStyle(color: Colors.grey),
                     ),
                   ],

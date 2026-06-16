@@ -14,7 +14,7 @@ export interface Article {
     titre: string;
     resume: string;
     contenu: string;
-    date: Date;
+    date: string ;
     id_categorie: number;
     id_utilisateur: number;
     est_publie: boolean;

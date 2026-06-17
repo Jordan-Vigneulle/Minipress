@@ -1,18 +1,18 @@
 # MiniPress
 
-MiniPress est un mini CMS « headless » développé dans le cadre de la SAE *Atelier de développement d'application web* (BUT Informatique, S4, IUT Nancy-Charlemagne). Le projet permet de créer et de publier des articles, classés par catégories, et de les rendre disponibles via une API JSON consommée à la fois par une application web et par une application mobile.
+MiniPress est un mini CMS « headless » développé dans le cadre de la SAÉ *Atelier de développement d'application web* (BUT Informatique, S4, IUT Nancy-Charlemagne). Le projet permet de créer et de publier des articles, classés par catégories, et de les rendre disponibles via une API JSON consommée à la fois par une application web et par une application mobile.
 
 ## Équipe
 
-- Auriane Guyot
-- Thibaut Louyot
-- Maryam Tahri
-- Jordan Vigneulle
-- Nathan Yvon
+- Auriane GUYOT
+- Thibaut LOUYOT
+- Maryam TAHRI
+- Jordan VIGNEULLE
+- Nathan YVON
 
 ## Architecture du projet
 
-MiniPress se compose de trois sous-projets distincts, chacun correspondant à un sujet de la SAE :
+MiniPress se compose de trois sous-projets distincts, chacun correspondant à un sujet de la SAÉ :
 
 | Sous-projet | Rôle | Techno principale |
 |---|---|---|
@@ -22,11 +22,21 @@ MiniPress se compose de trois sous-projets distincts, chacun correspondant à un
 
 Les trois composants sont déployés sous forme de services Docker distincts sur la machine `docketu.iutnc.univ-lorraine.fr`.
 
+---
+
 ## Liens
 
-- **API** : http://docketu.iutnc.univ-lorraine.fr:29029/
+- **Back Office (MiniPress.core)** : http://docketu.iutnc.univ-lorraine.fr:29029/
 - **Application web (MiniPress.web)** : http://docketu.iutnc.univ-lorraine.fr:29032/
 - **Application mobile (MiniPress.app)** : code source sur [GitHub](https://github.com/Jordan-Vigneulle/Minipress)
+
+### Identifiants de démonstration (back office)
+
+- **admin@minipress.fr** : Adm!n#2024$Secure
+
+- **auteur@minipress.fr** : Auth0r@MiniPr3ss!
+
+---
 
 ## Modèle de données
 
@@ -36,9 +46,11 @@ Un **article** est composé de :
 - un contenu (rédigé en Markdown),
 - une date de création/publication,
 - une catégorie,
-- éventuellement une ou plusieurs images, référencées par URL,
+- une ou plusieurs images (optionnel), référencées par des URLs,
 - un auteur (l'utilisateur l'ayant créé),
 - un statut publié / dépublié.
+
+--- 
 
 ## Fonctionnalités
 
@@ -51,13 +63,7 @@ Un **article** est composé de :
 - Gestion des auteurs : l'utilisateur connecté devient automatiquement l'auteur de l'article créé.
 - Publication / dépublication des articles depuis la liste d'administration.
 - Création de nouveaux utilisateurs par un administrateur.
-- API publique en lecture :
-  - `GET /api/categories` — liste des catégories,
-  - `GET /api/articles` — liste des articles (titre, date, auteur, lien vers l'article complet), avec tri optionnel via `?sort=date-asc`, `?sort=date-desc`, `?sort=auteur`,
-  - `GET /api/categories/{id}/articles` — articles d'une catégorie,
-  - `GET /api/articles/{id}` — article complet,
-  - `GET /api/auteurs/{id}/articles` — articles d'un auteur,
-  - `GET /api/auteurs` — liste des auteurs.
+- API publique en lecture
 
 ### MiniPress.web (client web)
 
@@ -106,6 +112,8 @@ Un **article** est composé de :
 | GET | `/api/auteurs/{id}/articles` | Articles d'un auteur |
 | GET | `/api/auteurs` | Liste des auteurs |
 
+---
+
 ## Installation locale
 
 > Section à compléter selon votre fichier `docker-compose.yml` final.
@@ -116,11 +124,6 @@ cd Minipress
 docker-compose up -d --build
 ```
 
-L'API est alors disponible sur `http://localhost:<port_api>` et l'interface d'administration sur `http://localhost:<port_web>`.
+L'API est alors disponible sur `http://localhost:29029/api/...` et l'interface d'administration sur `http://localhost:29029`.
 
 
-## Identifiants de démonstration
-
-admin@minipress.fr : Adm!n#2024$Secure
-
-auteur@minipress.fr Auth0r@MiniPr3ss!

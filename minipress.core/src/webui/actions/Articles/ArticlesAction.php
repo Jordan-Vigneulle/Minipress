@@ -41,17 +41,28 @@ class ArticlesAction
             try {
                 $authz->checkAuthorization($user, AuthzServiceInterface::VIEW_OWN_ARTICLES);
                 $result = $userService->getArticlesByUser($user->id);
-                $articles = $result['articles'];
+                $articles = $result['articles']->toArray();
             } catch (\RuntimeException $e) {
                 throw new HttpUnauthorizedException($request, 'Accès refusé');
             }
         }
 
-
+        $articles = $this->sortArticlesByDate($articles);
 
         $view = Twig::fromRequest($request);
         return $view->render($response, 'Articles/ArticlesView.twig', [
             'articles' => $articles
         ]);
+    }
+
+    private function sortArticlesByDate(array $articles): array
+    {
+        usort($articles, function ($a, $b) {
+            $dateA = is_array($a) ? $a['date'] : $a->date;
+            $dateB = is_array($b) ? $b['date'] : $b->date;
+            return $dateB <=> $dateA;
+        });
+
+        return $articles;
     }
 }

@@ -25,8 +25,13 @@ $app->add(TwigMiddleware::create($app, $twig));
 $app = (require_once __DIR__ . '/../conf/routes.php')($app);
 
 // Nécessaire pour API
-$app->add(function ($request, $handler) {
-    $response = $handler->handle($request);
+$app->add(function ($request, $handler) use ($app) {
+    if ($request->getMethod() === 'OPTIONS') {
+        $response = $app->getResponseFactory()->createResponse();
+    } else {
+        $response = $handler->handle($request);
+    }
+
     return $response
         ->withHeader('Access-Control-Allow-Origin', '*')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')

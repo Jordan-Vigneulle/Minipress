@@ -11,35 +11,28 @@ use Slim\Routing\RouteContext;
 
 class ArticlesByCategorieAction
 {
+    public function __construct(private readonly CategorieService $service) {}
+
     public function __invoke(
         Request $request,
         Response $response,
         array $args
     ): Response {
-
         $id = $args['id'] ?? null;
         if (!$id || !ctype_digit($id)) {
             throw new \Slim\Exception\HttpBadRequestException($request, "id manquant");
         }
 
-        try {
-            $service = new CategorieService();
-            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-            $categorie = $service->getPublishedArticlesByCategorie((int)$id);
+        $data = $this->service->getPublishedArticlesByCategorie((int)$id);
 
-            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
-            $categorie['articles'] = array_map(fn($article) => [
-                ...$article,
-                'url' => $routeParser->urlFor('api_ArticlesByCategorie', ['id' => $article['id']]),
-            ], $categorie['articles']);
+        $data['articles'] = array_map(fn($article) => [
+            ...$article,
+            'url' => $routeParser->urlFor('api_ArticlesByCategorie', ['id' => $article['id']]),
+        ], $data['articles']);
 
-            $response->getBody()->write(json_encode($categorie));
-        } catch (\Exception $e) {
-            throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());
-        }
-
-        $response->getBody()->write(json_encode($categorie));
+        $response->getBody()->write(json_encode($data));
         return $response
             ->withHeader('Content-Type', 'application/json')
             ->withStatus(200);

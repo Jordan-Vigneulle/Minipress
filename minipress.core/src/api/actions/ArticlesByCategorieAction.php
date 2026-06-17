@@ -27,7 +27,7 @@ class ArticlesByCategorieAction
 
         $data['articles'] = array_map(fn($article) => [
             ...$article,
-            'url' => $routeParser->urlFor('api_ArticlesByCategorie', ['id' => $article['id']]),
+            'url' => $routeParser->urlFor('api_Article', ['id' => $article['id']]),
         ], $data['articles']);
 
         $response->getBody()->write(json_encode($data));

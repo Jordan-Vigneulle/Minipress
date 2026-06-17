@@ -1,5 +1,6 @@
 import 'categorie.dart';
 import 'utilisateur.dart';
+import 'ImageArticle.dart';
 
 class ArticleDetail {
   final int id;
@@ -11,7 +12,7 @@ class ArticleDetail {
   final int idUtilisateur;
   final bool estPublie;
   final Categorie? categorie;
-  final List<dynamic> images;
+  final List<ImageArticle> images;
   final Utilisateur? utilisateur;
 
   const ArticleDetail({
@@ -41,7 +42,9 @@ class ArticleDetail {
       categorie: json['categorie'] != null
           ? Categorie.fromJson(json['categorie'])
           : null,
-      images: json['images'] ?? [],
+      images: (json['images'] as List? ?? [])
+          .map((img) => ImageArticle.fromJson(img))
+          .toList(),
       utilisateur: json['utilisateur'] != null
           ? Utilisateur.fromJson(json['utilisateur'])
           : null,

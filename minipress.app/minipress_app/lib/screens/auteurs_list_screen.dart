@@ -66,19 +66,15 @@ class _AuteursListScreenState extends State<AuteursListScreen> {
                   final auteur = _auteurs[index];
                   return ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      child: Text(
-                        auteur.pseudo[0].toUpperCase(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      backgroundImage: NetworkImage(
+                        'http://docketu.iutnc.univ-lorraine.fr:29029${auteur.cheminAccesImg}',
                       ),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      onBackgroundImageError: (_, __) {},
                     ),
                     title: Text(auteur.pseudo),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                     onTap: () {
-                      // Retourne l'auteur sélectionné à ArticlesListScreen
                       context.pop({'id': auteur.id, 'nom': auteur.pseudo});
                     },
                   );

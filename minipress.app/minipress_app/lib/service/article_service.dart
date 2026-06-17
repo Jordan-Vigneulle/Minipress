@@ -16,13 +16,6 @@ class ArticleService {
         .toList();
   }
 
-  // ARTICLE DÉTAIL (a supprimer)
-  Future<ArticleDetail> getArticleById(int id) async {
-    final response = await _dio.get('/articles/$id');
-
-    return ArticleDetail.fromJson(response.data);
-  }
-
   // ARTICLE DÉTAIL PAR URI
   Future<ArticleDetail> getArticleByUri(String uri) async {
     final path = uri.startsWith('/api') ? uri.replaceFirst('/api', '') : uri;
@@ -46,16 +39,5 @@ class ArticleService {
     return (response.data as List)
         .map((json) => ArticleList.fromJson(json))
         .toList();
-  }
-
-  // PAR AUTEUR
-  Future<List<ArticleList>> getArticlesByAuthor(int idUtilisateur) async {
-    final response = await _dio.get('/articles');
-
-    final data = (response.data as List)
-        .map((json) => ArticleList.fromJson(json))
-        .toList();
-
-    return data.where((a) => a.idUtilisateur == idUtilisateur).toList();
   }
 }

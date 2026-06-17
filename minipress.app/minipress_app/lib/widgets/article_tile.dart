@@ -25,9 +25,7 @@ class ArticleTile extends StatelessWidget {
       // Rend la zone cliquable avec un effet visuel quand clique dessus
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(
-          24,
-        ),
+        borderRadius: BorderRadius.circular(24),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(

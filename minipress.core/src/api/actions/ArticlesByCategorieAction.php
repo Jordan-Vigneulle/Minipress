@@ -11,8 +11,6 @@ use Slim\Routing\RouteContext;
 
 class ArticlesByCategorieAction
 {
-    public function __construct(private readonly CategorieService $service) {}
-
     public function __invoke(
         Request $request,
         Response $response,
@@ -23,13 +21,13 @@ class ArticlesByCategorieAction
             throw new \Slim\Exception\HttpBadRequestException($request, "id manquant");
         }
 
-        $data = $this->service->getPublishedArticlesByCategorie((int)$id);
+        $data = (new CategorieService())->getPublishedArticlesByCategorie((int)$id);
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
         $data['articles'] = array_map(fn($article) => [
             ...$article,
-            'url' => $routeParser->urlFor('api_ArticlesByCategorie', ['id' => $article['id']]),
+            'url' => $routeParser->urlFor('article.show', ['id' => $article['id']]),
         ], $data['articles']);
 
         $response->getBody()->write(json_encode($data));

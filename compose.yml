@@ -27,6 +27,22 @@ services:
       - ./minipress.web:/usr/local/apache2/htdocs/
     working_dir: /usr/local/apache2/htdocs/
 
+  minipress.app:
+    image: ghcr.io/cirruslabs/flutter:stable
+    working_dir: /app
+    command: >
+      sh -c "
+      [ -d web ] || flutter create . --platforms web &&
+      flutter pub get &&
+      flutter build web &&
+      dart pub global activate dhttpd &&
+      dart pub global run dhttpd --path build/web --port 8080 --host 0.0.0.0
+      "
+    ports:
+      - "4491:8080"  #29033:80 sur Docketu
+    volumes:
+      - ./minipress.app/minipress_app:/app
+
 
   sql.data:
     image: mariadb:11.8.6

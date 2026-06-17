@@ -26,14 +26,19 @@ class ArticlesByCategorieAction
             $service = new CategorieService();
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             $categorie = $service->getPublishedArticlesByCategorie((int)$id);
-            $categorie = array_map(function ($article) use ($routeParser) {
-                $article['url'] = $routeParser->urlFor('api_ArticlesByCategorie', ['id' => $article['id']]);
-                return $article;
-            }, $categorie);
+
+            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
+            $categorie['articles'] = array_map(fn($article) => [
+                ...$article,
+                'url' => $routeParser->urlFor('article.show', ['id' => $article['id']]),
+            ], $categorie['articles']);
+
+            $response->getBody()->write(json_encode($categorie));
         } catch (\Exception $e) {
             throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());
         }
-        
+
         $response->getBody()->write(json_encode($categorie));
         return $response
             ->withHeader('Content-Type', 'application/json')

@@ -6,6 +6,7 @@ class ArticleList {
   final String resume;
   final String date;
   final int idUtilisateur;
+  final String uri;
   final Utilisateur? utilisateur;
 
   const ArticleList({
@@ -14,6 +15,7 @@ class ArticleList {
     required this.resume,
     required this.date,
     required this.idUtilisateur,
+    required this.uri,
     this.utilisateur,
   });
 
@@ -24,6 +26,7 @@ class ArticleList {
       resume: json['resume']?.toString() ?? '',
       date: json['date']?.toString() ?? '',
       idUtilisateur: json['id_utilisateur'] ?? 0,
+      uri: json['uri']?.toString() ?? '',
       utilisateur: json['utilisateur'] != null
           ? Utilisateur.fromJson(json['utilisateur'])
           : null,

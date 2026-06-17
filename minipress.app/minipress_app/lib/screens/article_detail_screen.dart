@@ -4,9 +4,9 @@ import '../service/service_api.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
-  final int id;
+  final String uri;
 
-  const ArticleDetailScreen({super.key, required this.id});
+  const ArticleDetailScreen({super.key, required this.uri});
 
   @override
   State<ArticleDetailScreen> createState() => _ArticleDetailScreenState();
@@ -18,13 +18,13 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch detail API
-    _articleFuture = articleService.getArticleById(widget.id);
+    // Fetch detail API via URI
+    _articleFuture = articleService.getArticleByUri(widget.uri);
   }
 
   void _refresh() {
     setState(() {
-      _articleFuture = articleService.getArticleById(widget.id);
+      _articleFuture = articleService.getArticleByUri(widget.uri);
     });
   }
 

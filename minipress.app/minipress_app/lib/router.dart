@@ -11,10 +11,10 @@ final router = GoRouter(
       builder: (context, state) => const ArticlesListScreen(),
       routes: [
         GoRoute(
-          path: ':id',
+          path: 'detail',
           builder: (context, state) {
-            final id = int.parse(state.pathParameters['id']!);
-            return ArticleDetailScreen(id: id);
+            final uri = state.uri.queryParameters['uri'] ?? '';
+            return ArticleDetailScreen(uri: uri);
           },
         ),
       ],

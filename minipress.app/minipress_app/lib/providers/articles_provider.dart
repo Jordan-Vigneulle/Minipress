@@ -10,11 +10,11 @@ final articlesProvider = FutureProvider<List<ArticleList>>((ref) async {
 });
 
 // Détail article
-final articleDetailProvider = FutureProvider.family<ArticleDetail, int>((
+final articleDetailProvider = FutureProvider.family<ArticleDetail, String>((
   ref,
-  id,
+  uri,
 ) async {
-  return await articleService.getArticleById(id);
+  return await articleService.getArticleByUri(uri);
 });
 
 // Articles par catégorie

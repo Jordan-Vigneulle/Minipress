@@ -94,6 +94,43 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                 ),
                 // Ligne de séparation (entre l'entête et le contenu de l'article)
                 const Divider(height: 24),
+                if (article.images.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  const Divider(),
+                  const Text(
+                    'Images',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  const SizedBox(height: 8),
+                  ...article.images.map(
+                    (img) => Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          'http://docketu.iutnc.univ-lorraine.fr:29029${img.url}',
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                          errorBuilder: (context, error, _) => Container(
+                            height: 100,
+                            color: Colors.grey[200],
+                            child: const Center(
+                              child: Icon(
+                                Icons.broken_image,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
                 MarkdownBody(
                   data: article.resume,
                   styleSheet: MarkdownStyleSheet(

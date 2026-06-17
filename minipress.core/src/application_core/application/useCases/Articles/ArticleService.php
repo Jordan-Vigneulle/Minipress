@@ -28,8 +28,8 @@ class ArticleService implements ArticleServiceInterface
                 break;
             case 'auteur':
                 $query->join('utilisateur', 'article.id_utilisateur', '=', 'utilisateur.id')
-                    ->orderBy('utilisateur.pseudo', 'asc')
-                    ->select('article.*');
+                    ->select('article.id', 'article.titre', 'article.resume', 'article.date', 'article.id_utilisateur')
+                    ->orderBy('utilisateur.pseudo', 'asc');
                 break;
             case null:
                 $query->orderBy('date', 'desc');

@@ -6,3 +6,4 @@ minipress.core/src/composer.lock
 .lock
 minipress.core/.env
 .vscode
+.env

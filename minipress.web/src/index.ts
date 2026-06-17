@@ -5,18 +5,9 @@ import { loadAll } from "./modules/articleloader";
 import { url, url_articles, url_auteurs, url_categories } from "./modules/config";
 import { displayArticle, displayArticleByCategorie, displayArticleByUser, displayArticleOrderby, displayCategories, displayNull } from "./modules/ui";
 import { Article, Categorie, User } from "./modules/types"; 
+import { inputText, selectValueNumber, selectValueString } from "./modules/select";
 
-let order = "date-desc";
-
-const inputText = (selector: string): string =>
-    (document.querySelector(selector) as HTMLInputElement).value.trim().toLowerCase();
-
-const selectValueNumber = (selector: string): number =>
-    Number((document.querySelector(selector) as HTMLSelectElement).value);
-
-const selectValueString = (selector: string): string =>
-    (document.querySelector(selector) as HTMLSelectElement).value;
-
+// -------------------------------- Vider les filtres
 const clearAll = () => {
     document.querySelector('#les_articles_orderby')!.innerHTML = "";
     document.querySelector('#les_articles_par_categorie')!.innerHTML = "";
@@ -24,6 +15,9 @@ const clearAll = () => {
     document.querySelector('#un_article')!.innerHTML = "";
     document.querySelector('#aucun_resultat')!.innerHTML = "";
 };
+
+// -------------------------------- Affichage selon filtre
+let order = "date-desc";
 
 const articlesOrderby = (tri: string) => {
     clearAll();
@@ -97,48 +91,8 @@ const articlesByUser = (id_user: number) => {
         .catch((error) => console.error("Erreur au chargement des articles: ", error));
 };
 
-const selectTitreArticles = document.querySelector<HTMLSelectElement>('#select-categories');
-if (selectTitreArticles) {
-    loadAll<Article[]>(url_articles)
-        .then((titres) => {
-            titres.forEach((titre: Article) => {
-                const option = document.createElement('option');
-                option.value = String(titre.uri);
-                option.textContent = titre.titre;
-                selectTitreArticles.appendChild(option);
-            });
-        })
-        .catch((error) => console.error("Erreur au chargement des articles: ", error));
-}
 
-const selectUsers = document.querySelector<HTMLSelectElement>('#select-users');
-if (selectUsers) {
-    loadAll<User[]>(url_auteurs)
-        .then((users) => {
-            users.forEach((user: User) => {
-                const option = document.createElement('option');
-                option.value = String(user.id);
-                option.textContent = user.pseudo;
-                selectUsers.appendChild(option);
-            });
-        })
-        .catch((error) => console.error("Erreur au chargement des utilisateurs: ", error));
-}
-
-//=========== Fonctionnalité 7 ============
-// const articlesIncludeTitle = () => {
-//     clearAll();
-//     const keyword = inputText('#input-keyword-titre');
-//     loadAll<Article[]>(url_articles)
-//         .then((articles) => {
-//             const filtered = keyword
-//                 ? articles.filter(a => a.titre.toLowerCase().includes(keyword))
-//                 : articles;
-//             displayArticleOrderby(filtered);
-//         })
-//         .catch((error) => console.error("Erreur au chargement des articles: ", error));
-// };
-
+// -------------------------------- Gestion des clics
 document.addEventListener("click", (event) => {
     const cible = event.target as HTMLElement;
     const cat = cible.closest('.categorie') as HTMLElement | null;
@@ -172,7 +126,6 @@ document.addEventListener("click", (event) => {
         clearAll();
         (document.querySelector('#select-categories') as HTMLSelectElement).value = "";
         (document.querySelector('#select-users') as HTMLSelectElement).value = "";
-        (document.querySelector('#input-keyword-titre') as HTMLInputElement).value = "";
         (document.querySelector('#input-keyword-resume') as HTMLInputElement).value = "";
         return;
     }

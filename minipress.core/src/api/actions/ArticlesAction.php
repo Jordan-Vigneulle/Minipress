@@ -21,7 +21,7 @@ class ArticlesAction
         try {
             $articles = $service->getPublishedArticles($sort);
             $articles = array_map(function ($article) use ($routeParser) {
-                $article['url'] = $routeParser->urlFor('api_Article', ['id' => $article['id']]);
+                $article['uri'] = $routeParser->urlFor('api_Article', ['id' => $article['id']]);
                 return $article;
             }, $articles);
         } catch (\InvalidArgumentException $e) {

@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'screens/articles_list_screen.dart';
 import 'screens/article_detail_screen.dart';
+import 'screens/auteurs_list_screen.dart';
 
 final router = GoRouter(
   initialLocation: '/articles',
@@ -17,6 +18,10 @@ final router = GoRouter(
           },
         ),
       ],
+    ),
+    GoRoute(
+      path: '/auteurs',
+      builder: (context, state) => const AuteursListScreen(),
     ),
   ],
 );

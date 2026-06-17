@@ -386,7 +386,7 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
                         final article = _filteredArticles[index];
                         return ArticleTile(
                           article: article,
-                          onTap: () => context.go('/articles/${article.id}'),
+                          onTap: () => context.go('/articles/detail?uri=${article.uri}'),
                           onAuthorTap: () {
                             setState(() {
                               _selectedAuthor = article.idUtilisateur;

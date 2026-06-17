@@ -25,10 +25,12 @@ class ArticlesByCategorieAction
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
-        $data['articles'] = array_map(fn($article) => [
-            ...$article,
-            'uri' => $routeParser->urlFor('api_Article', ['id' => $article['id']]),
-        ], $data['articles']);
+        $data['articles'] = array_map(function($article) use ($routeParser) {
+            return [
+                ...$article,
+                'uri' => $routeParser->urlFor('api_Article', ['id' => $article['id']]),
+            ];
+        }, $data['articles']);
 
         $response->getBody()->write(json_encode($data));
         return $response

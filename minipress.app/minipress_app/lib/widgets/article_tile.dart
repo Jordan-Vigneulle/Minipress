@@ -5,23 +5,26 @@ class ArticleTile extends StatelessWidget {
   final Article article;
   final VoidCallback onTap;
   final VoidCallback onAuthorTap;
+  final Color? backgroundColor;
 
   const ArticleTile({
     super.key,
     required this.article,
     required this.onTap,
     required this.onAuthorTap,
+    this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: backgroundColor,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
       // Rend la zone cliquable avec un effet visuel quand clique dessus
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(24), // matches radius-lg of card border radius
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -54,8 +57,8 @@ class ArticleTile extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       child: Text(
                         'Par ${article.utilisateur?.pseudo ?? 'Auteur #${article.idUtilisateur}'}',
-                        style: const TextStyle(
-                          color: Colors.blueAccent,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                         ),

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minipress</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:,">
+    <script src="dist/bundle.js" defer></script>
 </head>
 
 <body>
@@ -14,7 +16,7 @@
         <h3>L'actu pour vous, pour tous</h3>
     </header>
 
-    <!-- Actions : tout en haut, sous le header -->
+    <!-- Actions -->
     <nav id="test-bar">
         <div class="filter-row">
             <span class="filter-label"><i class="ti ti-sort-ascending-2" aria-hidden="true"></i> Tri</span>
@@ -79,10 +81,10 @@
             </a>
         </div>
     </nav>
-    <!-- ... nav#test-bar ... -->
 
     <main>
         <button id="btn-retour" style="display:none;">Retour</button>
+        <section id="aucun_resultat"></section>
         <section id="les_articles_orderby"></section>
         <section id="les_articles_par_categorie"></section>
         <section id="les_articles_par_user"></section>
@@ -95,6 +97,10 @@
     </footer>
 
     <!-- Templates Handlebars -->
+    <script id="aucunResultatTemplate" type="text/x-handlebars-template">
+        <p>{{ message }}</p>
+    </script>
+
     <script id="categorieTemplate" type="text/x-handlebars-template">
         {{#each categories}}
             <a href="#" class="categorie" data-id="{{id}}">{{titre}}</a>
@@ -150,7 +156,6 @@
         </div>
     </script>
 
-    <script src="dist/bundle.js"></script>
 </body>
 
 </html>

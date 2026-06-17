@@ -37,7 +37,10 @@ class UserService implements UserServiceInterface
             throw new \Exception("Aucun utilisateur trouvé avec l'identifiant $user_id");
         }
 
-        $articles = Article::where([['id_utilisateur', $user_id], ['est_publie', 1]])->get();
+        $articles = Article::select('id', 'titre', 'resume', 'date')
+            ->where([['id_utilisateur', $user_id], ['est_publie', 1]])
+            ->get();
+
         if ($articles->isEmpty()) {
             throw new \Exception("Aucun article trouvé pour l'utilisateur $user_id");
         }

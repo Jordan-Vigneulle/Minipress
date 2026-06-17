@@ -4,6 +4,11 @@ import { afficherModeArticle } from './modearticle';
 import { markdownToHtml } from "ts-markdown-parser";
 import { Article, Categorie } from './types';
 
+export function displayNull(message: string): void {
+    const templateNull = Handlebars.compile(document.querySelector<HTMLScriptElement>('#aucunResultatTemplate')!.innerHTML);
+
+    document.querySelector('#aucun_resultat')!.innerHTML = templateNull({ message });
+}
 
 export function displayCategories(categories: Categorie[]): void {
     const templateCategories = Handlebars.compile(document.querySelector<HTMLScriptElement>('#categorieTemplate')!.innerHTML);

@@ -8,8 +8,8 @@ INSERT INTO `categorie` (`titre`) VALUES
 -- admin@minipress.fr  → mot de passe : Adm!n#2024$Secure
 -- auteur@minipress.fr → mot de passe : Auth0r@MiniPr3ss!
 INSERT INTO `utilisateur` (`email`, `motdepasse`, `role`, `chemin_acces_img`, `pseudo`) VALUES
-('admin@minipress.fr',  '$2y$12$zcc1TrPrCI143OrPed6aZuxWB/a4e5VqDxIE/H3jKvUYf5eaLbfP.', 100, 'uploads/jordan.jpg',  'BigBoss'),
-('auteur@minipress.fr', '$2y$12$ZuQZ2CM7/mfgd5301ocTiOjGDKChPe5hyB7SCXMkQgAEvA/2gr0hW', 2,   'uploads/auriane.jpg', 'Shakespeare');
+('admin@minipress.fr',  '$2y$12$zcc1TrPrCI143OrPed6aZuxWB/a4e5VqDxIE/H3jKvUYf5eaLbfP.', 100, '/images/avatars/Chi.png',  'BigBoss'),
+('auteur@minipress.fr', '$2y$12$ZuQZ2CM7/mfgd5301ocTiOjGDKChPe5hyB7SCXMkQgAEvA/2gr0hW', 2,   '/images/avatars/Tidus-Yuna.png', 'Shakespeare');
 
 -- Articles
 INSERT INTO `article` (`titre`, `resume`, `contenu`, `date`, `id_categorie`, `id_utilisateur`, `est_publie`) VALUES

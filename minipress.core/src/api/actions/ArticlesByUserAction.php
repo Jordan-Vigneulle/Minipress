@@ -28,10 +28,12 @@ class ArticlesByUserAction
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
             if (isset($user['articles']) && is_array($user['articles'])) {
-                $user['articles'] = array_map(fn($article) => [
-                    ...$article,
-                    'uri' => $routeParser->urlFor('api_Article', ['id' => $article['id']]),
-                ], $user['articles']);
+                $user['articles'] = array_map(function($article) use ($routeParser) {
+                    return [
+                        ...$article,
+                        'uri' => $routeParser->urlFor('api_Article', ['id' => $article['id']]),
+                    ];
+                }, $user['articles']);
             }
         } catch (\Exception $e) {
             throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());

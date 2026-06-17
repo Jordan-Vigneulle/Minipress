@@ -13,7 +13,7 @@
 <body>
     <header>
         <h1>Minipress</h1>
-        <h3>L'actu pour vous, pour tous</h3>
+        <h3>L'actu pour tous</h3>
     </header>
 
     <!-- Actions -->
@@ -43,7 +43,7 @@
             <span class="filter-label"><i class="ti ti-tag" aria-hidden="true"></i> Article</span>
             <div class="filter-group">
                 <select id="select-categories" aria-label="Choisir un article">
-                    <option value="">— Choisir un article —</option>
+                    <option value="">- Choisir un article -</option>
                 </select>
                 <a href="#" id="btn-article" class="filter-btn primary">Voir</a>
             </div>
@@ -55,7 +55,7 @@
             <span class="filter-label"><i class="ti ti-user" aria-hidden="true"></i> Auteur</span>
             <div class="filter-group">
                 <select id="select-users" aria-label="Choisir un auteur">
-                    <option value="">— Choisir un auteur —</option>
+                    <option value="">- Choisir un auteur -</option>
                 </select>
                 <a href="#" id="btn-articles-user" class="filter-btn primary">Voir</a>
             </div>
@@ -120,7 +120,7 @@
     </script>
 
     <script id="articleByCategorieTemplate" type="text/x-handlebars-template">
-        <h2>Articles — {{categorie.titre}}</h2>
+        <h2>Articles - {{categorie.titre}}</h2>
         <div id="grilleArticles">
             {{#each articles}}
                 <div class="card-article" data-uri="{{uri}}">

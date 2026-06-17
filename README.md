@@ -26,9 +26,11 @@ Les trois composants sont déployés sous forme de services Docker distincts sur
 
 ## Liens
 
+- **Dépot GitHub** : code source sur [GitHub](https://github.com/Jordan-Vigneulle/Minipress)
+
 - **Back Office (MiniPress.core)** : http://docketu.iutnc.univ-lorraine.fr:29029/
 - **Application web (MiniPress.web)** : http://docketu.iutnc.univ-lorraine.fr:29032/
-- **Application mobile (MiniPress.app)** : code source sur [GitHub](https://github.com/Jordan-Vigneulle/Minipress)
+- **Application mobile (MiniPress.app)** : http://docketu.iutnc.univ-lorraine.fr:29033/
 
 ### Identifiants de démonstration (back office)
 
@@ -123,7 +125,5 @@ git clone https://github.com/Jordan-Vigneulle/Minipress.git
 cd Minipress
 docker-compose up -d --build
 ```
-
-L'API est alors disponible sur `http://localhost:29029/api/...` et l'interface d'administration sur `http://localhost:29029`.
 
 

@@ -1,44 +1,47 @@
 import 'categorie.dart';
 import 'utilisateur.dart';
 
-class Article {
+class ArticleDetail {
   final int id;
   final String titre;
   final String resume;
-  final String contenu;
+  final String? contenu;
   final String date;
   final int idCategorie;
   final int idUtilisateur;
   final bool estPublie;
   final Categorie? categorie;
+  final List<dynamic> images;
   final Utilisateur? utilisateur;
 
-  const Article({
+  const ArticleDetail({
     required this.id,
     required this.titre,
     required this.resume,
-    required this.contenu,
+    this.contenu,
     required this.date,
     required this.idCategorie,
     required this.idUtilisateur,
     required this.estPublie,
     this.categorie,
+    required this.images,
     this.utilisateur,
   });
 
-  factory Article.fromJson(Map<String, dynamic> json) {
-    return Article(
-      id: json['id'] as int,
-      titre: json['titre'] as String,
-      resume: json['resume'] as String,
-      contenu: json['contenu'] as String,
-      date: json['date'] as String,
-      idCategorie: json['id_categorie'] as int,
-      idUtilisateur: json['id_utilisateur'] as int,
-      estPublie: json['est_publie'] as bool,
+  factory ArticleDetail.fromJson(Map<String, dynamic> json) {
+    return ArticleDetail(
+      id: json['id'] ?? 0,
+      titre: json['titre']?.toString() ?? '',
+      resume: json['resume']?.toString() ?? '',
+      contenu: json['contenu']?.toString(),
+      date: json['date']?.toString() ?? '',
+      idCategorie: json['id_categorie'] ?? 0,
+      idUtilisateur: json['id_utilisateur'] ?? 0,
+      estPublie: json['est_publie'] == true,
       categorie: json['categorie'] != null
           ? Categorie.fromJson(json['categorie'])
           : null,
+      images: json['images'] ?? [],
       utilisateur: json['utilisateur'] != null
           ? Utilisateur.fromJson(json['utilisateur'])
           : null,

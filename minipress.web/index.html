@@ -110,7 +110,7 @@
     <script id="articleOrderbyTemplate" type="text/x-handlebars-template">
         <div id="grilleArticles">
         {{#each articles}}
-            <div class="card-article" data-id="{{id}}">
+            <div class="card-article" data-uri="{{uri}}">
                 <h3>{{titre}}</h3>
                 <p>{{{resume}}}</p>
                 <p>{{date}} - {{utilisateur.pseudo}}</p>
@@ -123,7 +123,7 @@
         <h2>Articles — {{categorie.titre}}</h2>
         <div id="grilleArticles">
             {{#each articles}}
-                <div class="card-article" data-id="{{id}}">
+                <div class="card-article" data-uri="{{uri}}">
                     <h3>{{titre}}</h3>
                     <p>{{{resume}}}</p>
                     <p>{{date}} - {{utilisateur.pseudo}}</p>
@@ -136,7 +136,7 @@
         <h2>Articles de {{auteur.pseudo}}</h2>
         <div id="grilleArticles">
             {{#each articles}}
-                <div class="card-article" data-id="{{id}}">
+                <div class="card-article" data-uri="{{uri}}">
                     <h3>{{titre}}</h3>
                     <p>{{{resume}}}</p>
                     <p>{{date}}</p>

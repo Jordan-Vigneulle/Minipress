@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import '../modeles/article.dart';
+import '../modeles/articleDetail.dart';
 import '../service/service_api.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
-  final int id;
+  final String uri;
 
-  const ArticleDetailScreen({super.key, required this.id});
+  const ArticleDetailScreen({super.key, required this.uri});
 
   @override
   State<ArticleDetailScreen> createState() => _ArticleDetailScreenState();
 }
 
 class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
-  late Future<Article> _articleFuture;
+  late Future<ArticleDetail> _articleFuture;
 
   @override
   void initState() {
     super.initState();
-    // Fetch detail API
-    _articleFuture = articleService.getArticleById(widget.id);
+    // Fetch detail API via URI
+    _articleFuture = articleService.getArticleByUri(widget.uri);
   }
 
   void _refresh() {
     setState(() {
-      _articleFuture = articleService.getArticleById(widget.id);
+      _articleFuture = articleService.getArticleByUri(widget.uri);
     });
   }
 
@@ -32,7 +33,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Détail de l\'article')),
       // FutureBuilder pour charger l'article depuis l'API
-      body: FutureBuilder<Article>(
+      body: FutureBuilder<ArticleDetail>(
         future: _articleFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -93,17 +94,16 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                 ),
                 // Ligne de séparation (entre l'entête et le contenu de l'article)
                 const Divider(height: 24),
-                Text(
-                  article.resume,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontStyle: FontStyle.italic,
+                MarkdownBody(
+                  data: article.resume,
+                  styleSheet: MarkdownStyleSheet(
+                    p: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
                   ),
                 ),
                 const SizedBox(height: 16),
-                Text(
-                  article.contenu,
-                  style: const TextStyle(fontSize: 16, height: 1.4),
+                MarkdownBody(
+                  data: article.contenu ?? '',
+                  styleSheet: MarkdownStyleSheet(p: TextStyle(fontSize: 16)),
                 ),
               ],
             ),

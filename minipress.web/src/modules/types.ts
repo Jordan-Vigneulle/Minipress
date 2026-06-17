@@ -22,6 +22,7 @@ export interface Article {
         id: number,
         pseudo: string;
     };
+    uri: string;
 }
 
 export interface User{

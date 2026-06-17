@@ -1,7 +1,4 @@
 'use strict';
-import { url_categories } from './config';
-
-
 
 export async function loadAll<T>(url: string, uri?: string, idPicture?: string): Promise<T> {
     let fullUrl: string;

@@ -1,69 +1,40 @@
 import 'package:flutter/material.dart';
-import '../modeles/articleDetail.dart';
-import '../service/service_api.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/articles_provider.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-class ArticleDetailScreen extends StatefulWidget {
+class ArticleDetailScreen extends ConsumerWidget {
   final String uri;
 
   const ArticleDetailScreen({super.key, required this.uri});
 
   @override
-  State<ArticleDetailScreen> createState() => _ArticleDetailScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    // On écoute le provider en lui passant l'URI de l'article
+    final articleAsync = ref.watch(articleDetailProvider(uri));
 
-class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
-  late Future<ArticleDetail> _articleFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    // Fetch detail API via URI
-    _articleFuture = articleService.getArticleByUri(widget.uri);
-  }
-
-  void _refresh() {
-    setState(() {
-      _articleFuture = articleService.getArticleByUri(widget.uri);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Détail de l\'article')),
-      // FutureBuilder pour charger l'article depuis l'API
-      body: FutureBuilder<ArticleDetail>(
-        future: _articleFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // Icone de chargement en attendant la fin des requêtes
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Erreur : ${snapshot.error}'),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: _refresh,
-                    child: const Text('Réessayer'),
-                  ),
-                ],
+      body: articleAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Erreur : $error'),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () => ref.refresh(articleDetailProvider(uri)),
+                child: const Text('Réessayer'),
               ),
-            );
-          }
-          if (!snapshot.hasData) {
-            return const Center(child: Text('Aucune donnée trouvée.'));
-          }
-
-          final article = snapshot.data!;
-          // On tire vers le bas pour rafraîchir l'affichage
+            ],
+          ),
+        ),
+        data: (article) {
           return RefreshIndicator(
-            onRefresh: () async => _refresh(),
-            // Liste verticale pour afficher tout les articles
+            onRefresh: () async {
+              ref.refresh(articleDetailProvider(uri));
+            },
             child: ListView(
               padding: const EdgeInsets.all(16.0),
               physics: const AlwaysScrollableScrollPhysics(),
@@ -75,7 +46,6 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-                // Pour afficher la date et l'auteur sur une même ligne
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -92,7 +62,6 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                     ),
                   ],
                 ),
-                // Ligne de séparation (entre l'entête et le contenu de l'article)
                 const Divider(height: 24),
                 if (article.images.isNotEmpty) ...[
                   const SizedBox(height: 16),

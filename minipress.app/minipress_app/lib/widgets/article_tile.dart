@@ -27,7 +27,7 @@ class ArticleTile extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(
           24,
-        ), // matches radius-lg of card border radius
+        ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(

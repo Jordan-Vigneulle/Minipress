@@ -7,6 +7,7 @@ namespace minipress\appli\api\actions;
 use minipress\appli\application_core\application\useCases\Categories\CategorieService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Routing\RouteContext;
 
 class ArticlesByCategorieAction
 {
@@ -23,7 +24,12 @@ class ArticlesByCategorieAction
 
         try {
             $service = new CategorieService();
+            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             $categorie = $service->getPublishedArticlesByCategorie((int)$id);
+            $categorie = array_map(function ($article) use ($routeParser) {
+                $article['url'] = $routeParser->urlFor('api_ArticlesByCategorie', ['id' => $article['id']]);
+                return $article;
+            }, $categorie);
         } catch (\Exception $e) {
             throw new \Slim\Exception\HttpNotFoundException($request, $e->getMessage());
         }

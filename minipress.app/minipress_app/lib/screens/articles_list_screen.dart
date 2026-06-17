@@ -184,13 +184,27 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          'MiniPress',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'MiniPress',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              "L'actu pour tous",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
                         ),
                         Text(
                           'Navigation',
@@ -386,7 +400,8 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
                         final article = _filteredArticles[index];
                         return ArticleTile(
                           article: article,
-                          onTap: () => context.go('/articles/detail?uri=${article.uri}'),
+                          onTap: () =>
+                              context.go('/articles/detail?uri=${article.uri}'),
                           onAuthorTap: () {
                             setState(() {
                               _selectedAuthor = article.idUtilisateur;

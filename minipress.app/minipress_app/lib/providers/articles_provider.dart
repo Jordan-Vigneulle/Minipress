@@ -1,12 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../modeles/articleSort.dart';
 import '../modeles/articleList.dart';
 import '../modeles/articleDetail.dart';
 import '../service/service_api.dart';
 
 // Liste des articles
-final articlesProvider = FutureProvider<List<ArticleList>>((ref) async {
-  return await articleService.getArticles();
+final articlesProvider = FutureProvider.family<List<ArticleList>, ArticleSort>((
+  ref,
+  sort,
+) async {
+  return await articleService.getArticles(sort: sort.apiValue);
 });
 
 // Détail article

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:minipress_app/main.dart';
 import '../modeles/articleList.dart';
 import '../modeles/categorie.dart';
+import '../modeles/articleSort.dart';
 import '../widgets/article_tile.dart';
 import '../providers/articles_provider.dart';
 import '../providers/categories_provider.dart';
@@ -21,7 +22,7 @@ class _ArticlesListScreenState extends ConsumerState<ArticlesListScreen> {
 
   // États locaux de l'interface (UI)
   String _searchQuery = '';
-  bool _sortDescending = true;
+  ArticleSort _sort = ArticleSort.dateDesc;
   int? _selectedCategory;
   int? _selectedAuthor;
   String? _selectedAuthorName;
@@ -40,7 +41,7 @@ class _ArticlesListScreenState extends ConsumerState<ArticlesListScreen> {
     } else if (_selectedAuthor != null) {
       ref.invalidate(articlesByAuteurProvider(_selectedAuthor!));
     } else {
-      ref.invalidate(articlesProvider);
+      ref.invalidate(articlesProvider(_sort));
     }
   }
 
@@ -57,31 +58,40 @@ class _ArticlesListScreenState extends ConsumerState<ArticlesListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // 1. On écoute les catégories pour le Drawer
     final categoriesAsync = ref.watch(categoriesProvider);
 
-    // 2. On écoute dynamiquement le bon provider selon le filtre actif
     final AsyncValue<List<ArticleList>> articlesAsync =
         _selectedCategory != null
         ? ref.watch(articlesByCategorieProvider(_selectedCategory!))
         : _selectedAuthor != null
         ? ref.watch(articlesByAuteurProvider(_selectedAuthor!))
-        : ref.watch(articlesProvider);
+        : ref.watch(articlesProvider(_sort));
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('MiniPress'),
         actions: [
-          IconButton(
-            icon: Icon(
-              _sortDescending ? Icons.arrow_downward : Icons.arrow_upward,
-            ),
-            tooltip: _sortDescending
-                ? 'Plus récents d\'abord'
-                : 'Plus anciens d\'abord',
-            onPressed: () {
-              setState(() => _sortDescending = !_sortDescending);
-            },
+          PopupMenuButton<ArticleSort>(
+            icon: const Icon(Icons.sort),
+            tooltip: 'Changer le tri',
+            onSelected: (value) => setState(() => _sort = value),
+            itemBuilder: (context) => [
+              CheckedPopupMenuItem(
+                value: ArticleSort.dateDesc,
+                checked: _sort == ArticleSort.dateDesc,
+                child: const Text('Plus récents d\'abord'),
+              ),
+              CheckedPopupMenuItem(
+                value: ArticleSort.dateAsc,
+                checked: _sort == ArticleSort.dateAsc,
+                child: const Text('Plus anciens d\'abord'),
+              ),
+              CheckedPopupMenuItem(
+                value: ArticleSort.auteur,
+                checked: _sort == ArticleSort.auteur,
+                child: const Text('Par auteur'),
+              ),
+            ],
           ),
           IconButton(
             icon: const Icon(Icons.brightness_6),
@@ -94,7 +104,6 @@ class _ArticlesListScreenState extends ConsumerState<ArticlesListScreen> {
         ],
       ),
 
-      // Le Drawer écoute désormais son propre provider indépendamment du reste
       drawer: Drawer(
         child: categoriesAsync.when(
           loading: () => const Center(child: CircularProgressIndicator()),
@@ -185,7 +194,6 @@ class _ArticlesListScreenState extends ConsumerState<ArticlesListScreen> {
 
       body: Column(
         children: [
-          // Chips filtres actifs
           if (_selectedCategory != null || _selectedAuthor != null)
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
@@ -216,7 +224,6 @@ class _ArticlesListScreenState extends ConsumerState<ArticlesListScreen> {
               ),
             ),
 
-          // Barre de recherche
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
@@ -241,7 +248,6 @@ class _ArticlesListScreenState extends ConsumerState<ArticlesListScreen> {
             ),
           ),
 
-          // Liste des articles gérée de manière réactive
           Expanded(
             child: articlesAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
@@ -273,7 +279,7 @@ class _ArticlesListScreenState extends ConsumerState<ArticlesListScreen> {
                 ),
               ),
               data: (allArticles) {
-                // Étape de filtrage et tri synchrone en mémoire
+                // Filtrage texte en mémoire ; le tri vient désormais du serveur
                 Iterable<ArticleList> filteredList = allArticles;
                 if (_searchQuery.isNotEmpty) {
                   final query = _searchQuery.toLowerCase();
@@ -284,20 +290,9 @@ class _ArticlesListScreenState extends ConsumerState<ArticlesListScreen> {
                   );
                 }
 
-                final sortedArticles = filteredList.toList()
-                  ..sort((a, b) {
-                    final dateA =
-                        DateTime.tryParse(a.date) ??
-                        DateTime.fromMillisecondsSinceEpoch(0);
-                    final dateB =
-                        DateTime.tryParse(b.date) ??
-                        DateTime.fromMillisecondsSinceEpoch(0);
-                    return _sortDescending
-                        ? dateB.compareTo(dateA)
-                        : dateA.compareTo(dateB);
-                  });
+                final displayedArticles = filteredList.toList();
 
-                if (sortedArticles.isEmpty) {
+                if (displayedArticles.isEmpty) {
                   return const Center(child: Text('Aucun article trouvé.'));
                 }
 
@@ -305,9 +300,9 @@ class _ArticlesListScreenState extends ConsumerState<ArticlesListScreen> {
                   onRefresh: _refreshAllData,
                   child: ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
-                    itemCount: sortedArticles.length,
+                    itemCount: displayedArticles.length,
                     itemBuilder: (context, index) {
-                      final article = sortedArticles[index];
+                      final article = displayedArticles[index];
                       return ArticleTile(
                         article: article,
                         onTap: () =>

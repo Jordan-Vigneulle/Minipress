@@ -8,9 +8,11 @@ class ArticleService {
   ArticleService(this._dio);
 
   // LISTE ARTICLES
-  Future<List<ArticleList>> getArticles() async {
-    final response = await _dio.get('/articles');
-
+  Future<List<ArticleList>> getArticles({String? sort}) async {
+    final response = await _dio.get(
+      '/articles',
+      queryParameters: sort != null ? {'sort': sort} : null,
+    );
     return (response.data as List)
         .map((json) => ArticleList.fromJson(json))
         .toList();

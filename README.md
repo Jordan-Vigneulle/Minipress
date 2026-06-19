@@ -118,12 +118,12 @@ Un **article** est composé de :
 
 ## Répartitions des tâches
 
-### Minipress.core (fonctionnalités)
-Auriane GUYOT : 4, 5 et affichage des articles (conversion Markdown/HTML)
-Thibaut LOUYOT : 3 et 14
-Maryam TAHRI : 9 à 13
-Jordan VIGNEULLE : 1 et 2
-Nathan YVON : 6 à 8, 15 et profil utilisateur
+### Minipress.core (répartitions par fonctionnalités)
+- Auriane GUYOT : 4, 5 et affichage des articles (conversion Markdown/HTML)
+- Thibaut LOUYOT : 3 et 14
+- Maryam TAHRI : 9 à 13
+- Jordan VIGNEULLE : 1 et 2
+- Nathan YVON : 6 à 8, 15 et profil utilisateur
 
 ### Minipress.web
 - API: Requête et affichage (Maryam TAHRI)

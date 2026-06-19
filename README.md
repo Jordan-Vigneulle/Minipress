@@ -116,6 +116,30 @@ Un **article** est composé de :
 
 ---
 
+## Répartitions des tâches
+
+### Minipress.core (fonctionnalités)
+Auriane GUYOT : 4, 5 et affichage des articles (conversion Markdown/HTML)
+Thibaut LOUYOT : 3 et 14
+Maryam TAHRI : 9 à 13
+Jordan VIGNEULLE : 1 et 2
+Nathan YVON : 6 à 8, 15 et profil utilisateur
+
+### Minipress.web
+- API: Requête et affichage (Maryam TAHRI)
+- Création du mode article, affichage si aucun résultat et conversion Markdown/HTML (Auriane GUYOT)
+- Barre de recherche, affichaghe des articles par date ascendant et descendant (Jordan VIGNEULLE)
+
+### Minipress.app
+- Modeles, Services, Screen auteur et Providers (Nathan YVON)
+- Screens articles, Router et main (Thibaut LOUYOT)
+
+### Docketu
+- Création du compose.yml (Jordan VIGNEULLE)
+- Migration (Auriane GUYOT)
+
+---
+
 ## Installation locale
 
 > Section à compléter selon votre fichier `docker-compose.yml` final.
